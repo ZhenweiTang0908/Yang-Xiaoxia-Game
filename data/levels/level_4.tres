@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/world/level_spec.gd" id="1"]
+[resource]
+script = ExtResource("1")
+number = 4
+title = "断誓骑场"
+length = 960.0
+section_names = PackedStringArray("断誓骑场")
+platforms = [{"x": -200, "y": 450, "w": 1360, "h": 240, "one_way": false}, {"x": -60, "y": -200, "w": 60, "h": 650, "one_way": false}, {"x": 960, "y": -200, "w": 60, "h": 650, "one_way": false}]
+spawns = []
+pickups = []
+features = []
+checkpoints = PackedFloat32Array(150)
+boss_id = "knight"
+boss_x = 760.0
+boss_script = "res://scripts/actors/knight.gd"
+single_boss = true
+no_carry = false
+art_stage = 1
+arena = Rect2(0, 80, 960, 370)
+music_stage = 4

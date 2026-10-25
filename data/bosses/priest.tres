@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/combat/move_set.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = "priest"
+title = "噬月祭主"
+health = 3600.0
+moves = [{"id": "horn", "title": "羊角冲阵", "damage": 28, "windup": 0.75, "recovery": 0.8}, {"id": "four_slash", "title": "幽刃四连", "damage": 12, "windup": 0.8, "recovery": 0.8}, {"id": "ground_wave", "title": "地裂波", "damage": 26, "windup": 0.85, "recovery": 0.8}, {"id": "lightning", "title": "三连落雷符", "damage": 24, "windup": 0.9, "recovery": 0.8}, {"id": "ring", "title": "环形幽火", "damage": 20, "windup": 0.9, "recovery": 0.8}, {"id": "homing", "title": "追魂弹", "damage": 22, "windup": 0.8, "recovery": 0.8}, {"id": "beam", "title": "横贯灵束", "damage": 32, "windup": 1.2, "recovery": 1.2}, {"id": "rain", "title": "悬刃雨", "damage": 24, "windup": 1.2, "recovery": 1.2}, {"id": "rift", "title": "裂隙换位斩", "damage": 30, "windup": 0.9, "recovery": 0.8}, {"id": "ritual", "title": "噬月大阵", "damage": 36, "windup": 1.4, "recovery": 1.2}]

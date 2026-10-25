@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/world/level_spec.gd" id="1"]
+[resource]
+script = ExtResource("1")
+number = 3
+title = "噬月祭坛"
+length = 960.0
+platforms = [{"x": -160, "y": 450, "w": 1280, "h": 240, "one_way": false}, {"x": -60, "y": -220, "w": 60, "h": 670, "one_way": false}, {"x": 960, "y": -220, "w": 60, "h": 670, "one_way": false}, {"x": 20, "y": 385, "w": 135, "h": 18, "one_way": true}, {"x": 805, "y": 385, "w": 135, "h": 18, "one_way": true}, {"x": 165, "y": 330, "w": 115, "h": 18, "one_way": true}, {"x": 680, "y": 330, "w": 115, "h": 18, "one_way": true}, {"x": 395, "y": 268, "w": 170, "h": 18, "one_way": true}]
+spawns = []
+pickups = []
+features = []
+boss_id = "priest"
+boss_x = 760.0
+boss_script = ""
+single_boss = true
+art_stage = 3
+music_stage = 3
+section_names = PackedStringArray("噬月祭坛")
+checkpoints = PackedFloat32Array(150)
+arena = Rect2(0, 80, 960, 370)

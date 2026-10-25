@@ -1,0 +1,158 @@
+[
+  {
+    "anchor": 326.73936226128,
+    "baseline": 367,
+    "frame": 0,
+    "height": 376,
+    "source_rect": [
+      15,
+      41,
+      393,
+      360
+    ],
+    "width": 409
+  },
+  {
+    "anchor": 273.529475977481,
+    "baseline": 378,
+    "frame": 1,
+    "height": 387,
+    "source_rect": [
+      395,
+      30,
+      345,
+      371
+    ],
+    "width": 361
+  },
+  {
+    "anchor": 270.504982583536,
+    "baseline": 330,
+    "frame": 2,
+    "height": 339,
+    "source_rect": [
+      745,
+      84,
+      323,
+      323
+    ],
+    "width": 339
+  },
+  {
+    "anchor": 262.465262908528,
+    "baseline": 318,
+    "frame": 3,
+    "height": 327,
+    "source_rect": [
+      1101,
+      103,
+      332,
+      311
+    ],
+    "width": 348
+  },
+  {
+    "anchor": 293.22911368218,
+    "baseline": 397,
+    "frame": 4,
+    "height": 407,
+    "source_rect": [
+      20,
+      358,
+      317,
+      391
+    ],
+    "width": 333
+  },
+  {
+    "anchor": 410.644766994451,
+    "baseline": 380,
+    "frame": 5,
+    "height": 388,
+    "source_rect": [
+      292,
+      378,
+      455,
+      372
+    ],
+    "width": 471
+  },
+  {
+    "anchor": 420.70951198999,
+    "baseline": 269,
+    "frame": 6,
+    "height": 277,
+    "source_rect": [
+      712,
+      507,
+      459,
+      261
+    ],
+    "width": 475
+  },
+  {
+    "anchor": 262.739072438048,
+    "baseline": 393,
+    "frame": 7,
+    "height": 402,
+    "source_rect": [
+      1120,
+      377,
+      310,
+      386
+    ],
+    "width": 326
+  },
+  {
+    "anchor": 334.658839865263,
+    "baseline": 288,
+    "frame": 8,
+    "height": 296,
+    "source_rect": [
+      15,
+      756,
+      352,
+      280
+    ],
+    "width": 368
+  },
+  {
+    "anchor": 420.09320177925,
+    "baseline": 335,
+    "frame": 9,
+    "height": 344,
+    "source_rect": [
+      305,
+      716,
+      428,
+      328
+    ],
+    "width": 444
+  },
+  {
+    "anchor": 304.277405788706,
+    "baseline": 147,
+    "frame": 10,
+    "height": 182,
+    "source_rect": [
+      727,
+      860,
+      354,
+      166
+    ],
+    "width": 370
+  },
+  {
+    "anchor": 290.681358985074,
+    "baseline": 350,
+    "frame": 11,
+    "height": 359,
+    "source_rect": [
+      1102,
+      720,
+      326,
+      343
+    ],
+    "width": 342
+  }
+]

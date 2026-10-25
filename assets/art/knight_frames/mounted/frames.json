@@ -1,0 +1,158 @@
+[
+  {
+    "anchor": 112,
+    "baseline": 378,
+    "frame": 0,
+    "height": 386,
+    "source_rect": [
+      71,
+      41,
+      229,
+      370
+    ],
+    "width": 245
+  },
+  {
+    "anchor": 197,
+    "baseline": 246,
+    "frame": 1,
+    "height": 254,
+    "source_rect": [
+      362,
+      171,
+      316,
+      238
+    ],
+    "width": 332
+  },
+  {
+    "anchor": 208,
+    "baseline": 211,
+    "frame": 2,
+    "height": 219,
+    "source_rect": [
+      716,
+      204,
+      348,
+      203
+    ],
+    "width": 364
+  },
+  {
+    "anchor": 209,
+    "baseline": 184,
+    "frame": 3,
+    "height": 192,
+    "source_rect": [
+      1076,
+      211,
+      349,
+      176
+    ],
+    "width": 365
+  },
+  {
+    "anchor": 180,
+    "baseline": 207,
+    "frame": 4,
+    "height": 215,
+    "source_rect": [
+      22,
+      496,
+      361,
+      199
+    ],
+    "width": 377
+  },
+  {
+    "anchor": 182,
+    "baseline": 209,
+    "frame": 5,
+    "height": 217,
+    "source_rect": [
+      397,
+      500,
+      352,
+      201
+    ],
+    "width": 368
+  },
+  {
+    "anchor": 202,
+    "baseline": 202,
+    "frame": 6,
+    "height": 210,
+    "source_rect": [
+      744,
+      507,
+      369,
+      194
+    ],
+    "width": 385
+  },
+  {
+    "anchor": 164,
+    "baseline": 276,
+    "frame": 7,
+    "height": 284,
+    "source_rect": [
+      1154,
+      442,
+      265,
+      268
+    ],
+    "width": 281
+  },
+  {
+    "anchor": 103,
+    "baseline": 244,
+    "frame": 8,
+    "height": 252,
+    "source_rect": [
+      100,
+      788,
+      255,
+      236
+    ],
+    "width": 271
+  },
+  {
+    "anchor": 148,
+    "baseline": 260,
+    "frame": 9,
+    "height": 268,
+    "source_rect": [
+      421,
+      771,
+      291,
+      252
+    ],
+    "width": 307
+  },
+  {
+    "anchor": 140,
+    "baseline": 333,
+    "frame": 10,
+    "height": 341,
+    "source_rect": [
+      806,
+      700,
+      248,
+      325
+    ],
+    "width": 264
+  },
+  {
+    "anchor": 194,
+    "baseline": 243,
+    "frame": 11,
+    "height": 251,
+    "source_rect": [
+      1134,
+      790,
+      276,
+      235
+    ],
+    "width": 292
+  }
+]
