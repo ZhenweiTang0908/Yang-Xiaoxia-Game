@@ -55,6 +55,8 @@ func run():
  verify(p.charge>0,"keeping attack held starts a charge after the slash")
  Input.action_release("attack");var charged=p.charge;tick(p,.02)
  verify(p.charge==0 and (charged<.32 or p.blast_anim>0),"releasing attack ends the charge")
+ p=prepare(false);Input.action_press("charge");tick(p,.2)
+ verify(p.charge>0,"the touch charge button still charges");Input.action_release("charge");tick(p,.02)
  p=prepare(false);p.charge=.5;var hp=p.health;p.take_damage(20,1.0)
  verify(is_equal_approx(hp-p.health,17),"damage taken while charging is reduced to 85%")
  p=prepare(true);p.charge=.5;hp=p.health;p.take_damage(20,1.0)

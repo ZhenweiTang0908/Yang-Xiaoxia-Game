@@ -24,18 +24,18 @@ func run():
    reset();k.begin(id,k.prep_for(id));k.empowered=strong;k.t=k.bow_times(id)[0];k.run_bow(0,id)
    var shots=game.combat.shots.filter(func(s):return s.kind=="knight_arrow")
    if shots.is_empty():verify(false,"knight released real arrows");quit(1);return
-   verify(shots.all(func(s):return s.damage==(9 if strong else 6)),id+" uses exact specified damage")
+   verify(shots.all(func(s):return s.damage==(12 if strong else 8)),id+" uses exact specified damage")
    verify(shots.all(func(s):return is_equal_approx(s.v.length(),1100 if strong else 780)),id+" restores old speed")
-   actual_hit(shots[0],9 if strong else 6)
+   actual_hit(shots[0],12 if strong else 8)
   reset();k.empowered=strong;k.soul.queue_echo();k.soul.advance(.7)
   var ghosts=game.combat.shots.filter(func(s):return s.kind in ["soul_arrow","soul_eagle"])
   if ghosts.is_empty():verify(false,"echo released a real arrow");quit(1);return
-  verify(ghosts[0].damage==(7 if strong else 5),"ghost echo uses exact specified damage")
+  verify(ghosts[0].damage==(8 if strong else 6),"ghost echo uses exact specified damage")
   verify(is_equal_approx(ghosts[0].v.length(),608 if strong else 488),"ghost echo keeps existing projectile speed")
-  actual_hit(ghosts[0],7 if strong else 5)
+  actual_hit(ghosts[0],8 if strong else 6)
   reset();k.empowered=strong;k.soul.begin_legion();k.soul.advance_legion(1.4)
   var arrows=game.combat.shots.filter(func(s):return s.kind in ["soul_arrow","soul_eagle"])
-  verify(arrows.size()==3 and arrows.all(func(s):return s.damage==(7 if strong else 5)),"all three summoned archers use the matching arrow damage")
+  verify(arrows.size()==3 and arrows.all(func(s):return s.damage==(8 if strong else 6)),"all three summoned archers use the matching arrow damage")
  reset();game.summon.request();game.summon.brother.set_physics_process(false);game.summon.phase="active";game.summon.remaining=30
  game.summon.arrow_hit();verify(game.summon.phase=="active" and game.summon.remaining==22,"present ally still loses eight seconds rather than being sealed")
  reset();game.summon.seal(10);game.summon.arrow_hit();verify(game.summon.sealed==10,"arrow cannot shorten the dismount seal")

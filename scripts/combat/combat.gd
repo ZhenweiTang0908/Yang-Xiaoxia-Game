@@ -16,7 +16,7 @@ var visual_clock=0.0
 var fire_atlas:Texture2D
 var projectile_visual
 func _ready():
-	projectile_visual=preload("res://scripts/combat/projectile_visual.gd").new();projectile_visual.combat=self;projectile_visual.z_index=2;add_child(projectile_visual)
+	projectile_visual=preload("res://scripts/combat/projectile_visual.gd").new();projectile_visual.combat=self;projectile_visual.z_index=3;add_child(projectile_visual)
 	fire_atlas=load("res://assets/art/environment/fire.png")
 	material=ShaderMaterial.new();material.shader=load("res://scripts/actors/chroma.gdshader")
 func fire_sprite(rect,face,ground=false,offset=0.0):

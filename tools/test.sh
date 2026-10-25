@@ -48,6 +48,7 @@ tests=(
 	rider_alignment
 	knight_fight_sim
 	hero_feel
+	rush_knight_foot
 )
 
 for test_name in $tests; do

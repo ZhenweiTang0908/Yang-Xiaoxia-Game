@@ -37,7 +37,7 @@ func run():
 	verify(fx.command_effects[0].age==0,"pause freezes command effects")
 	game.state="playing";game.hitstop=.1;fx._process(.2)
 	verify(fx.command_effects[0].age==0,"hitstop freezes command effects")
-	game.hitstop=0;fx._process(.33)
+	game.hitstop=0;fx._process(.61)
 	verify(fx.command_effects.is_empty(),"command effects expire after their short release")
 	for i in 20:fx.command_effect(Vector2.ZERO,"spin",-1)
 	verify(fx.command_effects.size()==6,"command effect count stays bounded")

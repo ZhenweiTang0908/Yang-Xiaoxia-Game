@@ -58,7 +58,7 @@ func run():
 	reset()
 	var shot=game.combat.fire(game.player.position-Vector2(30,21),Vector2(600,0),k.soul.ARROW_DAMAGE,"enemy","soul_arrow",{"owner":k.get_instance_id()});shot.slow=1.4;shot.attack_sound="knight:soul_arrow"
 	step(.08)
-	verify(is_equal_approx(game.player.health,95.0) and game.player.soul_slow>1.3 and game.summon.is_sealed() and game.summon.sealed==2,"real soul-arrow impact slows and briefly seals an absent ally")
+	verify(is_equal_approx(game.player.health,100-k.soul.ARROW_DAMAGE) and game.player.soul_slow>1.3 and game.summon.is_sealed() and game.summon.sealed==2,"real soul-arrow impact slows and briefly seals an absent ally")
 	reset();game.player.invincible=2
 	shot=game.combat.fire(game.player.position-Vector2(30,21),Vector2(600,0),k.soul.ARROW_DAMAGE,"enemy","soul_arrow",{"owner":k.get_instance_id()});shot.slow=1.4
 	step(.08);verify(game.player.health==100 and game.player.soul_slow==0,"dodging a soul arrow also dodges its debuff")

@@ -1,7 +1,7 @@
 extends Node2D
 # One boss resource: anger charges, delayed archer echoes and single-use ghost blows.
-const ARROW_DAMAGE=5.0
-const EMPOWERED_ARROW_DAMAGE=7.0
+const ARROW_DAMAGE=6.0
+const EMPOWERED_ARROW_DAMAGE=8.0
 var actor
 var rage=0.0
 var release_ready=false
@@ -184,17 +184,73 @@ func _draw():
 func draw_divine_effects():
 	var ally=actor.game.summon.brother
 	if is_instance_valid(ally) and ally.pinned_left>0:
-		var at=ally.pin_anchor-actor.position
-		draw_line(at-Vector2(0,150),at-Vector2(0,10),Color("20172e"),8,true)
-		draw_line(at-Vector2(0,150),at-Vector2(0,10),Color("c6a4f4"),3,true)
-		draw_colored_polygon(PackedVector2Array([at+Vector2(-8,-28),at+Vector2(0,8),at+Vector2(8,-28),at+Vector2(0,-19)]),Color("e3d2ff"))
-		for i in 3:
-			var y=-25-i*24
-			draw_arc(at+Vector2(0,y),21+i*3,clock*2+i,clock*2+i+PI*1.6,22,Color(.65,.4,.9,.6),2,true)
+		var ground=ally.pin_anchor-actor.position
+		var left=clampf(ally.pinned_left/10.0,0,1)
+		# Flattened binding seal on the floor; its ring drains with the remaining pin time.
+		draw_set_transform(ground,0,Vector2(1,.24))
+		draw_circle(Vector2.ZERO,30,Color(.45,.25,.7,.12))
+		draw_arc(Vector2.ZERO,30,-PI/2,-PI/2+TAU*left,40,Color(.80,.62,1,.75),3,true)
+		draw_arc(Vector2.ZERO,22,clock*.8,clock*.8+TAU,32,Color(.66,.45,.95,.35),1.5,true)
+		for i in 6:
+			var a=clock*.8+i*TAU/6
+			draw_line(Vector2.from_angle(a)*22,Vector2.from_angle(a)*27,Color(.85,.72,1,.6),2)
+		draw_set_transform(Vector2.ZERO)
+		# Cracks where the point bit into the floor.
+		for i in 4:
+			var d=Vector2(-1 if i%2 else 1,0).rotated((i/2)*.25)*(10+i*3)
+			draw_polyline(PackedVector2Array([ground,ground+d*.5+Vector2(0,1),ground+d]),Color("2a2236"),1.2)
+		var dir=Vector2(.17,1).normalized()
+		var tip=ground+Vector2(0,3)
+		# Two thin wisps coil around the shaft.
+		for k in 2:
+			var points=PackedVector2Array()
+			for i in 13:
+				var u=i/12.0
+				var along=tip-dir*(30+u*90)
+				points.append(along+dir.orthogonal()*sin(u*TAU*1.5+clock*3+k*PI)*5)
+			draw_polyline(points,Color(.78,.6,1,.35),1.2,true)
+		draw_spear(tip,dir,128,1.0)
 	if actor.action=="ancient_spear" and actor.t>=.65 and actor.t<1.12:
 		var target=actor.ancient_ally()
 		if is_instance_valid(target):
+			var hand=Vector2(0,-45)
 			var end=target.position-actor.position
-			var tip=Vector2(0,-45).lerp(end,(actor.t-.65)/.47)
-			draw_line(tip-Vector2(0,120),tip,Color("d8baff"),6,true)
-			draw_line(tip-Vector2(0,120),tip,Color("fff0ff"),2,true)
+			var u=(actor.t-.65)/.47
+			var tip=hand.lerp(end,u)
+			var dir=(end-hand).normalized()
+			# Motion streak behind the thrown spear.
+			for i in 5:
+				draw_line(tip-dir*(40+i*14),tip-dir*(70+i*18),Color(.75,.55,1,.28-i*.05),4.0-i*.6,true)
+			draw_spear(tip,dir,128,1.0)
+# A single spear: lacquered shaft, bronze fittings, leaf blade with a ridge, red tassel.
+# `tip` is the blade point and `dir` the direction the point faces.
+func draw_spear(tip,dir,length,alpha):
+	var n=dir.orthogonal()
+	var blade=24.0
+	var base=tip-dir*blade
+	var butt=tip-dir*length
+	# Soft violet aura along the whole weapon.
+	draw_line(butt,tip,Color(.62,.42,.95,.16*alpha),9,true)
+	# Shaft: dark outline, lacquer, and a thin highlight on one side.
+	draw_line(butt,base,Color(.08,.06,.11,alpha),5,true)
+	draw_line(butt,base,Color("3d2c44",alpha),3,true)
+	draw_line(butt+n*.8,base+n*.8,Color("7a6488",.8*alpha),1,true)
+	# Bronze butt cap and collar.
+	draw_line(butt,butt+dir*5,Color("b89a5e",alpha),5,true)
+	draw_line(base-dir*5,base,Color("c9ab6a",alpha),6,true)
+	draw_line(base-dir*5+n*1.5,base+n*1.5,Color("efd9a0",.7*alpha),1,true)
+	# Leaf-shaped blade: widest a third of the way up, then a long taper.
+	var leaf=PackedVector2Array([base+n*2.5,base+dir*8+n*5,base+dir*17+n*3.2,tip,base+dir*17-n*3.2,base+dir*8-n*5,base-n*2.5])
+	var outline=PackedVector2Array(leaf);outline.append(leaf[0])
+	draw_colored_polygon(leaf,Color("dcd7ea",alpha))
+	draw_colored_polygon(PackedVector2Array([base,base+dir*8+n*5,base+dir*17+n*3.2,tip]),Color("f4f1fb",alpha))
+	draw_line(base,tip-dir*2,Color("8a82a6",alpha),1.2,true)
+	draw_polyline(outline,Color(.11,.08,.16,alpha),1.0,true)
+	# Crimson tassel hanging from the collar, fluttering slightly.
+	var hang=base-dir*6
+	for i in 3:
+		var sway=sin(clock*5+i*1.3)*2.5
+		var end=hang+Vector2(sway+(i-1)*2.5,12+i*1.5)
+		draw_line(hang,end,Color("8e3048",alpha),2,true)
+		draw_line(hang,hang.lerp(end,.5),Color("c4566a",.8*alpha),1,true)
+	draw_circle(hang,2.2,Color("c9ab6a",alpha))

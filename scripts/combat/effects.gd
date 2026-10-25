@@ -41,6 +41,9 @@ func number(p,amount,c):
 		if entry.color==c and entry.left>.42 and entry.p.distance_to(p)<44:
 			entry.text=str(int(entry.text)+int(amount));return
 	if labels.size()>=6:labels.pop_front()
+	# Stack above a number still fading at the same spot instead of overprinting it.
+	for entry in labels:
+		if absf(entry.p.x-p.x)<30 and entry.p.y<=p.y+4 and entry.p.y>p.y-14:p.y=entry.p.y-14
 	labels.append({"p":p,"text":str(int(amount)),"left":.65,"color":c})
 func trail(p,c):
 	if trails.size()<24:trails.append({"p":p,"color":c,"left":.16})
@@ -151,4 +154,6 @@ func _draw():
 		var a=0 if e.face>0 else PI
 		draw_arc(e.p,e.r,a-1.2,a+1.1,16,Color(e.color,e.left*5),3)
 	for e in labels:
-		if game:draw_string(game.font,e.p,e.text,HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color(e.color,minf(1,e.left*3)))
+		if game:
+			var width=game.font.get_string_size(e.text,HORIZONTAL_ALIGNMENT_LEFT,-1,13).x
+			draw_string(game.font,e.p-Vector2(width*.5,0),e.text,HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color(e.color,minf(1,e.left*3)))

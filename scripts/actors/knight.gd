@@ -5,8 +5,8 @@ extends CharacterBody2D
 const GROUND=450.0
 const ARROW_SPEED=780.0
 const EMPOWERED_ARROW_SPEED=1100.0
-const ARROW_DAMAGE=6.0
-const EMPOWERED_ARROW_DAMAGE=9.0
+const ARROW_DAMAGE=8.0
+const EMPOWERED_ARROW_DAMAGE=12.0
 # Spear waves hit a low band 2–12 px above the floor across the whole arena.
 const WAVE_LOW=2.0
 const WAVE_HIGH=12.0
@@ -538,6 +538,7 @@ func update_dismount(dt):
 func land():
 	landed=true;phase=2
 	game.challenge_entry_phase=2
+	if game.boss_rush:game.progress.rush_knight_foot=true;game.save_progress()
 	hp=cfg("knight_foot_hp");max_hp=hp;body_height=106;radius=24;weapon="spear"
 	position.x=clampf(horse_x-facing*46,arena.position.x+40,arena.end.x-40);horse_away=0
 	game.scene_motion.reset(self)

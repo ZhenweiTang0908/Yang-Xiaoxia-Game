@@ -18,6 +18,10 @@ var journey_records_mode="standard"
 var new_confirm_return="title"
 var resource_feedback=0.0
 var hovered_action=""
+# Trailing boss health: lost health lingers as a pale band before draining.
+var boss_lag=1.0
+var boss_lag_hold=0.0
+var boss_lag_owner=0
 func _ready():
 	layer=20;canvas=Node2D.new();add_child(canvas);canvas.draw.connect(render)
 	canvas.material=ShaderMaterial.new();canvas.material.shader=load("res://scripts/actors/chroma.gdshader")
@@ -31,6 +35,13 @@ func _ready():
 	back.set_meta("background",true)
 func _process(_dt):
 	resource_feedback=maxf(0,resource_feedback-_dt)
+	if is_instance_valid(game.boss) and game.state=="playing" and game.hitstop<=0:
+		var ratio=clampf(game.boss.hp/game.boss.max_hp,0,1)
+		if boss_lag_owner!=game.boss.get_instance_id() or ratio>boss_lag:boss_lag=ratio;boss_lag_owner=game.boss.get_instance_id()
+		elif boss_lag>ratio:
+			boss_lag_hold-=_dt
+			if boss_lag_hold<=0:boss_lag=move_toward(boss_lag,ratio,_dt*.45)
+		if absf(boss_lag-ratio)<.001:boss_lag_hold=.45
 	var hovered=""
 	if not game.pad_mode:
 		var pointer=canvas.get_global_mouse_position()
@@ -156,10 +167,12 @@ func title_screen():
 	button(Rect2(200,446,105,25),"步战","challenge_foot")
 	portrait(niu,niu_region,Vector2(713,453),190)
 	portrait(hero,Rect2(0,0,181,208),Vector2(550,453),166)
-	if game.relic_count()>0:button(Rect2(430,486,110,28),"月痕札记","relic_journal")
-	button(Rect2(550,486,90,28),"旅途簿","journey_records")
-	button(Rect2(650,486,90,28),"操作","controls")
-	button(Rect2(750,486,110,28),"参数 · F2","debug")
+	# Bottom row is right-aligned so hiding the moon journal leaves no gap.
+	var row=[["旅途簿","journey_records",90],["操作","controls",90],["参数 · F2","debug",110]]
+	if game.relic_count()>0:row.push_front(["月痕札记","relic_journal",110])
+	var x=860.0
+	for i in range(row.size()-1,-1,-1):
+		x-=row[i][2];button(Rect2(x,486,row[i][2],28),row[i][0],row[i][1]);x-=10
 	if game.developer_mode:button(Rect2(818,20,122,28),"动画对比","animation_lab")
 
 func new_confirm_screen():
@@ -225,7 +238,9 @@ func playing_hud():
 		centered(490,game.hint.replace(" · K 射击",""),13,game.GOLD)
 	if game.boss.active_battle and not game.boss.dead:
 		centered(136,game.boss.spec.title,14,game.GOLD)
-		meter(Vector2(305,147),350,game.boss.hp/game.boss.max_hp,Color("ce8e83"))
+		var ratio=clampf(game.boss.hp/game.boss.max_hp,0,1)
+		meter(Vector2(305,147),350,ratio,Color("ce8e83"))
+		if boss_lag>ratio:canvas.draw_rect(Rect2(305+350*ratio,147,350*(boss_lag-ratio),5),Color(1,.93,.82,.75))
 	if game.boss.spec.id=="knight" and game.boss.active_battle and not game.boss.dead:
 		for i in 3:
 			var box=Rect2(414+i*46,158,34,8)
@@ -273,7 +288,7 @@ func overlay():
 		canvas.draw_line(Vector2(440,202),Vector2(520,202),game.TEAL,1)
 		if game.relaxed_journey():centered(232,"从容同行 · 承受伤害 70%",12,game.TEAL)
 	var action={"paused":"resume","dead":"retry"}[game.state]
-	button(Rect2(350,283,260,45),{"paused":"继续旅途","dead":("重试步战" if game.challenge_entry_phase==2 else "重试马战") if game.is_challenge() else ("重试当前 BOSS" if game.boss_rush else "从山灯重试")}[game.state],action,true)
+	button(Rect2(350,283,260,45),{"paused":"继续战斗" if game.boss_rush else "继续旅途","dead":("重试步战" if game.challenge_entry_phase==2 else "重试马战") if game.is_challenge() else (("从步战继续" if game.level.boss_id=="knight" and game.rush_knight_foot() else "重试当前 BOSS") if game.boss_rush else "从山灯重试")}[game.state],action,true)
 	if game.is_challenge():
 		button(Rect2(350,338,260,38),"重新挑战马战" if game.challenge_entry_phase==2 else "挑战步战","challenge" if game.challenge_entry_phase==2 else "challenge_foot")
 		button(Rect2(282,398,125,36),"设置","settings")
@@ -281,11 +296,13 @@ func overlay():
 		button(Rect2(552,398,125,36),"回到标题","title")
 		if game.state=="paused":button(Rect2(35,472,260,34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
 		return
-	button(Rect2(350,343,260,38),"设置","settings")
-	if game.state=="paused" and game.relic_count()>0:button(Rect2(350,395,260,38),"月痕札记 · "+str(game.relic_count())+" / 6","relic_journal")
-	button(Rect2(350,441 if game.state=="paused" else 395,260,34 if game.state=="paused" else 38),"自由跳关","stage_select")
-	var title_y=483 if game.state=="paused" else 447
-	button(Rect2(350,title_y,260,34 if game.state=="paused" else 38),"回到标题","title")
+	# Secondary actions stack evenly below the primary button; optional rows leave no gap.
+	var rows=[["设置","settings"]]
+	if game.state=="dead" and game.boss_rush and game.level.boss_id=="knight" and game.rush_knight_foot():rows.push_front(["重新挑战马战","rush_mounted"])
+	if game.state=="paused" and game.relic_count()>0:rows.append(["月痕札记 · "+str(game.relic_count())+" / 6","relic_journal"])
+	rows.append(["自由跳关","stage_select"]);rows.append(["回到标题","title"])
+	var step=46.0 if rows.size()>3 else 52.0
+	for i in rows.size():button(Rect2(350,343+i*step,260,38),rows[i][0],rows[i][1])
 	if game.state=="paused":button(Rect2(35,472,260,34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
 func result_overlay():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.012,.028,.045,.94))
@@ -319,6 +336,7 @@ func rush_result():
 		if game.rush_reward!="":
 			centered(230,"自动习得「"+game.UPGRADE_NAMES[game.rush_reward]+"」· 第 "+str(game.upgrade_level(game.rush_reward))+" 层",18,game.WHITE)
 		centered(268,"月露已补满 ×"+str(game.TONIC_MAX)+"   ·   生命恢复",15,game.TEAL)
+		next_boss_silhouette(next.boss_id,Vector2(812,452),178)
 		button(Rect2(350,330,260,45),"下一战 · "+next.title,"next",true)
 		button(Rect2(350,395,260,38),"回到标题","title")
 		return
@@ -327,6 +345,23 @@ func rush_result():
 	centered(244,format_time(game.elapsed)+"   ·   四战告捷",22)
 	button(Rect2(350,320,260,45),"再战四境","new",true)
 	button(Rect2(350,385,260,38),"回到标题","title")
+# A dark silhouette of the coming boss teases the next fight without spelling it out.
+func next_boss_silhouette(id,feet,height):
+	var texture;var source
+	if id=="knight":
+		texture=load("res://assets/art/knight_frames/mounted/00.png");source=Rect2(Vector2.ZERO,texture.get_size())
+	else:
+		# Per-frame boss art has a transparent background (frames 0/6/12 are each idle pose).
+		texture=load("res://assets/art/boss_frames/%02d.png"%(["lantern","duelist","priest"].find(id)*6))
+		source=Rect2(Vector2.ZERO,texture.get_size())
+	var size=Vector2(source.size.x/source.size.y*height,height)
+	var rect=Rect2(feet-Vector2(size.x*.5,size.y),size)
+	var pulse=.5+.5*sin(game.clock*1.6)
+	canvas.draw_texture_rect_region(texture,rect.grow(2),source,Color(.55,.85,.8,.10+.06*pulse))
+	canvas.draw_texture_rect_region(texture,rect,source,Color(.02,.035,.05,.96))
+	var boss=load("res://data/bosses/"+id+".tres")
+	var w=game.font.get_string_size(boss.title,HORIZONTAL_ALIGNMENT_LEFT,-1,13).x
+	text(Vector2(feet.x-w*.5,feet.y+22),boss.title,13,Color(game.TEAL,.8))
 func challenge_result(result):
 	centered(75,"步战已破" if result.get("practice",false) else "断誓已了",34,game.GOLD)
 	centered(107,game.boss.spec.title+(" · 步战演武完成" if result.get("practice",false) else " · 马战与步战均已击破"),14,game.TEAL)
@@ -494,6 +529,7 @@ func action(id):
 		"resume":game.state="playing"
 		"pause":game.state="paused";game.release_inputs()
 		"retry":game.retry()
+		"rush_mounted":game.retry_mounted()
 		"next":game.next_level()
 		"title":game.return_title()
 		"settings":settings_return=game.state;game.state="settings";game.release_inputs()

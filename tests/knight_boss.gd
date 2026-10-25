@@ -137,7 +137,7 @@ func run():
 	for i in 120:
 		game.hitstop=0;knight._physics_process(1.0/60);game.combat._physics_process(1.0/60)
 		if game.player.health<100:break
-	verify(is_equal_approx(game.player.health,94.0) and game.summon.is_sealed() and is_equal_approx(game.summon.sealed,2.0),"rapid bow arrow deals 6 and seals for 2 s")
+	verify(is_equal_approx(game.player.health,100-knight.ARROW_DAMAGE) and game.summon.is_sealed() and is_equal_approx(game.summon.sealed,2.0),"rapid bow arrow deals ARROW_DAMAGE (8) and seals for 2 s")
 	game.summon.reset(true);ground(game.player,700);game.player.health=100;game.player.invincible=.5
 	knight.begin("bow",game.tuning.get_value("knight_bow_draw"))
 	for i in 120:game.hitstop=0;knight._physics_process(1.0/60);game.combat._physics_process(1.0/60)
@@ -145,7 +145,7 @@ func run():
 	knight.weapon="spear";game.summon.reset(true);ground(game.player,knight.position.x+90);game.player.health=100
 	knight.begin("spear_slam",knight.prep_for("spear_slam"))
 	for i in 55:game.hitstop=0;knight._physics_process(1.0/60);game.combat._physics_process(1.0/60)
-	verify(is_equal_approx(game.player.health,74.8) and not game.summon.is_sealed(),"heavy spear sweep deals 25.2 without a sword or gourd seal")
+	verify(is_equal_approx(game.player.health,100-25.2*1.08) and not game.summon.is_sealed(),"heavy spear sweep deals 25.2×1.08 without a sword or gourd seal")
 	game.summon.reset(true);ground(game.player,knight.position.x+90);game.player.health=100;game.player.invincible=5
 	knight.begin("spear_slam",knight.prep_for("spear_slam"))
 	for i in 55:game.hitstop=0;knight._physics_process(1.0/60);game.combat._physics_process(1.0/60)
@@ -158,7 +158,7 @@ func run():
 	for i in 120:
 		game.hitstop=0;knight._physics_process(1.0/60);game.combat._physics_process(1.0/60);game.player.invincible=0
 		if knight.fired.has("run"):game.player.position.x=500
-	verify(dir==-1 and is_equal_approx(game.player.health,78.4),"charge locks direction and the lance tip deals 21.6 once")
+	verify(dir==-1 and is_equal_approx(game.player.health,100-21.6*1.08),"charge locks direction and the lance tip deals 21.6×1.08 once")
 	knight=await fresh();knight.position.x=800;knight.facing=-1;ground(game.player,700);game.player.health=100
 	knight.begin("charge",game.tuning.get_value("knight_charge_windup"))
 	for i in 20:game.hitstop=0;knight._physics_process(1.0/60)

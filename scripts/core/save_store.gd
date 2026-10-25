@@ -4,7 +4,7 @@ const TEMP_SUFFIX = ".tmp"
 const BACKUP_SUFFIX = ".bak"
 
 static func defaults():
-	return {"version":2,"rush_stage":1,"rush_clears":[],"rush_completed":false,"level":1,"checkpoint":0,"entry_section":0,"bow":false,"gourd":false,"story_seen":false,"completed":false,"upgrades":[],"pending_upgrade":{},"tonic":2,"relics":[],"records":{},"music":.72,"sfx":.85,"ambience":.45,"muted":false,"screen_shake":true,"hero_mesh":false,"boss_voice":"ai","journey_mode":"standard"}
+	return {"version":2,"rush_stage":1,"rush_clears":[],"rush_completed":false,"rush_knight_foot":false,"level":1,"checkpoint":0,"entry_section":0,"bow":false,"gourd":false,"story_seen":false,"completed":false,"upgrades":[],"pending_upgrade":{},"tonic":2,"relics":[],"records":{},"music":.72,"sfx":.85,"ambience":.45,"muted":false,"screen_shake":true,"hero_mesh":false,"boss_voice":"ai","journey_mode":"standard"}
 
 static func read_save(path=PATH):
 	var parsed=_read_valid(path)

@@ -74,6 +74,8 @@ var hurt_time=-1.0
 var hurt_push=-1.0
 func _ready():
 	collision_layer=2; collision_mask=5; floor_snap_length=7
+	# The hero draws above bosses so an overlapping silhouette never disappears.
+	z_index=2
 	var shape=CollisionShape2D.new(); var capsule=CapsuleShape2D.new()
 	capsule.radius=8; capsule.height=HEIGHT
 	shape.shape=capsule; shape.position.y=-HEIGHT*.5; add_child(shape)
@@ -84,6 +86,7 @@ func _ready():
 	rider_art=load("res://scripts/actors/atlas_actor.gd").new();add_child(rider_art);rider_art.configure("res://assets/art/v3/rider.png",1,1,42);rider_art.hide();rider_art.pivot_override=Vector2(500,860)
 	skeletal_visual=load("res://scripts/animation/hero_visual.gd").new();skeletal_visual.actor=self;add_child(skeletal_visual)
 	var aura=load("res://scripts/animation/awaken_aura.gd").new();aura.actor=self;add_child(aura)
+	var backlight=load("res://scripts/animation/hero_backlight.gd").new();backlight.actor=self;add_child(backlight)
 	var spirit_rig=load("res://scripts/animation/cast_visual.gd").new();spirit_rig.actor=self;spirit_rig.species="sheep";spirit_rig.height=52.8
 	var reference=load("res://scripts/actors/atlas_actor.gd").new();reference.configure("res://assets/art/v2/sheep.png",6,4,52.8)
 	spirit_rig.source_art=reference;add_child(spirit_rig);reference.free();spirit_rig.source_art=art
@@ -183,7 +186,8 @@ func _physics_process(dt):
 		if attack_elapsed>=attack_duration or chain_ready:
 			attack_elapsed=-1;special_id=""
 			if attack_queue>0: start_attack();attack_queue=0
-	var wants_charge=game.gamepad.charge_active or (attack_hold>=CHARGE_HOLD and special_id=="" and pending_command.is_empty())
+	# The touch "蓄" button still presses the unbound charge action directly.
+	var wants_charge=Input.is_action_pressed("charge") or game.gamepad.charge_active or (attack_hold>=CHARGE_HOLD and special_id=="" and pending_command.is_empty())
 	if wants_charge and hurt_anim<=0 and form_transition<=0 and dash_time<=0 and bow_anim<=0 and attack_elapsed<0 and blast_anim<=0:
 		if charge==0: game.audio.play("sheep_charge" if sheep() else "charge")
 		charge=minf(charge+dt,1.1)
@@ -382,4 +386,4 @@ func attach_to(ally):
 	invincible=maxf(invincible,.2);edges.clear();z_index=5
 func detach_from(at):
 	carried_by=null;position=at;game.scene_motion.reset(self);velocity=Vector2.ZERO;collision_mask=5
-	jump_buffer=0;drop_time=0;dash_time=0;invincible=maxf(invincible,.8);art.rotation=0;rider_art.hide();art.show();z_index=0
+	jump_buffer=0;drop_time=0;dash_time=0;invincible=maxf(invincible,.8);art.rotation=0;rider_art.hide();art.show();z_index=2

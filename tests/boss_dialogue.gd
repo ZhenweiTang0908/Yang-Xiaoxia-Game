@@ -46,7 +46,7 @@ func run():
   verify(boss.dead and game.audio.voice_identity.begins_with(boss.spec.id+"_death"),"defeat speaks a dedicated line")
  game.start_challenge(4,2);await process_frame
  var knight=game.boss;knight.set_physics_process(false);game.player.set_physics_process(false);game.combat.set_physics_process(false);game.audio.stop_all()
- for id in ["soul_eagle_burst","ancient_spear","bow","bow_double","spear_slam","kick_thrust"]:
+ for id in ["ancient_spear","bow","bow_double","spear_slam","kick_thrust"]:
   knight.speech_cooldown=0;game.audio.stop_all();knight.begin(id,knight.prep_for(id))
   verify(game.audio.voice_identity.trim_prefix("knight_") in knight.DIALOGUE.GROUPS.get(id,[id]) and game.audio.voice_player.playing,"knight special move speaks: "+id)
  game.state="settings";await tick_hud()

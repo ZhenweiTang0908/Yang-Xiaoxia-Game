@@ -245,7 +245,7 @@ func start_challenge(number=CHALLENGE_LEVEL,entry_phase=1):
 func jump_to_stage(number,section=0):
 	if switching or number<1 or number>4:return
 	boss_rush=true;challenge_practice=false;challenge_entry_phase=1
-	progress.pending_upgrade={};progress.tonic=TONIC_MAX
+	progress.pending_upgrade={};progress.tonic=TONIC_MAX;progress.rush_knight_foot=false
 	load_stage(number,0);save_progress()
 func load_stage(number,checkpoint,entry_section=0):
 	if switching:return
@@ -272,6 +272,8 @@ func load_stage(number,checkpoint,entry_section=0):
 		var e=load("res://scripts/actors/enemy.gd").new();e.setup(self,spawn);world.add_child(e);enemies.append(e);scene_motion.register(e)
 	boss=load(level.boss_script if level.boss_script!="" else "res://scripts/actors/boss.gd").new();boss.setup(self,level.boss_id,level.boss_x);world.add_child(boss);enemies.append(boss);scene_motion.register(boss)
 	if is_challenge() and challenge_entry_phase==2:boss.enter_foot_challenge()
+	# Once the rush knight has dismounted, retries and continues resume the foot duel.
+	elif boss_rush and level.boss_id=="knight" and rush_knight_foot():boss.enter_foot_challenge()
 	summon=load("res://scripts/actors/summon.gd").new();summon.game=self;world.add_child(summon);summon.reset(gourd_available())
 	pickups=[]
 	section_clears={}
@@ -445,6 +447,10 @@ func fall_recover():
 	if active():player.position=last_safe;player.velocity=Vector2.ZERO;player.invincible=1.2;scene_motion.reset(player)
 func die(source="unknown"):
 	death_source=source;state="dead";audio.play("death",0);combat.clear();summon.reset(gourd_available());release_inputs();save_progress()
+func rush_knight_foot():return bool(progress.get("rush_knight_foot",false))
+# Death-screen choice to replay the whole knight fight from horseback.
+func retry_mounted():
+	progress.rush_knight_foot=false;save_progress();retry()
 func retry():
 	if boss_rush:
 		progress.tonic=TONIC_MAX
@@ -464,6 +470,7 @@ func finish_level():
 	capture_stage_result()
 	if not stage_result.get("practice",false):update_stage_record(stage_result)
 	if boss_rush:
+		progress.rush_knight_foot=false
 		var clears=progress.get("rush_clears",[]).duplicate()
 		rush_reward=""
 		if level.number not in clears:

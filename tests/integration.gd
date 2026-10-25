@@ -35,7 +35,7 @@ func run():
 	await frames(16);verify(target.hp<previous,"melee hits on active frames")
 	game.hitstop=0;p.spirit=100;p.enqueue("transform");await frames(35)
 	verify(p.sheep() and p.form_visual,"actual sheep visual swaps in")
-	p.enqueue("bow");await frames(10)
+	p.enqueue("bow");await frames(7)
 	verify(game.combat.shots.any(func(s):return s.kind=="flame" and s.pierce==1),"sheep flame has one penetration")
 	# Summon runs alongside movement; no player stun or input freeze.
 	p.position=Vector2(2150,450);p.velocity=Vector2.ZERO;game.progress.gourd=true;game.summon.reset(true)
