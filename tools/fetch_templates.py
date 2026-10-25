@@ -6,7 +6,10 @@ wanted=sys.argv[1:] or ['macos.zip','web_nothreads_release.zip','web_nothreads_d
 out=Path('builds/templates');out.mkdir(parents=True,exist_ok=True)
 def fetch(rng,dest):
  subprocess.run(['curl','--proxy','http://127.0.0.1:7897','-fsSL','--retry','2','--max-time','600','-r',rng,URL,'-o',str(dest)],check=True)
-tail=out/'tail';fetch('-65536',tail)
+# GitHub's asset store rejects suffix ranges such as -65536, so ask for the size first.
+head=subprocess.run(['curl','--proxy','http://127.0.0.1:7897','-fsSLI',URL],check=True,capture_output=True,text=True).stdout
+size=int([l.split(':')[1] for l in head.lower().splitlines() if l.startswith('content-length:')][-1])
+tail=out/'tail';fetch(f'{size-65536}-{size-1}',tail)
 data=tail.read_bytes();i=data.rfind(b'PK\x05\x06');e=struct.unpack_from('<4s4H2LH',data,i);cd_size,cd_offset=e[5],e[6]
 cd=out/'cd';fetch(f'{cd_offset}-{cd_offset+cd_size-1}',cd)
 data=cd.read_bytes();p=0

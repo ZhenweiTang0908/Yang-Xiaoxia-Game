@@ -120,7 +120,11 @@ Boss 跨过生命阈值时会进入 1.25 秒阶段转换：旧招式和该 Boss 
 
 ## 导出与验证
 
-`./tools/build.sh web`、`./tools/build.sh macos`。Android 预设保留 arm64、横屏与触屏操作；配置 Android SDK / Java SDK 后运行 `./tools/build.sh android`。**Android 尚未真机验证。**
+`./tools/build.sh web`、`./tools/build.sh macos`、`./tools/build.sh windows`。
+
+发布站点（落地页 + 网页版 + Mac/Windows 下载）：`tools/release.sh build` 只在本地生成 `dist/site/`；`tools/release.sh deploy` 才上传到 https://yang-xiaoxia.newnew-tang.site/ ，另有 `status` 和 `rollback`。规则见 `.agents/skills/release-deploy/SKILL.md`：只有明确说“部署”才部署。
+
+Android 预设保留 arm64、横屏与触屏操作；配置 Android SDK / Java SDK 后运行 `./tools/build.sh android`。**Android 尚未真机验证。**
 
 ```sh
 ./tools/test.sh
