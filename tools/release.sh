@@ -37,6 +37,10 @@ cmd_build() {
   version="$(git describe --always --dirty 2>/dev/null || echo nogit)"
   stamp="$(date '+%Y-%m-%d %H:%M')"
 
+  # 网页版没有系统字体可借，字库缺字会直接显示成方框，所以缺字时不编译。
+  echo "== 检查字库"
+  .venv/bin/python -I tools/make_font_subset.py --check || exit 1
+
   for t in $targets; do
     echo "== 导出 $t"
     export_target "$t"
@@ -83,7 +87,7 @@ EOF
 
   echo
   echo "编译完成（未部署）：版本 $version"
-  du -sh "$site" "$site"/play "$site"/downloads/* 2>/dev/null
+  du -sh "$site" "$site"/play "$site"/downloads/*(N)
   echo "本地预览：python3 -m http.server -d $site 8766，然后打开 http://127.0.0.1:8766"
 }
 

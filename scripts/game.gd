@@ -62,7 +62,7 @@ var subtitle=""
 var subtitle_time=0.0
 var pad_mode=false
 var gamepad
-var use_skeletal=true
+var use_skeletal=false
 var animation_lab
 var scene_motion
 var boss_rush=false

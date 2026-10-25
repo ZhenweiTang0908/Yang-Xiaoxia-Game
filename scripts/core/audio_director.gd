@@ -171,8 +171,10 @@ func _process(dt):
 	impact_duck=maxf(0,impact_duck-dt*11.0)
 	if voice_preview and game.state!="settings":
 		voice_player.stop();voice_preview=false
-	if effort_player:effort_player.stream_paused=not game.active()
-	if voice_player:voice_player.stream_paused=not game.active() and not (voice_preview and game.state=="settings")
+	# Only write stream_paused when it changes: on the web build every un-pause restarts a sample
+	# from its first frame, so writing it each frame kept voice lines stuck at their opening click.
+	if effort_player:set_paused(effort_player,not game.active())
+	if voice_player:set_paused(voice_player,not game.active() and not (voice_preview and game.state=="settings"))
 	fade=minf(1,fade+dt/.9)
 	for i in 2:
 		var gain=fade if i==selected else 1-fade
@@ -183,6 +185,8 @@ func _process(dt):
 		var gain=ambience_fade if i==ambience_selected else 1-ambience_fade
 		ambience_players[i].volume_db=linear_to_db(maxf(.001,gain))-9
 		if gain==0 and i!=ambience_selected:ambience_players[i].stop()
+func set_paused(player,paused):
+	if player.stream_paused!=paused:player.stream_paused=paused
 func apply_volumes():
 	if not game:return
 	for pair in [["music","Music"],["sfx","SFX"],["ambience","Ambience"]]:

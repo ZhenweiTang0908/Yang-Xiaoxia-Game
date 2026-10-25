@@ -43,6 +43,10 @@ description: Build the Yang-Daxia web/macOS/Windows release site with tools/rele
 - 服务器保留最近 3 个版本（`/opt/yang-daxia/releases/`），`current` 软链接指向当前版本，切换是原子操作。
 - 不要动 `/opt/myvpn` 里与游戏无关的东西（Hysteria、订阅服务、WARP）。
 
+## 字库
+
+`build` 会先检查 `assets/art/ui_font.ttf` 是否包含游戏代码和数据里用到的所有字符，缺字就停止编译（网页版没有系统字体可借，缺的字会显示成方框）。这时运行 `.venv/bin/python tools/make_font_subset.py` 从 `art_source/fonts/` 的完整 Noto Sans SC 重新生成字库，再编译。
+
 ## 平台说明
 
 - Windows 版是单个 `YangDaxia.exe`（资源已内嵌），打成 zip。没有数字签名，首次运行会有 SmartScreen 提示，落地页里写了处理办法。
