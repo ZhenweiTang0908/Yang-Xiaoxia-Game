@@ -93,7 +93,10 @@ cmd_deploy() {
   release="$(date -u '+%Y%m%dT%H%M%SZ')"
 
   echo "== 检查服务器一次性配置（Nginx 站点与证书）"
-  ssh_run "DOMAIN='$DEPLOY_DOMAIN' ROOT='$DEPLOY_ROOT' VPN_DIR='$DEPLOY_VPN_DIR' bash -s" < tools/deploy/server_setup.sh
+  # 先把脚本放到服务器上再执行：用 bash -s 从标准输入喂脚本时，脚本里的 docker compose exec
+  # 会把标准输入（也就是脚本剩下的部分）读走，后面的步骤就悄悄不执行了。
+  ssh_run "mkdir -p '$DEPLOY_ROOT' && cat > '$DEPLOY_ROOT/server_setup.sh'" < tools/deploy/server_setup.sh
+  ssh_run "DOMAIN='$DEPLOY_DOMAIN' ROOT='$DEPLOY_ROOT' VPN_DIR='$DEPLOY_VPN_DIR' bash '$DEPLOY_ROOT/server_setup.sh'" < /dev/null
 
   echo "== 上传版本 $release"
   ssh_run "mkdir -p '$DEPLOY_ROOT/releases/$release'"
