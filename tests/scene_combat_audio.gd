@@ -35,8 +35,8 @@ func run():
  var knight=game.boss;knight.action="lunge";audio.effort_last=-10000
  knight.move_sound("warning")
  verify(not audio.effort_player.playing,"windup does not play attack cry")
- knight.move_sound("release")
- verify(audio.effort_player.playing,"actual knight release plays attack cry")
+ knight.shout(1.0)
+ verify(audio.effort_player.playing,"actual knight blow plays attack cry")
  for key in ["knight_lunge_release","knight_spin_rush_release","enemy_duelist_triple_release"]:
   verify(audio.bank.has(key) and audio.bank[key].get_length()>.06,"weapon air available")
  game.queue_free();await process_frame;await process_frame

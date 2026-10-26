@@ -107,7 +107,17 @@ func sync_pose(dt):
 				if a.t<prep:index=0 if a.t<prep*.25 else (1 if a.t<prep*.70 else 2)
 				elif not a.fired.has("stop"):index=gallop_frame(a.stride)
 				else:index=2
-			"soul_legion":index=7 if at<.9 else 0
+			"double_charge":
+				var prep=a.prep_for(action)
+				if a.t<prep:index=0 if a.t<prep*.25 else (1 if a.t<prep*.70 else 2)
+				elif not a.fired.has("stop"):index=gallop_frame(a.stride)
+				else:index=2
+			"halt_thrust","trample":
+				var prep=a.prep_for(action)
+				if a.t<prep:index=1 if a.t<prep*.5 else 2
+				elif not a.fired.has("halt"):index=gallop_frame(a.stride)
+				elif action=="trample":index=7 if a.t<a.stop_t+.3 else 0
+				else:index=10 if a.t<a.stop_t+.38 else 11
 			"rear":index=7 if at<a.prep_for("rear") else 0
 			"kick":index=8 if at<a.prep_for("kick") else (9 if at<a.prep_for("kick")+.22 else 0)
 			"butt":index=10 if at<a.prep_for("butt") else (11 if at<a.prep_for("butt")+.25 else 0)

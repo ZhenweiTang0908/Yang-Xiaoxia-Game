@@ -14,8 +14,8 @@ func run():
   k.soul.spend();k.soul.absorb(k.max_hp*k.cfg("knight_rage_fraction"))
   if not k.soul.release_ready:held+=1
  check(held>90 and held<165,"newly full cell holds approximately twenty-five percent of the time")
- k.soul.rage=2;k.soul.release_ready=true;k.weapon="spear";k.choose()
- check(k.action=="soul_legion" and k.soul.rage==0,"two charges summon the legion and consume all rage")
+ k.soul.rage=3;k.soul.release_ready=true;k.weapon="spear";k.choose()
+ check(k.action=="soul_legion" and k.soul.rage==0,"a full bar summons the legion and consumes all rage")
  game.player.position=Vector2(480,450);game.player.invincible=99
  for i in 522:
   game.hitstop=0;k._physics_process(1.0/120);game.combat._physics_process(1.0/120)

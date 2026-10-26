@@ -43,6 +43,7 @@ tests=(
 	knight_legion
 	knight_divine
 	knight_arrow_balance
+	knight_selection
 	mount_rescue
 	mount_rescue_trigger
 	rider_alignment

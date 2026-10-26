@@ -1,6 +1,7 @@
 extends Node
 const CATALOG=preload("res://scripts/core/audio_catalog.gd")
 const ENEMY_AUDIO=preload("res://scripts/combat/enemy_audio.gd")
+const BOSS_DIALOGUE=preload("res://scripts/core/boss_dialogue.gd")
 var game
 var bank={}
 var melee_players=[]
@@ -34,7 +35,6 @@ var muted=false
 var voice_player:AudioStreamPlayer
 var effort_player:AudioStreamPlayer
 var effort_last=-10000
-var effort_variant=0
 var effort_history=[]
 var voice_identity=""
 var voice_source="classic"
@@ -131,10 +131,13 @@ func exertion(boss):
 	# Short efforts never interrupt dialogue or create subtitles; at most one every 800ms.
 	var now=Time.get_ticks_msec()
 	if now-effort_last<800 or (voice_player and voice_player.playing):return false
-	var key=boss+"_effort_"+("ha" if effort_variant%2==0 else "ah")
+	# Pick any recorded shout of this boss except the one heard last.
+	var keys=BOSS_DIALOGUE.BOSSES.get(boss,{}).get("efforts",{}).keys().map(func(line):return boss+"_"+line).filter(func(key):return ResourceLoader.exists("res://assets/voice/ai/"+key+".wav"))
+	if keys.is_empty():return false
+	var fresh=keys.filter(func(key):return effort_history.is_empty() or key!=effort_history[-1])
+	var key=(fresh if not fresh.is_empty() else keys).pick_random()
 	var path="res://assets/voice/ai/"+key+".wav"
-	if not ResourceLoader.exists(path):return false
-	effort_last=now;effort_variant+=1
+	effort_last=now
 	effort_player.stream=load(path);effort_player.volume_db=-7;effort_player.pitch_scale=1.0;effort_player.play()
 	effort_history.append(key)
 	if effort_history.size()>24:effort_history.pop_front()

@@ -23,6 +23,9 @@ const PROFILES={
  "knight:bow_double":{"warning":"knight_bow_double_warning","release":"knight_bow_double_release","impact":"knight_bow_double_impact"},
 
  "knight:charge":{"warning":"knight_hoof_paw","release":"knight_lance","impact":"knight_hit_lance"},
+ "knight:double_charge":{"warning":"knight_hoof_paw","release":"knight_lance","impact":"knight_hit_lance"},
+ "knight:halt_thrust":{"warning":"knight_skid","release":"knight_thrust","impact":"knight_hit_lance"},
+ "knight:trample":{"warning":"knight_neigh","release":"knight_hoof_slam","impact":"knight_hit_hoof"},
  "knight:rein":{"warning":"knight_skid","release":"knight_lance","impact":"knight_hit_lance"},
  "knight:rear":{"warning":"knight_neigh","release":"knight_hoof_slam","impact":"knight_hit_hoof"},
  "knight:kick":{"warning":"knight_armor","release":"knight_kick","impact":"knight_hit_kick"},

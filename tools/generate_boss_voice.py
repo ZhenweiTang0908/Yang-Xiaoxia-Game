@@ -129,6 +129,7 @@ def main():
     parser.add_argument('--samples', action='store_true')
     parser.add_argument('--efforts', action='store_true', help='Generate short combat exertions only')
     parser.add_argument('--legacy', action='store_true', help='Make only missing local classic recordings; no API calls')
+    parser.add_argument('--only', default='', help='Comma-separated identities such as knight_effort_aha; others are skipped')
     args = parser.parse_args()
     catalog = json.loads((ROOT/'data/voice/boss_dialogue.json').read_text())
     cache = Path(args.cache);cache.mkdir(parents=True, exist_ok=True)
@@ -138,6 +139,8 @@ def main():
     for boss, bank in catalog['bosses'].items():
         for line, text in (bank['efforts'] if args.efforts else bank['lines']).items():
             if args.samples and line != 'intro':
+                continue
+            if args.only and boss+'_'+line not in args.only.split(','):
                 continue
             jobs.append((boss, line, text, bank['voice']))
     if args.legacy:

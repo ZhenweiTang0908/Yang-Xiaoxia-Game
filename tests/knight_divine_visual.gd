@@ -18,7 +18,7 @@ func run():
  game=load("res://scenes/main.tscn").instantiate();root.add_child(game);game.qa_mode=true;game.progress=game.SAVE.defaults();game.tuning.reset();game.start_challenge(4,2);await process_frame
  game.world.visible=true;game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.combat.set_physics_process(false);game.summon.set_physics_process(false);game.fx.set_process(false)
  k=game.boss;k.set_physics_process(false)
- reset();k.soul.rage=2;k.soul.release_ready=true;k.choose();step(1.50);await shot("regiment")
+ reset();k.soul.rage=3;k.soul.release_ready=true;k.choose();step(1.50);await shot("regiment")
  step(.35);await shot("regiment-rush")
  reset();k.soul.rage=3;k.weapon="bow";k.choose();step(.8);await shot("eagle-draw")
  step(.43);await shot("eagle-release")

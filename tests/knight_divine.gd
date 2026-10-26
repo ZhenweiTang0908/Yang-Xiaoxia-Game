@@ -33,7 +33,16 @@ func run():
  for i in 20:k.begin("thrust",.45)
  verify(not k.empowered and k.soul.rage==1,"starting attacks does not reroll a held cell")
  k.soul.absorb(96,.74);verify(k.soul.ready_cells()==2,"second completed cell can request a two-cell release")
- k.choose();verify(k.action=="soul_legion" and k.soul.rage==0,"two cells summon the ghost regiment")
+ seed(4410);var legions=0;var empowered=0;var spent_one=true
+ for i in 200:
+  k.soul.rage=2;k.soul.release_ready=true;k.action="";k.pending="";k.history=[];k.empowered=false;k.queued_empower=false;k.sets_since_wave=0;k.choose()
+  if k.action=="soul_legion":
+   legions+=1;spent_one=spent_one and k.soul.rage==0
+  elif k.empowered or k.queued_empower:
+   empowered+=1;spent_one=spent_one and k.soul.rage==1
+ verify(spent_one,"regiment consumes all rage; the other branch spends exactly one cell")
+ verify(legions>75 and legions<125 and legions+empowered==200,"two cells summon about half the time, otherwise empower ("+str(legions)+"/"+str(empowered)+")")
+ reset();k.soul.rage=3;k.soul.release_ready=true;k.choose();verify(k.action=="soul_legion" and k.soul.rage==0,"full rage summons the ghost regiment")
  step(1.01)
  verify(k.action=="" and k.soul.legion.size()==7,"boss releases its summon action while seven soldiers remain")
  verify(k.soul.legion.filter(func(u):return u.kind=="archer").size()==3 and k.soul.legion.filter(func(u):return u.kind=="spear").size()==3 and k.soul.legion.filter(func(u):return u.kind=="blade").size()==1,"regiment has three archers, three spears and one blade")
@@ -57,19 +66,12 @@ func run():
  verify(game.player.health==88,"blade's single swing cannot hit twice")
  reset();k.soul.absorb(96,.99);k.soul.absorb(96,.99);verify(not k.soul.release_ready,"two high rolls retain two cells")
  k.soul.absorb(96,.99);verify(k.soul.ready_cells()==3,"third cell always releases regardless of roll")
- k.weapon="spear";k.choose();verify(k.action=="soul_legion" and k.legion_strong and k.soul.rage==0,"three cells summon the reinforced regiment instead of the old eagle")
+ k.weapon="spear";k.choose();verify(k.action=="soul_legion" and k.soul.rage==0,"three cells always summon the regiment")
  var ally=ally_active();var hero_hp=game.player.health
  step(1.01)
- var strong=k.soul.legion
- verify(strong.size()==9 and strong.filter(func(u):return u.kind=="spear").size()==4 and strong.filter(func(u):return u.kind=="blade").size()==2,"reinforced regiment adds a fourth spear and a second blade")
- verify(strong.all(func(u):return u.strong and is_equal_approx(k.soul.unit_damage(u),14)),"reinforced units are empowered and strike for 14")
+ var full=k.soul.legion
+ verify(full.size()==7 and full.all(func(u):return is_equal_approx(k.soul.unit_damage(u),12)),"a full bar calls the ordinary seven-unit regiment, no reinforced form")
  verify(game.summon.phase=="active" and game.summon.brother==ally and game.player.health==hero_hp,"regiment arrival neither recalls the ally nor deals fixed arena damage")
- reset();game.player.facing=1;k.soul.begin_legion(true)
- k.soul.legion=k.soul.legion.filter(func(u):return u.kind=="blade")
- k.soul.advance(1.3);var first=k.soul.legion[0];var second=k.soul.legion[1]
- verify(first.locked and first.p.x<game.player.position.x and not second.locked,"first reinforced blade appears behind the hero")
- k.soul.advance(.6)
- verify(second.locked and second.p.x>game.player.position.x,"second blade arrives later in front of the hero")
  verify(not "soul_eagle_burst" in k.TITLES,"arena-wide eagle has been retired")
  reset();k.begin("lunge",k.prep_for("lunge"));verify(is_equal_approx(k.windup,k.cfg("knight_lunge_windup")),"dash wind-up keeps its original reaction window")
  step(k.prep_for("lunge")+.02)

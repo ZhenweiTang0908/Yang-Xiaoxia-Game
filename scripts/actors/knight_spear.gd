@@ -56,6 +56,7 @@ func release(index):
  k.game.fx.burst(k.position+Vector2(k.lock_dir*65,-4),4,Color("b7a888"),45)
  if k.empowered and index==beats_last() and k.action!="dragon_break":
   k.game.fx.burst(k.position+Vector2(k.lock_dir*110,-38),6,Color("acdce6"),65)
+  k.soul.queue_soldiers()
 func beats_last():return times(actor.action).size()-1
 func pose(id,at):
  var beats=times(id);var index=0

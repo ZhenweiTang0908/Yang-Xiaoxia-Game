@@ -408,7 +408,16 @@
       "performance": "中文游戏BOSS角色配音。披重甲的战场统帅，低沉有力、带压迫感与怒意，胸腔共鸣，重读威胁词，进攻台词果断短促。 禁止平静播报、朗读腔；只念输入的台词，不念任何指导，不加词。保持清晰，留出短停顿，避免全句持续尖叫。",
       "efforts": {
         "effort_ha": "哈！",
-        "effort_ah": "啊！"
+        "effort_ah": "啊！",
+        "effort_aha": "啊哈！",
+        "effort_he": "喝！",
+        "effort_hei": "嘿！",
+        "effort_heng": "哼！",
+        "effort_ya": "呀！",
+        "effort_zhe": "着！",
+        "effort_kanqiang": "看枪！",
+        "effort_po": "破！",
+        "effort_qi": "起！"
       }
     }
   }

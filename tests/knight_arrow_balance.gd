@@ -35,7 +35,7 @@ func run():
   actual_hit(ghosts[0],8 if strong else 6)
   reset();k.empowered=strong;k.soul.begin_legion();k.soul.advance_legion(1.4)
   var arrows=game.combat.shots.filter(func(s):return s.kind in ["soul_arrow","soul_eagle"])
-  verify(arrows.size()==3 and arrows.all(func(s):return s.damage==(8 if strong else 6)),"all three summoned archers use the matching arrow damage")
+  verify(arrows.size()==3 and arrows.all(func(s):return s.damage==6),"summoned archers always shoot ordinary 6-damage arrows")
  reset();game.summon.request();game.summon.brother.set_physics_process(false);game.summon.phase="active";game.summon.remaining=30
  game.summon.arrow_hit();verify(game.summon.phase=="active" and game.summon.remaining==22,"present ally still loses eight seconds rather than being sealed")
  reset();game.summon.seal(10);game.summon.arrow_hit();verify(game.summon.sealed==10,"arrow cannot shorten the dismount seal")

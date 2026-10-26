@@ -31,6 +31,11 @@ func ready_cells():
 	return int(floor(rage+.00001)) if release_ready or rage>=2.999 else 0
 func spend():
 	rage=0;release_ready=false
+func spend_cell():
+	# Two ready cells may pay for one empowered attack; the other cell stays charged.
+	rage=maxf(0,rage-1.0);empowered_count+=1
+	actor.game.fx.burst(actor.position-Vector2(0,65),9,Color("c0a5e9"),70)
+	actor.sound("guard",-2)
 func consume():
 	if ready_cells()!=1:return false
 	spend();empowered_count+=1
@@ -45,6 +50,7 @@ func queue_echo():
 	var at=Vector2(x,actor.GROUND-190)
 	var target=p.position+Vector2(clampf(p.velocity.x*.25,-80,80),-23)
 	if echoes.size()>=3:echoes.pop_front()
+	actor.sound("ghost_rise",-4)
 	echoes.append({"p":at,"aim":(target-at).normalized(),"age":0.0,"fired":false,"strong":actor.empowered})
 func queue_soldiers():
 	for i in 2:
@@ -71,32 +77,34 @@ func advance(dt):
 	for soldier in soldiers:
 		soldier.delay-=dt
 		if soldier.delay<=0:
+			actor.sound("ghost_glide",-3)
 			var shot=actor.game.combat.fire(soldier.p,Vector2(soldier.dir*560,0),actor.scaled_damage(10),"enemy","soul_soldier",{"owner":actor.get_instance_id(),"life":.9,"radius":24,"variant":soldier.variant})
 			shot.attack_sound="knight:phantom"
 			actor.game.audio.enemy_cue("knight:phantom","release",-5)
 	soldiers=soldiers.filter(func(soldier):return soldier.delay>0)
 	queue_redraw()
-# The reinforced regiment (full three-cell rage) adds a fourth spear and a second
-# blade that arrives in front of the hero later; every unit still telegraphs and
-# strikes on its own, so there is never an unavoidable arena-wide hit.
-func begin_legion(strong=false):
+# Three archers, three charging spears and one blade behind the hero; every unit
+# telegraphs and strikes on its own, so there is never an unavoidable arena-wide hit.
+func begin_legion():
 	var hero=actor.game.player
 	var left=actor.arena.position.x+45;var right=actor.arena.end.x-45
-	var spears=4 if strong else 3
-	var blades=2 if strong else 1
-	for i in 3+spears+blades:
+	var spears=3
+	for i in 3+spears+1:
 		var kind="archer" if i<3 else ("spear" if i<3+spears else "blade")
-		var side=-1.0 if i<3+spears+1 else 1.0
+		var side=-1.0
 		var x=lerpf(left,right,(float(i%3)+.5)/3.0)
 		if kind=="spear":x=clampf(hero.position.x-actor.arena.size.x*.38+float(i-3)*64,left,right)
 		if kind=="blade":x=clampf(hero.position.x+side*hero.facing*85,left,right)
 		var ground=Vector2(x,actor.GROUND-38)
 		var age=-.09*i-(.45 if side>0 else 0.0)
-		legion.append({"p":ground-Vector2(0,110),"ground":ground,"age":age,"kind":kind,"strong":strong or actor.empowered,"side":side,"dir":1.0,"aim":Vector2.RIGHT,"hits":0,"locked":false,"travel":0.0,"box":null})
+		legion.append({"p":ground-Vector2(0,110),"ground":ground,"age":age,"kind":kind,"side":side,"dir":1.0,"aim":Vector2.RIGHT,"hits":0,"locked":false,"travel":0.0,"box":null})
 func advance_legion(dt):
 	for unit in legion:
 		unit.age+=dt
 		if unit.age<0:continue
+		if unit.age-dt<=0:actor.sound("ghost_rise",-5)
+		var fade_at=3.25 if unit.kind=="archer" else 1.95
+		if unit.age>=fade_at and unit.age-dt<fade_at:actor.sound("ghost_fade",-6)
 		unit.p.y=lerpf(unit.ground.y-110,unit.ground.y,smoothstep(0,.5,unit.age))
 		if unit.kind=="archer":
 			for i in 3:
@@ -107,12 +115,13 @@ func advance_legion(dt):
 					if unit.age-dt<release-.18:unit.aim=(target-unit.p).normalized()
 				if unit.age>=release and unit.hits==i:
 					unit.hits+=1
-					var shot=actor.game.combat.fire(unit.p,unit.aim*510,(EMPOWERED_ARROW_DAMAGE if unit.strong else ARROW_DAMAGE),"enemy","soul_eagle" if unit.strong else "soul_arrow",{"owner":actor.get_instance_id(),"life":2.2})
-					shot.empowered=unit.strong;shot.radius=17 if unit.strong else 13
+					var shot=actor.game.combat.fire(unit.p,unit.aim*510,ARROW_DAMAGE,"enemy","soul_arrow",{"owner":actor.get_instance_id(),"life":2.2})
+					shot.radius=13
 					shot.attack_sound="knight:soul_arrow";actor.game.audio.enemy_cue(shot.attack_sound,"release",-6)
 		elif unit.kind=="spear":
 			if unit.age>=.8 and not unit.locked:
 				unit.locked=true;unit.dir=1.0 if actor.game.player.position.x>unit.p.x else -1.0
+				actor.sound("ghost_glide",-4)
 				actor.game.audio.enemy_cue("knight:phantom","warning",-6)
 			var overlap=maxf(0,minf(unit.age,1.9)-maxf(unit.age-dt,1.15))
 			if overlap>0:
@@ -132,7 +141,7 @@ func advance_legion(dt):
 				var hero=actor.game.player
 				unit.p.x=clampf(hero.position.x+unit.get("side",-1.0)*hero.facing*70,actor.arena.position.x+25,actor.arena.end.x-25)
 				unit.dir=1.0 if hero.position.x>unit.p.x else -1.0
-				actor.game.fx.blink_fold(unit.p,true,Color("b299e4"));actor.game.audio.enemy_cue("knight:phantom","warning",-4)
+				actor.game.fx.blink_fold(unit.p,true,Color("b299e4"));actor.sound("ghost_glide",-3);actor.game.audio.enemy_cue("knight:phantom","warning",-4)
 			if unit.age>=1.05 and unit.hits==0:
 				unit.hits=1
 				var a=unit.p.x;var b=a+unit.dir*112
@@ -140,7 +149,7 @@ func advance_legion(dt):
 				box.invisible=true;box.sounded=true;box.attack_sound="knight:phantom"
 				actor.game.fx.slash(unit.p,unit.dir,Color("c3a1fb"),62);actor.game.audio.enemy_cue("knight:phantom","release",-3)
 	legion=legion.filter(func(unit):return unit.age<(3.65 if unit.kind=="archer" else 2.35))
-func unit_damage(unit):return 14.0 if unit.strong else 12.0
+func unit_damage(_unit):return 12.0
 func draw_sprite(index,at,dir,height,alpha):
 	var texture=textures[index];var size=texture.get_size();var scale=height/size.y
 	draw_set_transform(at,0,Vector2(-dir,1))

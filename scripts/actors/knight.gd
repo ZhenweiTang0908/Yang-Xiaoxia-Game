@@ -22,12 +22,13 @@ const KICK_FOLLOWUP=.85
 const BOW_FOLLOWUP=.9
 # Dash-in techniques hit slightly harder; their wind-up times stay unchanged.
 const DASH_DAMAGE=1.08
+const WAVE_DIRECT_CHANCE=.07
 const PRESSURE_MOVES=["spin_rush","spear_return","triple_dash","bow_volley","spear_slam"]
 const SPEAR=preload("res://scripts/actors/knight_spear.gd")
 const DIALOGUE=preload("res://scripts/core/knight_dialogue.gd")
-const LONG_COMBOS=["advance","kick_thrust","bow_double","wave","spin_rush","triple_dash","bow_volley","spear_chain","dragon_sweep","dragon_rise","dragon_break"]
+const LONG_COMBOS=["double_charge","advance","kick_thrust","bow_double","wave","spin_rush","triple_dash","bow_volley","spear_chain","dragon_sweep","dragon_rise","dragon_break"]
 const NEW_MOVES=["advance","uppercut","lunge","kick_thrust","bow_double"]
-const SOUNDS={"paw":"knight_hoof_paw","gallop":"knight_gallop","neigh":"knight_neigh","skid":"knight_skid","stomp":"knight_hoof_slam","kick":"knight_kick","armor":"knight_armor","lance":"knight_lance","press":"knight_butt","thrust":"knight_thrust","wave_raise":"knight_wave_raise","wave":"knight_wave","bow_draw":"knight_bow_draw","bow_shot":"knight_bow_release","guard":"knight_guard","clang":"knight_parry","switch":"knight_switch","dust":"knight_dust","land":"knight_land"}
+const SOUNDS={"paw":"knight_hoof_paw","gallop":"knight_gallop","neigh":"knight_neigh","skid":"knight_skid","stomp":"knight_hoof_slam","kick":"knight_kick","armor":"knight_armor","lance":"knight_lance","press":"knight_butt","thrust":"knight_thrust","wave_raise":"knight_wave_raise","wave":"knight_wave","bow_draw":"knight_bow_draw","bow_shot":"knight_bow_release","guard":"knight_guard","clang":"knight_parry","switch":"knight_switch","dust":"knight_dust","land":"knight_land","snort":"knight_snort","step_a":"knight_armor_step_a","step_b":"knight_armor_step_b","ghost_summon":"knight_ghost_summon","ghost_rise":"knight_ghost_rise","ghost_glide":"knight_ghost_glide","ghost_fade":"knight_ghost_fade"}
 var game
 var spec
 var kind="boss"
@@ -96,7 +97,11 @@ var empowered=false
 var ancient_pending=null
 var ancient_target=null
 var flight_from=Vector2.ZERO
-var legion_strong=false
+var queued_empower=false
+var foot_travel=0.0
+var step_clock=0.0
+var step_side=0
+var snort_clock=3.0
 var motion_trail=[]
 var trail_clock=0.0
 func setup(world,id,x):
@@ -114,12 +119,13 @@ func _ready():
 	spear=SPEAR.new();spear.actor=self
 func sound(key,volume=-4.0):
 	if not SOUNDS.has(key):return
-	var warning=key in ["paw","armor","wave_raise","bow_draw","guard","switch"]
+	var warning=key in ["paw","armor","wave_raise","bow_draw","guard","switch","snort","step_a","step_b","ghost_rise","ghost_glide","ghost_fade"]
 	game.audio.physical_cue(SOUNDS[key],"warning" if warning else "release",volume+(6 if warning else 0))
 func move_sound(stage,volume=0.0):
 	game.audio.enemy_cue("knight:"+action,stage,volume)
-	if stage=="release" and action in ["charge","rein","lunge","spin_rush","triple_dash","advance","uppercut","kick_thrust","spear_slam","spear_chain","dragon_sweep","dragon_rise","dragon_break"]:
-		game.audio.exertion("knight")
+# A short battle shout on most blows, throttled by the audio director.
+func shout(chance=.8):
+	if randf()<chance:game.audio.exertion("knight")
 func enter_foot_challenge():
 	phase=2;landed=true;body_height=106;radius=24;weapon="spear"
 	hp=cfg("knight_foot_hp");max_hp=hp;horse_away=-1;idle=.4
@@ -182,7 +188,19 @@ func _physics_process(dt):
 	trail_clock+=dt
 	if absf(position.x-old_position)>dt*250 and trail_clock>=.04 and visual.selected:
 		motion_trail.append({"x":position.x,"age":0.0,"dir":facing,"art":visual.selected,"frame":visual.selected_frame});trail_clock=0
+	foot_sounds(dt,old_position)
 	queue_redraw()
+# Armour clinks while walking on foot; the horse snorts while it waits.
+func foot_sounds(dt,old_position):
+	step_clock=maxf(0,step_clock-dt)
+	if phase==2 and landed and dismount_t<0:
+		foot_travel+=absf(position.x-old_position)
+		if foot_travel>=40 and step_clock<=0:
+			foot_travel=0;step_clock=.17;step_side=1-step_side
+			sound("step_a" if step_side==0 else "step_b",-8)
+	elif phase==1 and action=="":
+		snort_clock-=dt
+		if snort_clock<=0:snort_clock=randf_range(3.5,6.5);sound("snort",-7)
 # ---------------------------------------------------------------- selection
 func idle_tick(dt):
 	idle-=dt;recover_time+=dt
@@ -215,34 +233,27 @@ func without_chained_combos(options):
 		return options.filter(func(id):return id not in LONG_COMBOS)
 	return options
 func choose():
+	if phase==1:
+		choose_mounted();return
 	if is_instance_valid(ancient_pending):
 		var ally=ancient_pending
 		ancient_pending=null
 		if not ally.dead and game.summon.phase=="active" and ally==game.summon.brother and ally.pinned_left<=0:
 			ancient_target=weakref(ally);start_move("ancient_spear");return
 	var cells=soul.ready_cells()
-	# Two cells call the ghost regiment; a full three-cell bar calls its reinforced form.
-	if cells>=2:
+	# A full bar always calls the ghost regiment; two cells call it half the time,
+	# otherwise one cell is spent to empower an ordinary attack.
+	if cells>=3 or (cells==2 and randf()<.5):
 		face_target();start_move("soul_legion");return
-	var dx=target_dx();var dist=absf(dx);var front=dx*facing>=0
-	if phase==1:
-		if not front and dist<125:
-			if behind_time>=.6 and allowed("kick"):start_move("kick")
-			elif behind_time>=.6:start_move("charge")
-			else:idle=.6-behind_time
-			return
-		if not front:turn(.3);idle=.35;return
-		var options=["butt","rear","advance"] if dist<100 else (["rear","advance","advance","charge"] if dist<210 else ["charge"])
-		if dist<190:
-			options.append("uppercut")
-			if target_node().position.y<GROUND-32:options.append("uppercut")
-		options=without_chained_combos(options)
-		start_move(pick(options))
-		return
+	if cells==2:soul.spend_cell();queued_empower=true
+	var dist=absf(target_dx())
 	face_target()
+	# The spear-wave set can open any exchange, at any range, but never twice in a row.
+	if sets_since_wave>=1 and randf()<WAVE_DIRECT_CHANCE:
+		start_move("wave");return
 	var options=[]
-	if dist<75:options=["butt_spin","thrust","guard","kick_thrust","spear_slam","spear_chain","dragon_sweep"]
-	elif dist<155:options=["thrust","guard","kick_thrust","spear_slam","lunge","spear_chain","dragon_rise","dragon_sweep"]
+	if dist<75:options=["butt_spin","thrust","guard","kick_thrust","spear_slam","spear_chain","dragon_sweep","wave"]
+	elif dist<155:options=["thrust","guard","kick_thrust","spear_slam","lunge","spear_chain","dragon_rise","dragon_sweep","wave"]
 	elif dist<310:options=["lunge","spin_rush","triple_dash","spear_return","bow_double","wave","dragon_break"]
 	else:options=["spin_rush","triple_dash","spear_return","bow_volley","bow_double","bow","wave","dragon_break"]
 	if target_node().position.y<GROUND-50 and dist<200:options.append("dragon_rise")
@@ -251,7 +262,26 @@ func choose():
 	if sets_since_wave<1:options=options.filter(func(id):return id!="wave")
 	options=without_chained_combos(options)
 	start_move(pick(options))
-const TITLES={"charge":"骑枪掠袭","rein":"勒马折返","rear":"前蹄重踏","kick":"后蹄蹬踢","butt":"枪柄压击","thrust":"测距点刺","butt_spin":"枪尾回敲","guard":"绞枪架势","counter":"绞枪反刺","wave":"三叠枪气","bow":"定弦直射","switch":"换持武器","stagger":"架势被破","advance":"三步逼阵","uppercut":"回缰挑枪","lunge":"贯甲进刺","kick_thrust":"蹬踢接刺","bow_double":"退步双矢","spin_rush":"旋枪破阵","spear_return":"回锋掷矛","triple_dash":"三折追刺","bow_volley":"追猎三矢","spear_slam":"踏进重挑","soul_legion":"幽军降阵","ancient_spear":"上古镇魂枪","spear_chain":"刺进连挑","dragon_sweep":"蛟龙扫阵","dragon_rise":"伏龙旋挑","dragon_break":"龙王破阵"}
+# Mounted duel: hooves, lance and horse only. Rage, ghosts and spear waves wait
+# for the foot phase.
+func choose_mounted():
+	var dx=target_dx();var dist=absf(dx);var front=dx*facing>=0
+	if not front and dist<125:
+		if behind_time>=.6 and allowed("kick"):start_move("kick")
+		elif behind_time>=.6:start_move("charge")
+		else:idle=.6-behind_time
+		return
+	if not front:turn(.3);idle=.35;return
+	var options=[]
+	if dist<100:options=["butt","rear","advance","trample"]
+	elif dist<210:options=["rear","advance","charge","trample","halt_thrust"]
+	else:options=["charge","double_charge","halt_thrust","trample"]
+	if dist<190:
+		options.append("uppercut")
+		if target_node().position.y<GROUND-32:options.append("uppercut")
+	options=without_chained_combos(options)
+	start_move(pick(options))
+const TITLES={"charge":"骑枪掠袭","double_charge":"往返冲杀","halt_thrust":"急停突刺","trample":"冲阵踏蹄","rein":"勒马折返","rear":"前蹄重踏","kick":"后蹄蹬踢","butt":"枪柄压击","thrust":"测距点刺","butt_spin":"枪尾回敲","guard":"绞枪架势","counter":"绞枪反刺","wave":"三叠枪气","bow":"定弦直射","switch":"换持武器","stagger":"架势被破","advance":"三步逼阵","uppercut":"回缰挑枪","lunge":"贯甲进刺","kick_thrust":"蹬踢接刺","bow_double":"退步双矢","spin_rush":"旋枪破阵","spear_return":"回锋掷矛","triple_dash":"三折追刺","bow_volley":"追猎三矢","spear_slam":"踏进重挑","soul_legion":"幽军降阵","ancient_spear":"上古镇魂枪","spear_chain":"刺进连挑","dragon_sweep":"蛟龙扫阵","dragon_rise":"伏龙旋挑","dragon_break":"龙王破阵"}
 func weapon_for(id):return "bow" if id in ["bow","bow_double","bow_volley"] else "spear"
 func start_move(id):
 	if phase==2 and weapon_for(id)!=weapon:
@@ -267,6 +297,9 @@ func prep_for(id):
 	match id:
 		"charge":return cfg("knight_charge_windup")
 		"rein":return cfg("knight_turn_windup")
+		"double_charge":return cfg("knight_charge_windup")+.1
+		"halt_thrust":return .6
+		"trample":return .55
 		"rear":return cfg("knight_rear_windup")
 		"kick":return cfg("knight_kick_windup")
 		"butt":return cfg("knight_butt_windup")
@@ -279,8 +312,8 @@ func prep_for(id):
 	return 0.0
 func begin(id,prep,record=true):
 	empowered=false
-	if id=="soul_legion":legion_strong=soul.ready_cells()>=3;soul.spend()
-	elif id not in ["switch","stagger","guard","ancient_spear"]:empowered=soul.consume()
+	if id=="soul_legion":soul.spend();queued_empower=false
+	elif phase==2 and id not in ["switch","stagger","guard","ancient_spear"]:empowered=queued_empower or soul.consume();queued_empower=false
 	if id in NEW_MOVES or id in PRESSURE_MOVES or id in SPEAR.MOVES or id in ["bow","wave"]:prep=prep_for(id)
 	if id=="ancient_spear":
 		end_box();flight_from=position;game.audio.enemy_cue("knight:"+id,"warning",-3)
@@ -322,6 +355,7 @@ func scaled_damage(amount):
 	return amount*cfg("knight_damage_scale")
 func strike(rect,duration,damage,source,seal=0.0):
 	var h=game.combat.hazard(rect,0,duration,scaled_damage(damage)*(1.12 if empowered else 1.0),get_instance_id(),source)
+	shout()
 	h.invisible=true;h.sounded=true;h.seal=seal
 	return h
 func travel_interval(dt,start,end,speed,dir):
@@ -331,20 +365,23 @@ func travel_interval(dt,start,end,speed,dir):
 # ---------------------------------------------------------------- additional physical techniques
 func act_advance(dt):
 	var prep=prep_for("advance")
-	for i in 3:
+	# Empowered: a fourth step closes the gap the hero opened.
+	var steps=4 if empowered else 3
+	for i in steps:
 		var at=prep+i*ADVANCE_GAP
 		travel_interval(dt,at-.18,at,28.0/.18,lock_dir)
 		if i>0 and once("step_ready"+str(i),at-.3):windup=.3;move_sound("warning",-5)
 		if once("step"+str(i),at):
 			strike(span(22,100,42,0,lock_dir),.12,cfg("knight_advance_damage"),"knight_advance")
 			move_sound("release");game.fx.burst(position+Vector2(lock_dir*65,-2),5,Color("9b8a70"),48)
-	if t>=prep+2*ADVANCE_GAP+.18:finish(.95)
+	if t>=prep+(steps-1)*ADVANCE_GAP+.18:finish(.95)
 func act_uppercut(dt):
 	var prep=prep_for("uppercut")
 	travel_interval(dt,0,.3,180,-lock_dir)
 	if once("lift",prep):
 		strike(span(10,154,168,48,lock_dir),.12,cfg("knight_uppercut_damage"),"knight_uppercut")
 		move_sound("release")
+		if empowered:soul.queue_soldiers()
 	if t>=prep+.16:finish(1.0)
 func approach_interval(dt,start,end,speed,dir,stop_distance):
 	var overlap=maxf(0,minf(t,end)-maxf(t-dt,start))
@@ -382,6 +419,7 @@ func act_spin_rush(dt):
 	var prep=prep_for("spin_rush")
 	lock_for_dash("lock",prep-.24)
 	dash_strike(dt,prep,.64,cfg("knight_spin_speed")*(1.12 if empowered else 1.0),cfg("knight_spin_rush_damage"),"spin",92,100,4)
+	if empowered and once("echo",prep):soul.queue_echo()
 	if t>=prep and t<prep+.64:
 		if once("spin_sound"+str(int((t-prep)/.16)),prep):sound("lance",-4)
 	if t>=prep+.78:finish(.85)
@@ -405,7 +443,8 @@ func act_spear_return(dt):
 	if once("throw",prep):
 		game.combat.fire(position+Vector2(lock_dir*42,-32),Vector2(lock_dir*cfg("knight_throw_speed"),0),scaled_damage(cfg("knight_spear_return_damage")),"enemy","knight_spear",{"owner":get_instance_id(),"life":3.2,"returning":true,"return_after":.72,"radius":31 if empowered else 24})
 		game.combat.shots[-1].empowered=empowered
-		move_sound("release");pressure_flash("throw",.28)
+		move_sound("release");pressure_flash("throw",.28);shout(1.0)
+		if empowered:soul.queue_echo()
 	if t>prep+.3 and not spear_in_flight():
 		if once("catch",prep):catch_flash=.24;sound("armor",-2);pressure_flash("catch",.3)
 		finish(.55)
@@ -455,6 +494,7 @@ func act_kick_thrust(dt):
 	if once("follow",second):
 		strike(span(12,142,43,15,lock_dir),.1,cfg("knight_kick_thrust_damage")*2,"knight_follow_thrust")
 		sound("thrust",-3)
+		if empowered:soul.queue_soldiers()
 	if t>=second+.15:finish(.85)
 func aim_bow():
 	face_target()
@@ -467,21 +507,69 @@ func aim_bow():
 	aim=Vector2(cos(angle)*facing,sin(angle))
 func release_arrow(identity,spread=0.0):
 	var shot=game.combat.fire(bow_origin(),aim.rotated(spread)*(EMPOWERED_ARROW_SPEED if empowered else ARROW_SPEED),(EMPOWERED_ARROW_DAMAGE if empowered else ARROW_DAMAGE),"enemy","knight_arrow",{"owner":get_instance_id(),"life":2.2})
+	shout(.5)
 	shot.seal=cfg("knight_hit_seal");shot.attack_sound=identity;shot.empowered=empowered;shot.radius=19 if empowered else 13
 	soul.queue_echo()
 func act_bow_double(dt):run_bow(dt,"bow_double")
 # ---------------------------------------------------------------- mounted
-func act_charge(dt):run_lance(dt,cfg("knight_charge_windup"),.9,true)
+func act_charge(dt):run_lance(dt,cfg("knight_charge_windup"),.9,.75)
+func act_double_charge(dt):run_lance(dt,prep_for("double_charge"),.9,1.0)
+# Gallop at the rider and stop short; true once halted (target reached, distance run or wall).
+func gallop(dt,prep,max_travel,stop_gap):
+	if fired.has("halt"):return true
+	if t<prep:
+		if once("paw2",prep*.5):sound("paw",-7)
+		return false
+	if once("go",prep):speed=0;move.travel=0.0;sound("lance",-8)
+	speed=minf(640,speed+2600*dt)
+	var old_stride=stride
+	var step=minf(speed*dt,maxf(0,max_travel-move.travel))
+	var gap=target_dx()*lock_dir-stop_gap
+	if gap>=0:step=minf(step,gap)
+	position.x+=lock_dir*step;move.travel+=step;stride+=dt*speed/38
+	for contact in [0.0,.41,.52,.89]:
+		if floorf(old_stride/TAU-contact)<floorf(stride/TAU-contact):sound("gallop",-7)
+	var limit=arena.end.x-margin() if lock_dir>0 else arena.position.x+margin()
+	var walled=(lock_dir>0 and position.x>=limit) or (lock_dir<0 and position.x<=limit)
+	if walled or gap<=step or move.travel>=max_travel-.01:
+		fired.halt=true;stop_t=t;speed=0;sound("skid",-5)
+		game.fx.burst(position+Vector2(lock_dir*30,-4),6,Color("8a8478"),60)
+		return true
+	return false
+func act_halt_thrust(dt):
+	var prep=prep_for("halt_thrust")
+	if t<prep:face_target();lock_dir=facing
+	if not gallop(dt,prep,420,95):return
+	# A visible half-second brace after the skid, then the lance drives forward.
+	var at=stop_t+.38
+	if once("brace",stop_t):windup=.38;sound("armor",-6)
+	if once("hit",at):
+		position.x+=lock_dir*20;strike(span(20,180,58,12,lock_dir),.12,24,"knight_lance");sound("thrust",-2)
+		strike_fx.append({"kind":"thrust","age":0.0,"life":.16,"dir":lock_dir,"x":position.x})
+	if t>=at+.2:finish(.75)
+func act_trample(dt):
+	var prep=prep_for("trample")
+	if t<prep:face_target();lock_dir=facing
+	if once("body",prep):hit_box=strike(Rect2(),.8,16,"knight_hoof")
+	var halted=gallop(dt,prep,260,-40)
+	if hit_box!=null and not halted:hit_box.rect=span(-20,96,62,0,lock_dir)
+	if not halted:return
+	if once("rear",stop_t):end_box();windup=.3;sound("neigh",-5)
+	if once("stomp",stop_t+.3):
+		strike(span(25,135,36,0,lock_dir),.14,22,"knight_hoof");sound("stomp",-2);game.shake=maxf(game.shake,3.5)
+		game.fx.burst(position+Vector2(lock_dir*85,-3),9,Color("8a8478"),75)
+	if t>=stop_t+.5:finish(.85)
 func act_rein(dt):
 	var prep=cfg("knight_turn_windup")
 	if once("turn",prep*.55):facing=-facing;lock_dir=facing;turn_anim=.22;turn_total=.22;sound("skid",-6)
-	run_lance(dt,prep,1.1,false)
-func run_lance(dt,prep,recover,may_turn):
+	run_lance(dt,prep,1.1,0.0)
+func run_lance(dt,prep,recover,turn_chance):
 	if t<prep:
 		if once("paw2",prep*.5):sound("paw",-7)
 		return
 	if once("run",prep):
 		hit_box=strike(Rect2(),30.0,lance_damage,"knight_lance");sound("lance",-6)
+		if empowered:soul.queue_echo()
 	if not fired.has("stop"):
 		speed=minf(680,speed+2800*dt)
 		var old_tip=position.x+lock_dir*lance_reach()
@@ -500,10 +588,11 @@ func run_lance(dt,prep,recover,may_turn):
 			fired.stop=true;stop_t=t;end_box();sound("skid",-5)
 			game.fx.burst(position+Vector2(lock_dir*30,-4),6,Color("8a8478"),60)
 		return
-	if may_turn:
+	if turn_chance>0:
 		var dx=target_dx()
-		# At most one reverse charge follows the first, and only when the rider overshot.
-		if dx*lock_dir<0 and absf(dx)>90 and randf()<.75:begin("rein",prep_for("rein"));return
+		# At most one reverse charge follows the first: always for the double charge,
+		# otherwise only when the rider overshot.
+		if turn_chance>=1.0 or (dx*lock_dir<0 and absf(dx)>90 and randf()<turn_chance):begin("rein",prep_for("rein"));return
 	if t-stop_t>=.05:finish(recover)
 func lance_reach():return 118.0
 func act_rear(dt):
@@ -511,21 +600,27 @@ func act_rear(dt):
 	approach_interval(dt,prep-.22,prep,480,facing,85)
 	if once("hit",prep):
 		strike(span(30,125,34,0),.14,22,"knight_hoof");sound("stomp",-2);game.shake=maxf(game.shake,3.0)
+		# Empowered: the stomp's shock also runs out behind the horse.
+		if empowered:strike(span(-20,-120,30,0),.14,16,"knight_hoof");game.fx.burst(position-Vector2(facing*70,3),8,Color("c0a5e9"),70)
 		game.fx.burst(position+Vector2(facing*80,-3),8,Color("8a8478"),70)
 	if t>=prep+.2:finish(.85)
 func act_kick(_dt):
 	var prep=cfg("knight_kick_windup")
-	if once("hit",prep):strike(span(-40,-125,44,0),.12,18,"knight_hoof");sound("kick",-3)
+	if once("hit",prep):
+		strike(span(-40,-125,44,0),.12,18,"knight_hoof");sound("kick",-3)
+		if empowered:soul.queue_echo()
 	if t>=prep+.16:finish(.7)
 func act_butt(dt):
 	var prep=cfg("knight_butt_windup")
 	approach_interval(dt,prep-.2,prep,500,facing,65)
-	if once("hit",prep):strike(span(16,92,70,0),.12,16,"knight_butt");sound("press",-3)
+	if once("hit",prep):
+		strike(span(16,92,70,0),.12,16,"knight_butt");sound("press",-3)
+		if empowered:soul.queue_soldiers()
 	if t>=prep+.14:finish(.55)
 # ---------------------------------------------------------------- dismount
 func begin_dismount():
 	position.y=GROUND
-	end_box();action="";windup=0;pending="";idle=0
+	end_box();action="";windup=0;pending="";idle=0;queued_empower=false
 	game.combat.remove_owner(get_instance_id());soul.clear_attacks()
 	speak_event("dismount",true)
 	dismount_t=0;landed=false;phase_shift=DISMOUNT_TOTAL;move={"id":"dismount","title":"下马"}
@@ -571,11 +666,14 @@ func thrust(prep,damage,source):
 	if t<prep-.2:face_target()
 	if once("hit",prep):
 		position.x+=facing*16;strike(span(12,142,40,16),.1,damage,source);sound("thrust",-3)
+		if empowered:soul.queue_soldiers()
 		strike_fx.append({"kind":"thrust","age":0.0,"life":.16,"dir":facing,"x":position.x})
 	if t>=prep+.12:finish(.6)
 func act_butt_spin(dt):
 	approach_interval(dt,.2,.5,500,facing,35)
-	if once("hit",.5):strike(span(-72,38,56,0),.12,16,"knight_butt");sound("press",-4)
+	if once("hit",.5):
+		strike(span(-72,38,56,0),.12,16,"knight_butt");sound("press",-4)
+		if empowered:soul.queue_soldiers()
 	if t>=.64:finish(.7)
 func act_guard(dt):
 	approach_interval(dt,0,.25,420,facing,75)
@@ -597,6 +695,7 @@ func wave_band():return Rect2(arena.position.x,GROUND-WAVE_HIGH,arena.size.x,WAV
 # do not pass through it; only lifting the feet above the band avoids it.
 func fire_wave(identity="knight:wave",damage=WAVE_DAMAGE):
 	var band=wave_band();var p=game.player
+	shout()
 	if is_instance_valid(p) and p.is_carried() and p.carried_by.hurt_rect().intersects(band):
 		# The low wave hits a grounded mount too. Seat height is not a jump.
 		p.carried_by.demon_controller.release_player()
@@ -609,10 +708,10 @@ func fire_wave(identity="knight:wave",damage=WAVE_DAMAGE):
 	wave_fx.append({"age":0.0,"dir":facing,"x":position.x+facing*92})
 	sound("wave",-2);game.shake=maxf(game.shake,2.0)
 func act_soul_legion(_dt):
-	if once("summon",.9):soul.begin_legion(legion_strong);sound("guard",-1)
+	if once("summon",.9):soul.begin_legion();sound("guard",-6);sound("ghost_summon",0);shout(1.0)
 	if t>=1.0:finish(.35)
 func on_ally_hit(ally,_identity="",forced_roll=-1.0):
-	if dead or not active_battle or dismount_t>=0 or not is_instance_valid(ally) or ally.dead:return false
+	if dead or not active_battle or phase==1 or dismount_t>=0 or not is_instance_valid(ally) or ally.dead:return false
 	if is_instance_valid(ancient_pending) or ancient_target!=null or ally.pinned_left>0:return false
 	var roll=randf() if forced_roll<0 else forced_roll
 	if roll>=.15:return false
@@ -655,7 +754,8 @@ func take_hit(amount,faction,direction,breaking=false,with_sound=true,with_debri
 			if not guard_triggered:guard_triggered=true;counter_pending=true
 			sound("clang",-4);game.fx.hit_mark(position+Vector2(facing*20,-70),direction,Color("f2e3b5"),1.0,"block")
 	var rage_damage=minf(amount,maxf(0,hp-(max_hp*.5 if phase==1 else 0)))
-	soul.absorb(rage_damage)
+	# Rage only gathers on foot; the mounted duel is purely physical.
+	if phase==2:soul.absorb(rage_damage)
 	hp-=amount;hurt=.12
 	if phase==2 and hp>0 and hp<max_hp*.3 and not low_spoken:low_spoken=speak_event("low")
 	game.fx.hit_mark(position-Vector2(0,body_height*.45),direction,game.GOLD,1.2)
