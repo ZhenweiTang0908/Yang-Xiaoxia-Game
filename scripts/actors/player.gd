@@ -2,6 +2,7 @@ extends CharacterBody2D
 signal health_changed(value)
 signal form_changed(active)
 const HEIGHT=38.0
+const WORLD_TOP_Z=4096
 const SPEED=225.0
 const JUMP_SPEED=520.0
 const GRAVITY=1080.0
@@ -75,7 +76,7 @@ var hurt_push=-1.0
 func _ready():
 	collision_layer=2; collision_mask=5; floor_snap_length=7
 	# The hero draws above bosses so an overlapping silhouette never disappears.
-	z_index=2
+	z_index=WORLD_TOP_Z
 	var shape=CollisionShape2D.new(); var capsule=CapsuleShape2D.new()
 	capsule.radius=8; capsule.height=HEIGHT
 	shape.shape=capsule; shape.position.y=-HEIGHT*.5; add_child(shape)
@@ -383,7 +384,7 @@ func is_carried():return is_instance_valid(carried_by)
 func attach_to(ally):
 	clear_commands();cancel_action()
 	carried_by=ally;collision_mask=0;velocity=Vector2.ZERO;dash_time=0;jump_buffer=0;charge=0
-	invincible=maxf(invincible,.2);edges.clear();z_index=5
+	invincible=maxf(invincible,.2);edges.clear();z_index=WORLD_TOP_Z
 func detach_from(at):
 	carried_by=null;position=at;game.scene_motion.reset(self);velocity=Vector2.ZERO;collision_mask=5
-	jump_buffer=0;drop_time=0;dash_time=0;invincible=maxf(invincible,.8);art.rotation=0;rider_art.hide();art.show();z_index=2
+	jump_buffer=0;drop_time=0;dash_time=0;invincible=maxf(invincible,.8);art.rotation=0;rider_art.hide();art.show();z_index=WORLD_TOP_Z
