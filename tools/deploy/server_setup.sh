@@ -63,8 +63,9 @@ server {
   add_header Strict-Transport-Security "max-age=31536000" always;
   add_header X-Content-Type-Options nosniff always;
   add_header Referrer-Policy no-referrer always;
-  # 导出文件名每次都一样，必须让浏览器每次校验，否则玩家会拿到旧版本。
-  add_header Cache-Control "no-cache" always;
+  # HTML and stable aliases revalidate; content-addressed assets can be reused.
+  set \$game_cache_control "no-cache";
+  add_header Cache-Control \$game_cache_control always;
 
   access_log /var/log/nginx/yang-daxia.access.log;
 
@@ -73,11 +74,18 @@ server {
 
   # index.wasm / index.pck / index.js 在发布时已预压缩为 .gz。
   gzip_static on;
+  gzip_vary on;
   gzip on;
   gzip_types text/css application/javascript application/json image/svg+xml;
 
   root $MOUNT/current;
   index index.html;
+
+  # Only content-addressed resources are immutable; HTML always revalidates.
+  location ~ "^/play/cache/[a-f0-9]{16}/" {
+    set \$game_cache_control "public, max-age=31536000, immutable";
+    try_files \$uri =404;
+  }
 
   location / {
     try_files \$uri \$uri/ =404;
@@ -200,6 +208,40 @@ if ! cert_has_domain; then
   dc exec -T nginx nginx -t
   dc exec -T nginx nginx -s reload
   log "证书已包含 $DOMAIN，HTTPS 站点已启用"
+fi
+
+# The lossy overseas path collapses CUBIC's congestion window. Keep BBR scoped
+# to the web container; host TCP defaults and the UDP VPN remain unchanged.
+if [[ "$(docker inspect "$(dc ps -q nginx)" --format '{{index .HostConfig.Sysctls "net.ipv4.tcp_congestion_control"}}')" != bbr ]]; then
+  modprobe tcp_bbr
+  stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+  mkdir -p "$BACKUP_DIR"
+  tcp_backup="$BACKUP_DIR/yang-daxia-nginx-tcp-$stamp.yaml"
+  cp "$COMPOSE" "$tcp_backup"
+  python3 - "$COMPOSE" <<'PYCODE'
+import re, sys
+path = sys.argv[1]
+text = open(path).read()
+match = re.search(r"(?ms)^  nginx:\n.*?(?=^  [a-zA-Z_-]+:|\Z)", text)
+if not match:
+    sys.exit("Cannot locate nginx service")
+section = match[0]
+if "    sysctls:" in section:
+    sys.exit("Unexpected nginx sysctls; preserve existing settings for review")
+section = section.replace("    ports:\n", "    sysctls:\n      net.ipv4.tcp_congestion_control: bbr\n    ports:\n", 1)
+if "net.ipv4.tcp_congestion_control: bbr" not in section:
+    sys.exit("Cannot locate nginx ports")
+with open(path, "w") as f:
+    f.write(text[:match.start()] + section + text[match.end():])
+PYCODE
+  if ! dc config --quiet || ! dc up -d --no-deps nginx || ! dc exec -T nginx nginx -t; then
+    cp "$tcp_backup" "$COMPOSE"
+    dc up -d --no-deps nginx
+    echo "Nginx BBR 配置失败，已恢复 $tcp_backup" >&2
+    exit 1
+  fi
+  printf '%s\n' tcp_bbr > /etc/modules-load.d/yang-daxia-bbr.conf
+  log "Web 容器已启用 BBR；原配置备份：$tcp_backup"
 fi
 
 log "服务器配置就绪"

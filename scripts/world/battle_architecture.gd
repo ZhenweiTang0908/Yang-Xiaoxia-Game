@@ -17,7 +17,7 @@ static func ledges(game):
 # ---------------------------------------------------------------- behind the ledges
 static func draw_back(c,game):
  var stage=game.level.number
- var t=game.clock
+ var t=game.ambience_clock
  var col=palette(stage)
  # Edge towers sit half outside the screen so they frame the arena without hiding ledges.
  for side in [0,1]:
@@ -107,7 +107,7 @@ static func lantern(c,at,glow,phase):
 # ---------------------------------------------------------------- floor surface
 static func draw(c,game):
  var stage=game.level.number
- var t=game.clock
+ var t=game.ambience_clock
  var col=palette(stage)
  # Shared masonry joints and drainage channels below the walking edge.
  for j in 18:
@@ -185,7 +185,7 @@ static func draw(c,game):
 # ---------------------------------------------------------------- distant layers
 static func backdrop(c,game):
  var stage=game.level.number
- var t=game.clock
+ var t=game.ambience_clock
  match stage:
   1:
    # Paper sky lanterns drift upward far behind the courtyard.

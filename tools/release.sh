@@ -1,6 +1,7 @@
 #!/bin/zsh
 # 编译与发布。build 只在本地生成 dist/site，不碰服务器；deploy 才上传到服务器。
 #   tools/release.sh build [web|macos|windows ...]   默认三端全编
+#   tools/release.sh site                            只更新本地首页与视频
 #   tools/release.sh deploy                          上传 dist/site 并切换到新版本
 #   tools/release.sh status                          查看服务器上的版本
 #   tools/release.sh rollback                        切回上一个版本
@@ -32,6 +33,9 @@ cmd_build() {
   for t in $targets; do
     case "$t" in web|macos|windows) ;; *) echo "未知目标：$t（可选 web macos windows）" >&2; exit 2 ;; esac
   done
+  for media in intro.mp4 intro-poster.jpg intro.zh.vtt; do
+    [[ -f "builds/site-media/$media" ]] || { echo "缺少首页视频素材：builds/site-media/$media" >&2; exit 1; }
+  done
 
   local version stamp
   version="$(git describe --always --dirty 2>/dev/null || echo nogit)"
@@ -56,8 +60,14 @@ cmd_build() {
     has_web=1
     cp builds/web/index.{html,js,wasm,pck,png} builds/web/index.audio.worklet.js \
       builds/web/index.audio.position.worklet.js "$site/play/"
-    # 预压缩大文件，Nginx 用 gzip_static 直接发送。
-    gzip -9 -k "$site/play/index.wasm" "$site/play/index.pck" "$site/play/index.js"
+    .venv/bin/python tools/package_web.py "$site/play"
+    # Compress real files; stable aliases keep older links and health checks working.
+    for asset in "$site"/play/cache/*/*.(wasm|pck|js); do
+      gzip -9 -k "$asset"
+    done
+    for asset in index.wasm index.pck index.js; do
+      ln -s "$(readlink "$site/play/$asset").gz" "$site/play/$asset.gz"
+    done
   fi
   if (( ${targets[(Ie)macos]} )); then
     cp builds/macos/YangDaxia.zip "$site/downloads/YangDaxia-macOS.zip"
@@ -70,20 +80,7 @@ cmd_build() {
   fi
 
   sips -s format jpeg -s formatOptions 82 assets/art/moon_shrine.png --out "$site/bg.jpg" >/dev/null
-  python3 - "$site" "$version" "$stamp" "$has_web" "$mac_size" "$win_size" <<'EOF'
-import sys, json, pathlib
-site, version, stamp, has_web, mac, win = sys.argv[1:]
-page = pathlib.Path('tools/site/index.html').read_text()
-for key, value in {'VERSION': version, 'BUILT_AT': stamp, 'MAC_SIZE': mac, 'WIN_SIZE': win}.items():
-    page = page.replace('{{' + key + '}}', value)
-page = page.replace('{{HAS_WEB}}', 'true' if has_web == '1' else 'false')
-page = page.replace('{{HAS_MAC}}', 'true' if mac else 'false')
-page = page.replace('{{HAS_WIN}}', 'true' if win else 'false')
-pathlib.Path(site, 'index.html').write_text(page)
-pathlib.Path(site, 'version.json').write_text(json.dumps(
-    {'version': version, 'built_at': stamp, 'web': has_web == '1', 'macos': bool(mac), 'windows': bool(win)},
-    ensure_ascii=False) + '\n')
-EOF
+  .venv/bin/python tools/site/build.py "$site" "$version" "$stamp" "$has_web" "$mac_size" "$win_size"
 
   echo
   echo "编译完成（未部署）：版本 $version"
@@ -137,6 +134,12 @@ verify_site() {
     check "游戏页" "200" -w '%{http_code}' "$base/play/"
     check "wasm 类型" "200 application/wasm" -w '%{http_code} %{content_type}' -I "$base/play/index.wasm"
     check "wasm 压缩" "*gzip*" -w '%header{content-encoding}' -H 'Accept-Encoding: gzip' -I "$base/play/index.wasm"
+    local pack_path engine_path
+    pack_path="$(.venv/bin/python -c 'import json; print(json.load(open("dist/site/play/web-manifest.json"))["mainPack"])')"
+    engine_path="$(.venv/bin/python -c 'import json; print(json.load(open("dist/site/play/web-manifest.json"))["executable"] + ".wasm")')"
+    check "游戏资源长期缓存" "*immutable*" -w '%header{cache-control}' -I "$base/play/$pack_path"
+    check "游戏资源压缩" "*gzip*" -w '%header{content-encoding}' -H 'Accept-Encoding: gzip' -I "$base/play/$pack_path"
+    check "引擎长期缓存" "*immutable*" -w '%header{cache-control}' -I "$base/play/$engine_path"
   fi
   for f in YangDaxia-macOS.zip YangDaxia-Windows.zip; do
     [[ -f "$site/downloads/$f" ]] && check "下载 $f" "200" -w '%{http_code}' -I "$base/downloads/$f"
@@ -162,8 +165,9 @@ cmd_rollback() {
 
 case "${1:-}" in
   build) shift; cmd_build "$@" ;;
+  site) .venv/bin/python tools/site/build.py --refresh "$site" ;;
   deploy) cmd_deploy ;;
   status) cmd_status ;;
   rollback) cmd_rollback ;;
-  *) echo "用法：tools/release.sh build [web|macos|windows ...] | deploy | status | rollback" >&2; exit 2 ;;
+  *) echo "用法：tools/release.sh build [web|macos|windows ...] | site | deploy | status | rollback" >&2; exit 2 ;;
 esac

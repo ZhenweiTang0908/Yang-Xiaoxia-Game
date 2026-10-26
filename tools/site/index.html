@@ -3,156 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>羊大侠 · 月下试炼</title>
-<meta name="description" content="一段月下山门的像素动作冒险。可直接在浏览器游玩，或下载 Mac / Windows 版。">
+<title>羊小侠</title>
+<meta name="description" content="月下拔剑，兄弟同行。四境 Boss 连战，觉醒羊灵，召唤牛大侠。直接在线试玩，或下载 Mac / Windows 版。">
 <link rel="icon" href="play/index.png">
-<style>
-  :root {
-    --bg: #0b1424;
-    --panel: rgba(9, 16, 30, 0.78);
-    --line: rgba(160, 196, 214, 0.22);
-    --text: #e8eef2;
-    --muted: #9fb2bf;
-    --gold: #f0c674;
-    --gold-ink: #1d1407;
-    --jade: #8fd3c7;
-  }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; }
-  body {
-    min-height: 100vh;
-    background: var(--bg) url("bg.jpg") center bottom / cover no-repeat fixed;
-    color: var(--text);
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-    line-height: 1.6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 32px 16px;
-  }
-  main {
-    width: 100%;
-    max-width: 720px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 36px 32px 28px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  h1 { margin: 0; font-size: 34px; letter-spacing: 0.08em; color: var(--gold); }
-  .tagline { margin: 6px 0 28px; color: var(--muted); }
-  .play {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; padding: 16px 20px;
-    background: var(--gold); color: var(--gold-ink);
-    border-radius: 10px; text-decoration: none;
-    font-size: 20px; font-weight: 700; letter-spacing: 0.1em;
-  }
-  .play:hover { filter: brightness(1.06); }
-  .play small { font-size: 13px; font-weight: 500; letter-spacing: 0; opacity: 0.75; }
-  h2 { font-size: 15px; color: var(--jade); margin: 30px 0 10px; letter-spacing: 0.08em; font-weight: 600; }
-  .downloads { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .dl {
-    display: block; padding: 14px 16px;
-    border: 1px solid var(--line); border-radius: 10px;
-    color: var(--text); text-decoration: none;
-    background: rgba(255, 255, 255, 0.03);
-  }
-  .dl:hover { border-color: var(--gold); }
-  .dl.recommended { border-color: var(--gold); }
-  .dl strong { display: block; font-size: 17px; }
-  .dl span { color: var(--muted); font-size: 13px; }
-  .dl.disabled { opacity: 0.45; pointer-events: none; }
-  details { margin-top: 12px; color: var(--muted); font-size: 14px; }
-  summary { cursor: pointer; color: var(--text); }
-  details ol { padding-left: 20px; margin: 8px 0; }
-  code { background: rgba(255, 255, 255, 0.08); padding: 1px 6px; border-radius: 4px; font-size: 13px; word-break: break-all; }
-  .keys { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-size: 14px; color: var(--muted); margin: 0; }
-  .keys dt { color: var(--text); white-space: nowrap; }
-  .keys dd { margin: 0; }
-  footer { margin-top: 26px; font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-  @media (max-width: 560px) {
-    main { padding: 26px 18px 22px; }
-    h1 { font-size: 27px; }
-    .downloads { grid-template-columns: 1fr; }
-  }
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 <main>
-  <h1>羊大侠 · 月下试炼</h1>
-  <p class="tagline">一段月下山门的像素动作冒险：三关旅途、搓招连斩，还有能召唤的哥哥牛大侠。</p>
+  <header class="hero">
+    <h1>羊小侠</h1>
+    <a class="play" id="play" href="play/">立即试玩</a>
+  </header>
 
-  <a class="play" id="play" href="play/">网页游玩 <small>首次加载约 55MB，建议用 Chrome</small></a>
+  <section class="intro" aria-label="游戏视频">
+    <div class="video-player">
+    <video id="intro-video" controls playsinline preload="none" poster="media/intro-poster.jpg" width="1600" height="900" aria-label="羊小侠游戏视频">
+      <source src="media/intro.mp4" type="video/mp4">
+      <track kind="subtitles" src="media/intro.zh.vtt" srclang="zh" label="中文">
+      你的浏览器不支持视频播放，请<a href="media/intro.mp4">下载介绍视频</a>观看。
+    </video>
+      <button class="video-toggle" id="video-toggle" type="button" aria-label="播放视频" aria-controls="intro-video" hidden><span class="video-play-icon" aria-hidden="true">▶</span></button>
+    </div>
+    <p class="video-error" id="video-error" hidden>视频暂时无法播放，<a href="media/intro.mp4">下载观看</a>，或直接试玩。</p>
+  </section>
 
-  <h2>下载完整版</h2>
-  <div class="downloads">
-    <a class="dl" id="dl-mac" href="downloads/YangDaxia-macOS.zip" download>
-      <strong>macOS</strong>
-      <span>Apple 芯片与 Intel 通用 · {{MAC_SIZE}}</span>
-    </a>
-    <a class="dl" id="dl-win" href="downloads/YangDaxia-Windows.zip" download>
-      <strong>Windows</strong>
-      <span>Windows 10 / 11 · 64 位 · {{WIN_SIZE}}</span>
-    </a>
-  </div>
+  <section class="download-section" aria-labelledby="download-title">
+    <h2 id="download-title">下载到电脑</h2>
+    <div class="downloads">
+      <a class="dl" id="dl-mac" href="downloads/YangDaxia-macOS.zip" download><strong>下载 Mac 版</strong><span>Apple 芯片 / Intel · {{MAC_SIZE}}</span></a>
+      <a class="dl" id="dl-win" href="downloads/YangDaxia-Windows.zip" download><strong>下载 Windows 版</strong><span>Windows 10 / 11 · {{WIN_SIZE}}</span></a>
+    </div>
+  </section>
 
-  <details>
-    <summary>Mac 提示“无法验证开发者”怎么办</summary>
-    <ol>
-      <li>解压后把「羊大侠 · 月下试炼」拖进「应用程序」。</li>
-      <li>双击打开，看到提示后点「完成」。</li>
-      <li>打开「系统设置 → 隐私与安全性」，在页面下方点「仍要打开」。</li>
-    </ol>
-    也可以在终端运行：<code>xattr -dr com.apple.quarantine "/Applications/羊大侠 · 月下试炼.app"</code>
-  </details>
-  <details>
-    <summary>Windows 提示“已保护你的电脑”怎么办</summary>
-    <ol>
-      <li>解压 zip，双击 <code>YangDaxia.exe</code>。</li>
-      <li>出现蓝色提示时，点「更多信息」，再点「仍要运行」。</li>
-    </ol>
-    游戏没有数字签名，所以系统会提示一次，存档保存在本机。
-  </details>
-
-  <h2>操作</h2>
-  <dl class="keys">
-    <dt>A / D</dt><dd>移动</dd>
-    <dt>空格</dt><dd>跳跃</dd>
-    <dt>J</dt><dd>三段连斩，配合方向键可以搓招</dd>
-    <dt>K</dt><dd>射箭（拾弓后）</dd>
-    <dt>Shift</dt><dd>闪避</dd>
-    <dt>Q / E</dt><dd>觉醒变身 / 召唤牛大侠</dd>
-    <dt>Esc</dt><dd>暂停</dd>
-  </dl>
-  <details>
-    <summary>存档说明</summary>
-    网页版的进度保存在当前浏览器里，换浏览器或清除网站数据会丢失；下载版的存档保存在本机，两者互不相通。支持手柄。
-  </details>
-
-  <footer>
-    <span>版本 {{VERSION}}</span>
-    <span>构建于 {{BUILT_AT}}</span>
-  </footer>
+  <aside class="help" aria-label="游玩帮助">
+    <details><summary>怎么操作</summary><p>A / D 移动，空格跳跃，J 连斩，K 远程，Shift 闪避。Q 觉醒，E 召唤，Esc 暂停。也支持手柄。</p></details>
+    <details><summary>安装与存档</summary>
+      <p><strong>Mac：</strong>解压后拖进「应用程序」。若提示无法验证开发者，前往「系统设置 → 隐私与安全性」点「仍要打开」。</p>
+      <p><strong>Windows：</strong>解压后打开 YangDaxia.exe。若出现系统保护提示，点「更多信息 → 仍要运行」。</p>
+      <p>网页进度保存在当前浏览器，清除网站数据会丢失；下载版保存在本机，两者独立。</p>
+    </details>
+  </aside>
 </main>
 <script>
-  // 构建脚本按本次实际导出的平台填入；没导出的入口置灰。
   var available = { play: {{HAS_WEB}}, mac: {{HAS_MAC}}, win: {{HAS_WIN}} };
   function disable(id, note) {
     var el = document.getElementById(id);
     el.classList.add('disabled');
     el.removeAttribute('href');
-    var span = el.querySelector('span, small');
-    if (span) span.textContent = note;
+    el.removeAttribute('download');
+    el.setAttribute('role', 'link');
+    el.setAttribute('aria-disabled', 'true');
+    var description = el.querySelector('span');
+    if (description) description.textContent = note;
+    else el.textContent = note;
   }
   if (!available.play) disable('play', '网页版暂未提供');
   if (!available.mac) disable('dl-mac', '暂未提供');
   if (!available.win) disable('dl-win', '暂未提供');
-  // 突出当前系统对应的下载。
-  var ua = navigator.userAgent;
-  var mine = /Windows/.test(ua) ? 'dl-win' : /Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua) ? 'dl-mac' : null;
-  if (mine) document.getElementById(mine).classList.add('recommended');
+  var video = document.getElementById('intro-video');
+  var videoToggle = document.getElementById('video-toggle');
+  videoToggle.hidden = false;
+  function syncVideoToggle() {
+    videoToggle.setAttribute('aria-label', video.paused ? '播放视频' : '暂停视频');
+    videoToggle.classList.toggle('playing', !video.paused);
+  }
+  videoToggle.addEventListener('click', async function () {
+    if (!video.paused) { video.pause(); return; }
+    try { await video.play(); }
+    catch (error) { showVideoError(); }
+  });
+  video.addEventListener('play', syncVideoToggle);
+  video.addEventListener('pause', syncVideoToggle);
+  video.addEventListener('ended', syncVideoToggle);
+  function showVideoError() { document.getElementById('video-error').hidden = false; }
+  video.addEventListener('error', showVideoError);
+  video.querySelector('source').addEventListener('error', showVideoError);
 </script>
 </body>
 </html>

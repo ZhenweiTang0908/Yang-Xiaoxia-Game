@@ -22,6 +22,8 @@ var hovered_action=""
 var boss_lag=1.0
 var boss_lag_hold=0.0
 var boss_lag_owner=0
+var boss_last_ratio=1.0
+const HUD_BOUNDS=Rect2(0,0,960,540)
 func _ready():
 	layer=20;canvas=Node2D.new();add_child(canvas);canvas.draw.connect(render)
 	canvas.material=ShaderMaterial.new();canvas.material.shader=load("res://scripts/actors/chroma.gdshader")
@@ -34,16 +36,18 @@ func _ready():
 	var back=Node2D.new();back_layer.add_child(back);back.draw.connect(draw_background)
 	back.set_meta("background",true)
 func _process(_dt):
-	resource_feedback=maxf(0,resource_feedback-_dt)
+	if game.active() and game.hitstop<=0:resource_feedback=maxf(0,resource_feedback-_dt)
 	if is_instance_valid(game.boss) and game.state=="playing" and game.hitstop<=0:
 		var ratio=clampf(game.boss.hp/game.boss.max_hp,0,1)
+		if boss_lag_owner!=game.boss.get_instance_id() or ratio<boss_last_ratio:boss_lag_hold=.45
+		boss_last_ratio=ratio
 		if boss_lag_owner!=game.boss.get_instance_id() or ratio>boss_lag:boss_lag=ratio;boss_lag_owner=game.boss.get_instance_id()
 		elif boss_lag>ratio:
 			boss_lag_hold-=_dt
 			if boss_lag_hold<=0:boss_lag=move_toward(boss_lag,ratio,_dt*.45)
 		if absf(boss_lag-ratio)<.001:boss_lag_hold=.45
 	var hovered=""
-	if not game.pad_mode:
+	if not game.pad_mode and not game.keyboard_nav:
 		var pointer=canvas.get_global_mouse_position()
 		for b in buttons:
 			if b.rect.has_point(pointer):hovered=b.action;break
@@ -74,7 +78,7 @@ func draw_background():
 	b.draw_polygon(PackedVector2Array([Vector2(0,240),Vector2(960,240),Vector2(960,540),Vector2(0,540)]),PackedColorArray([Color(.025,.045,.075,0),Color(.025,.045,.075,0),Color(.025,.045,.075,.22),Color(.025,.045,.075,.22)]))
 
 func draw_stage_atmosphere(b,stage,px):
-	var t=game.clock
+	var t=game.ambience_clock
 	match stage:
 		1:
 			# Two broken, high cloud wisps leave the walking plane untouched.
@@ -115,15 +119,15 @@ func centered(y,message,size=17,color=Color("eeeade")):
 func panel(rect,color=Color(.03,.055,.085,.93)):
 	var style=StyleBoxFlat.new();style.bg_color=color;style.border_color=Color(.45,.62,.61,.4);style.set_border_width_all(1);style.set_corner_radius_all(4);canvas.draw_style_box(style,rect)
 func button(rect,label,action,primary=false):
-	var hovered=rect.has_point(canvas.get_global_mouse_position()) and not game.pad_mode
+	var hovered=rect.has_point(canvas.get_global_mouse_position()) and not game.pad_mode and not game.keyboard_nav
 	panel(rect,Color("ddbd89") if primary and hovered else (Color("c6a574") if primary else (Color("294955") if hovered else Color("152936"))))
 	if hovered:canvas.draw_line(rect.position+Vector2(8,rect.size.y-1),rect.end-Vector2(8,1),game.TEAL,1)
 	var size=16 if rect.size.y>34 else 12
 	var width=game.font.get_string_size(label,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x
 	text(rect.position+Vector2((rect.size.x-width)*.5,rect.size.y*.5+size*.36),label,size,Color("13232b") if primary else game.WHITE)
-	if game.pad_mode and game.state!="playing" and buttons.size()==pad_focus:
+	if (game.pad_mode or game.keyboard_nav) and game.state!="playing" and buttons.size()==pad_focus:
 		canvas.draw_rect(rect.grow(3),game.GOLD,false,2)
-	buttons.append({"rect":rect,"action":action})
+	buttons.append({"rect":rect,"action":action,"label":label,"text_size":size})
 func bottle(at,full):
 	var c=Color("9fd8c8") if full else Color("3a4a50")
 	var shape=PackedVector2Array([Vector2(-2,-12),Vector2(2,-12),Vector2(2,-8),Vector2(6,-4),Vector2(6,4),Vector2(-6,4),Vector2(-6,-4),Vector2(-2,-8)])
@@ -154,26 +158,38 @@ func render():
 			if game.state in ["paused","dead","stage_clear","win"]:overlay()
 func title_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.02,.04,.07,.65))
-	canvas.draw_line(Vector2(70,89),Vector2(115,89),game.GOLD,2)
-	text(Vector2(130,94),"月 下 同 行",14,game.GOLD)
-	text(Vector2(64,179),"羊小侠",64)
-	button(Rect2(70,239,250,46),"继续连战","continue",true)
-	button(Rect2(70,300,250,40),"四境连战","new")
-	button(Rect2(70,356,120,34),"选择关卡","stage_select")
-	button(Rect2(200,356,120,34),"设置","settings")
-	panel(Rect2(70,413,250,66),Color(.025,.045,.065,.75))
-	text(Vector2(85,436),"断誓骑场",12,game.GOLD)
-	button(Rect2(85,446,101,25),"马战","challenge")
-	button(Rect2(200,446,105,25),"步战","challenge_foot")
-	portrait(niu,niu_region,Vector2(713,453),190)
-	portrait(hero,Rect2(0,0,181,208),Vector2(550,453),166)
+	var safe_rect=safe_rect_in_hud() if game.is_touch else HUD_BOUNDS
+	var title_x=touch_title_left_x(safe_rect) if game.is_touch else 70.0
+	canvas.draw_line(Vector2(title_x,89),Vector2(title_x+45,89),game.GOLD,2)
+	text(Vector2(maxf(title_x-6,safe_rect.position.x+16),179),"羊小侠",64)
+	var touch_height=44 if game.is_touch else 34
+	if game.has_journey_progress():
+		button(Rect2(title_x,239,250,46),"继续连战","continue",true)
+		button(Rect2(title_x,300,250,44 if game.is_touch else 40),"开启新旅途","new")
+	else:
+		button(Rect2(title_x,239,250,46),"四境连战","new",true)
+	button(Rect2(title_x,356,120,touch_height),"选择关卡","stage_select")
+	button(Rect2(title_x+130,356,120,touch_height),"设置","settings")
+	var challenge_button_y=touch_menu_row_y(safe_rect,442,44) if game.is_touch else 446
+	var challenge_shift=442-challenge_button_y if game.is_touch else 0
+	panel(Rect2(title_x,413-challenge_shift,250,73 if game.is_touch else 66),Color(.025,.045,.065,.75))
+	text(Vector2(title_x+15,(430 if game.is_touch else 436)-challenge_shift),"断誓骑场",12,game.GOLD)
+	button(Rect2(title_x+15,challenge_button_y,101,44 if game.is_touch else 25),"马战","challenge")
+	button(Rect2(title_x+130,challenge_button_y,105,44 if game.is_touch else 25),"步战","challenge_foot")
 	# Bottom row is right-aligned so hiding the moon journal leaves no gap.
 	var row=[["旅途簿","journey_records",90],["操作","controls",90],["参数 · F2","debug",110]]
 	if game.relic_count()>0:row.push_front(["月痕札记","relic_journal",110])
-	var x=860.0
+	var row_height=44 if game.is_touch else 28
+	var row_y=touch_menu_row_y(safe_rect,486,row_height) if game.is_touch else 486
+	var portrait_feet=touch_title_portrait_feet(row_y) if game.is_touch else 453.0
+	portrait(niu,niu_region,Vector2(713,portrait_feet),190)
+	portrait(hero,Rect2(0,0,181,208),Vector2(550,portrait_feet),166)
+	var x=touch_title_footer_right(safe_rect) if game.is_touch else 860.0
 	for i in range(row.size()-1,-1,-1):
-		x-=row[i][2];button(Rect2(x,486,row[i][2],28),row[i][0],row[i][1]);x-=10
-	if game.developer_mode:button(Rect2(818,20,122,28),"动画对比","animation_lab")
+		x-=row[i][2];button(Rect2(x,row_y,row[i][2],row_height),row[i][0],row[i][1]);x-=10
+	if game.developer_mode:
+		var lab_button=touch_developer_button_rect(safe_rect) if game.is_touch else Rect2(818,20,122,28)
+		button(lab_button,"动画对比","animation_lab")
 
 func new_confirm_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.012,.026,.042,.94))
@@ -181,31 +197,34 @@ func new_confirm_screen():
 	centered(211,"重新出发？",30,game.GOLD)
 	centered(258,"当前旅途进度将被覆盖。",16)
 	centered(287,"月痕、纪录与设置会保留。",13,game.TEAL)
-	button(Rect2(235,328,230,42),"返回","new_confirm_back",true)
-	button(Rect2(495,328,230,42),"重新出发","new_confirm_start")
+	var action_height=44 if game.is_touch else 42
+	button(Rect2(235,328,230,action_height),"返回","new_confirm_back",true)
+	button(Rect2(495,328,230,action_height),"重新出发","new_confirm_start")
 
 func portrait(texture,source,feet,height):
 	var size=Vector2(source.size.x/source.size.y*height,height)
 	canvas.draw_texture_rect_region(texture,Rect2(feet-Vector2(size.x*.5,size.y),size),source)
 func playing_hud():
 	var p=game.player
+	var status_offset=touch_status_offset(safe_rect_in_hud()) if game.is_touch else Vector2.ZERO
 	# Combat HUD is read from shapes and colour, not labels: bars, bottles, a gourd.
-	panel(Rect2(18,15,236,32),Color(.03,.055,.085,.62))
-	meter(Vector2(30,24),212,p.health/100,Color("d8927f"))
-	meter(Vector2(30,35),212,p.rage/100,game.GOLD)
-	if game.relaxed_journey():canvas.draw_circle(Vector2(248,20),2.5,game.TEAL)
-	button(Rect2(264,15,58,32),"","tonic")
+	panel(Rect2(Vector2(18,15)+status_offset,Vector2(236,32)),Color(.03,.055,.085,.62))
+	meter(Vector2(30,24)+status_offset,212,p.health/100,Color("d8927f"))
+	meter(Vector2(30,35)+status_offset,212,p.rage/100,game.GOLD)
+	if game.relaxed_journey():canvas.draw_circle(Vector2(248,20)+status_offset,2.5,game.TEAL)
+	var tonic_rect=Rect2(Vector2(264,9 if game.is_touch else 15)+status_offset,Vector2(58,44 if game.is_touch else 32))
+	button(tonic_rect,"","tonic")
 	for i in game.TONIC_MAX:
-		bottle(Vector2(281+i*22,32),i<game.tonic_count())
+		bottle(Vector2(281+i*22,32)+status_offset,i<game.tonic_count())
 	if resource_feedback>0:
 		var tint=Color(1,.62,.35,resource_feedback*.8)
-		canvas.draw_rect(Rect2(264,15,58,32).grow(2),tint,false,2)
-		canvas.draw_rect(Rect2(18,15,236,32).grow(2),tint,false,1)
+		canvas.draw_rect(tonic_rect.grow(2),tint,false,2)
+		canvas.draw_rect(Rect2(Vector2(18,15)+status_offset,Vector2(236,32)).grow(2),tint,false,1)
 	if p.hurt_anim>0:
 		var hit_alpha=(1-smoothstep(0,.22,.22-p.hurt_anim))*.65
 		for edge in [Rect2(0,0,960,4),Rect2(0,536,960,4),Rect2(0,0,4,540),Rect2(956,0,4,540)]:canvas.draw_rect(edge,Color(1,.38,.24,hit_alpha))
 	# The stage name appears briefly when a fight starts, instead of a fixed panel.
-	var banner=game.clock-game.stage_banner
+	var banner=game.ambience_clock-game.stage_banner
 	if banner>=0 and banner<2.4:
 		var fade=smoothstep(0,.3,banner)*(1-smoothstep(1.7,2.4,banner))
 		# Mid-screen title card between two thin rules, clear of the boss bar.
@@ -216,26 +235,29 @@ func playing_hud():
 		canvas.draw_circle(Vector2(480,214+rise),2,Color(game.GOLD,fade*.8))
 		centered(200+rise,game.level.title,30,Color(game.GOLD,fade))
 		if game.boss_rush:centered(240+rise,"第 "+str(game.level.number)+" / 4 战",13,Color(game.TEAL,fade*.85))
-	button(Rect2(785,15,33,25),"跳","stage_select")
-	button(Rect2(826,15,33,25),"调","debug")
-	button(Rect2(867,15,33,25),"音","settings")
-	button(Rect2(908,15,33,25),"Ⅱ","pause")
+	var quick_actions=[["跳","stage_select"],["调","debug"],["音","settings"],["Ⅱ","pause"]]
+	if game.is_touch:
+		var quick_rects=touch_quick_action_rects(safe_rect_in_hud())
+		for i in quick_actions.size():button(quick_rects[i],quick_actions[i][0],quick_actions[i][1])
+	else:
+		for i in quick_actions.size():button(Rect2(785+i*41,15,33,25),quick_actions[i][0],quick_actions[i][1])
 	if game.summon.unlocked:
 		var summon=game.summon;var ally=summon.brother
-		var icon=Vector2(37,66);var ready=summon.phase=="ready" and not summon.is_sealed()
+		var icon=Vector2(37,66)+status_offset;var ready=summon.phase=="ready" and not summon.is_sealed()
 		gourd(icon,Color("d8c08a") if ready else (Color("6c6a62") if summon.is_sealed() else Color("8f8a74")))
 		if summon.is_sealed():
 			canvas.draw_line(icon+Vector2(-8,-9),icon+Vector2(8,9),Color("d39283"),2)
 			text(icon+Vector2(16,5),str(ceili(summon.seal_left())),12,Color("a7a39a"))
 		elif summon.phase=="cooldown":text(icon+Vector2(16,5),str(ceili(summon.remaining)),12,Color("aab0a6"))
-		elif ready:canvas.draw_arc(icon,13+sin(game.clock*3)*1.2,0,TAU,24,Color(game.GOLD,.45),1.2,true)
+		elif ready:canvas.draw_arc(icon,13+sin(game.ambience_clock*3)*1.2,0,TAU,24,Color(game.GOLD,.45),1.2,true)
 		if is_instance_valid(ally):
-			meter(Vector2(56,64),120,ally.health/ally.max_health,Color("aeaa85"))
-			meter(Vector2(56,71),120,summon.remaining/maxf(1,game.tuning.get_value("assist_duration")+game.upgrade_level("brother")*4) if summon.phase=="active" else 0.0,Color(game.TEAL,.7))
+			meter(Vector2(56,64)+status_offset,120,ally.health/ally.max_health,Color("aeaa85"))
+			meter(Vector2(56,71)+status_offset,120,summon.remaining/maxf(1,game.tuning.get_value("assist_duration")+game.upgrade_level("brother")*4) if summon.phase=="active" else 0.0,Color(game.TEAL,.7))
+	var message_rect=touch_combat_message_rect(safe_rect_in_hud()) if game.is_touch else Rect2(200,493,560,30)
 	if game.subtitle_time>0:
-		panel(Rect2(200,493,560,30),Color(.025,.04,.055,.72));centered(513,game.subtitle,14,game.GOLD)
-	elif game.hint_time>0 and game.hint in ["获得月痕","出口已开启 →","闸门已开启","获得弓箭 · K 射击"]:
-		centered(490,game.hint.replace(" · K 射击",""),13,game.GOLD)
+		panel(message_rect,Color(.025,.04,.055,.72));centered(message_rect.position.y+20,game.subtitle,14,game.GOLD)
+	elif game.hint_time>0 and game.hint in ["获得月痕","出口已开启 →","闸门已开启","获得弓箭 · K 射击","生命已满","月露已用尽","葫芦尚未获得","尚未获得弓箭"]:
+		centered(message_rect.position.y+(20 if game.is_touch else -3),game.hint.replace(" · K 射击",""),13,game.GOLD)
 	if game.boss.active_battle and not game.boss.dead:
 		centered(136,game.boss.spec.title,14,game.GOLD)
 		var ratio=clampf(game.boss.hp/game.boss.max_hp,0,1)
@@ -248,28 +270,37 @@ func playing_hud():
 			var fill=clampf(game.boss.soul.rage-i,0,1)
 			if fill>0:canvas.draw_rect(Rect2(box.position,Vector2(box.size.x*fill,box.size.y)),Color("ca9ef0"))
 			canvas.draw_rect(box,Color("9d7ab8",.82),false,1.2)
-	if p.soul_slow>0:meter(Vector2(30,50),212,minf(p.soul_slow/7.0,1.0),Color("c8a3ef"))
+	if p.soul_slow>0:
+		var slow_rect=touch_soul_slow_rect(status_offset)
+		meter(slow_rect.position,slow_rect.size.x,minf(p.soul_slow/7.0,1.0),Color("c8a3ef"))
 	if game.is_touch and game.active():
-		for b in touch_layout():panel(b.rect,Color(.04,.08,.12,.75));text(b.rect.position+Vector2(14,29),b.label,16,game.GOLD)
+		for b in touch_layout():
+			var pressed=game.touch_ids.values().has(b.action)
+			panel(b.rect,Color(.30,.22,.12,.9) if pressed else Color(.04,.08,.12,.75))
+			var label_width=game.font.get_string_size(b.label,HORIZONTAL_ALIGNMENT_LEFT,-1,16).x
+			text(Vector2(b.rect.position.x+(b.rect.size.x-label_width)*.5,b.rect.position.y+b.rect.size.y*.5+5),b.label,16,game.WHITE if pressed else game.GOLD)
 func upgrade_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.015,.03,.05,.88))
-	centered(66,"山 灯 共 鸣",14,game.TEAL)
-	centered(105,"选择一式武学",31,game.GOLD)
+	var safe_rect=safe_rect_in_hud() if game.is_touch else HUD_BOUNDS
+	var content_shift=touch_upgrade_shift(safe_rect) if game.is_touch else 0.0
+	centered(58-content_shift,"山 灯 共 鸣",14,game.TEAL)
+	centered(108-content_shift,"选择一式武学",31,game.GOLD)
+	var card_rects=touch_upgrade_card_rects(safe_rect,158-content_shift,292) if game.is_touch else [Rect2(55,158-content_shift,260,292),Rect2(350,158-content_shift,260,292),Rect2(645,158-content_shift,260,292)]
 	var cards=[
 		{"id":"blade","name":"破锋","mark":"刃","color":Color("d99b80"),"lines":["连斩与羊灵近战","伤害提高 15%"]},
 		{"id":"spirit","name":"灵火","mark":"焰","color":Color("d6bc72"),"lines":["羊灵延长 2 秒","幽焰更快，伤害 +4"]},
 		{"id":"brother","name":"同心","mark":"契","color":Color("82c6b2"),"lines":["牛大侠助战 +4 秒","冲撞伤害 +12%"]}
 	]
 	for i in cards.size():
-		var card=cards[i];var rect=Rect2(55+i*295,158,260,292);var current=game.upgrade_level(card.id)
+		var card=cards[i];var rect=card_rects[i];var current=game.upgrade_level(card.id)
 		panel(rect,Color(.035,.07,.095,.97))
-		canvas.draw_circle(Vector2(rect.get_center().x,207),27,Color(card.color,.15))
-		centered_card(rect,216,card.mark,24,card.color)
-		centered_card(rect,266,card.name,25,card.color)
-		centered_card(rect,302,str(current)+" → "+str(current+1),12,game.TEAL)
-		centered_card(rect,344,card.lines[0],14)
-		centered_card(rect,370,card.lines[1],14)
-		button(Rect2(rect.position.x+30,394,200,38),"领悟","upgrade_"+card.id,i==0)
+		canvas.draw_circle(Vector2(rect.get_center().x,207-content_shift),27,Color(card.color,.15))
+		centered_card(rect,216-content_shift,card.mark,24,card.color)
+		centered_card(rect,266-content_shift,card.name,25,card.color)
+		centered_card(rect,302-content_shift,str(current)+" → "+str(current+1),12,game.TEAL)
+		centered_card(rect,344-content_shift,card.lines[0],14)
+		centered_card(rect,370-content_shift,card.lines[1],14)
+		button(Rect2(rect.position.x+30,394-content_shift,rect.size.x-60,44 if game.is_touch else 38),"领悟","upgrade_"+card.id,i==0)
 func centered_card(rect,y,message,size,color=Color("eeeade")):
 	var w=game.font.get_string_size(message,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x
 	text(Vector2(rect.get_center().x-w*.5,y),message,size,color)
@@ -277,33 +308,48 @@ func overlay():
 	buttons.clear()
 	if game.state in ["stage_clear","win"]:
 		result_overlay();return
+	var rows=[]
+	if not game.is_challenge():
+		rows=[["设置","settings"]]
+		if game.state=="dead" and game.boss_rush and game.level.boss_id=="knight" and game.rush_knight_foot():rows.push_front(["重新挑战马战","rush_mounted"])
+		if game.state=="paused" and game.relic_count()>0:rows.append(["月痕札记 · "+str(game.relic_count())+" / 6","relic_journal"])
+		rows.append(["自由跳关","stage_select"]);rows.append(["回到标题","title"])
+	var safe_rect=safe_rect_in_hud() if game.is_touch else HUD_BOUNDS
+	var row_height=44 if game.is_touch else 38
+	var step=46.0 if rows.size()>3 else 52.0
+	var content_bottom=442.0 if game.is_challenge() else 343.0+(rows.size()-1)*step+row_height
+	if game.state=="paused":content_bottom=maxf(content_bottom,516.0)
+	var content_shift=touch_overlay_shift(safe_rect,content_bottom) if game.is_touch else 0.0
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.015,.035,.055,.9))
 	var titles={"paused":"稍作歇息","dead":"再走一程"}
-	centered(148 if game.state=="dead" else 162,titles[game.state],34,game.GOLD)
+	centered((148 if game.state=="dead" else 162)-content_shift,titles[game.state],34,game.GOLD)
 	if game.state=="dead":
 		var guide=game.death_guide()
-		centered(187,"败因 · "+guide.title,17)
-		if game.relaxed_journey():centered(270,"从容同行 · 承受伤害 70%",11,Color("8fbfb5"))
+		centered(187-content_shift,"败因 · "+guide.title,17)
+		centered(225-content_shift,guide.tip,12,game.TEAL)
+		if game.relaxed_journey():centered(270-content_shift,"从容同行 · 承受伤害 70%",11,Color("8fbfb5"))
 	else:
-		canvas.draw_line(Vector2(440,202),Vector2(520,202),game.TEAL,1)
-		if game.relaxed_journey():centered(232,"从容同行 · 承受伤害 70%",12,game.TEAL)
+		canvas.draw_line(Vector2(440,202-content_shift),Vector2(520,202-content_shift),game.TEAL,1)
+		if game.relaxed_journey():centered(232-content_shift,"从容同行 · 承受伤害 70%",12,game.TEAL)
 	var action={"paused":"resume","dead":"retry"}[game.state]
-	button(Rect2(350,283,260,45),{"paused":"继续战斗" if game.boss_rush else "继续旅途","dead":("重试步战" if game.challenge_entry_phase==2 else "重试马战") if game.is_challenge() else (("从步战继续" if game.level.boss_id=="knight" and game.rush_knight_foot() else "重试当前 BOSS") if game.boss_rush else "从山灯重试")}[game.state],action,true)
+	button(Rect2(350,283-content_shift,260,45),{"paused":"继续战斗" if game.boss_rush else "继续旅途","dead":("重试步战" if game.challenge_entry_phase==2 else "重试马战") if game.is_challenge() else (("从步战继续" if game.level.boss_id=="knight" and game.rush_knight_foot() else "重试当前 BOSS") if game.boss_rush else "从山灯重试")}[game.state],action,true)
 	if game.is_challenge():
-		button(Rect2(350,338,260,38),"重新挑战马战" if game.challenge_entry_phase==2 else "挑战步战","challenge" if game.challenge_entry_phase==2 else "challenge_foot")
-		button(Rect2(282,398,125,36),"设置","settings")
-		button(Rect2(417,398,125,36),"自由跳关","stage_select")
-		button(Rect2(552,398,125,36),"回到标题","title")
-		if game.state=="paused":button(Rect2(35,472,260,34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
+		var challenge_height=44 if game.is_touch else 38
+		var utility_height=44 if game.is_touch else 36
+		var animation_y=472-content_shift
+		var utility_y=398-content_shift
+		button(Rect2(350,338-content_shift,260,challenge_height),"重新挑战马战" if game.challenge_entry_phase==2 else "挑战步战","challenge" if game.challenge_entry_phase==2 else "challenge_foot")
+		button(Rect2(282,utility_y,125,utility_height),"设置","settings")
+		button(Rect2(417,utility_y,125,utility_height),"自由跳关","stage_select")
+		button(Rect2(552,utility_y,125,utility_height),"回到标题","title")
+		if game.state=="paused":button(Rect2(touch_menu_left_x(safe_rect,35) if game.is_touch else 35,animation_y,260,44 if game.is_touch else 34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
 		return
 	# Secondary actions stack evenly below the primary button; optional rows leave no gap.
-	var rows=[["设置","settings"]]
-	if game.state=="dead" and game.boss_rush and game.level.boss_id=="knight" and game.rush_knight_foot():rows.push_front(["重新挑战马战","rush_mounted"])
-	if game.state=="paused" and game.relic_count()>0:rows.append(["月痕札记 · "+str(game.relic_count())+" / 6","relic_journal"])
-	rows.append(["自由跳关","stage_select"]);rows.append(["回到标题","title"])
-	var step=46.0 if rows.size()>3 else 52.0
-	for i in rows.size():button(Rect2(350,343+i*step,260,38),rows[i][0],rows[i][1])
-	if game.state=="paused":button(Rect2(35,472,260,34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
+	for i in rows.size():button(Rect2(350,343+i*step-content_shift,260,row_height),rows[i][0],rows[i][1])
+	if game.state=="paused":
+		var animation_y=472-content_shift
+		var animation_x=touch_overlay_toggle_x(safe_rect,343-content_shift,step,rows.size(),row_height,animation_y,44) if game.is_touch else 35
+		button(Rect2(animation_x,animation_y,260,44 if game.is_touch else 34),"切换旧版 2D" if game.use_skeletal else "切换新版骨骼","hero_animation")
 func result_overlay():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.012,.028,.045,.94))
 	var won=game.state=="win";var result=game.stage_result
@@ -321,11 +367,16 @@ func result_overlay():
 		if i<3:canvas.draw_line(Vector2(x+145,158),Vector2(x+145,246),Color(.35,.5,.52,.25),1)
 	var martial="破锋 "+str(game.upgrade_level("blade"))+" 层   ·   灵火 "+str(game.upgrade_level("spirit"))+" 层   ·   同心 "+str(game.upgrade_level("brother"))+" 层   ·   月痕 "+str(game.relic_count())+" / 6"
 	centered(287,martial,14,game.TEAL)
-	button(Rect2(350,350,260,45),"重新启程" if won else "前往下一关", "new" if won else "next",true)
-	button(Rect2(282,409,125,36),"设置","settings")
-	button(Rect2(417,409,125,36),"旅途簿","journey_records")
-	button(Rect2(552,409,125,36),"回到标题","title")
-	button(Rect2(350,459,260,34),"自由跳关","stage_select")
+	var action_height=44 if game.is_touch else 34
+	var utility_height=44 if game.is_touch else 36
+	var action_y=touch_menu_row_y(safe_rect_in_hud(),459,action_height) if game.is_touch else 459
+	var utility_y=minf(409.0,action_y-utility_height-6) if game.is_touch else 409
+	var primary_y=minf(350.0,utility_y-45) if game.is_touch else 350
+	button(Rect2(350,primary_y,260,45),"重新启程" if won else "前往下一关", "new" if won else "next",true)
+	button(Rect2(282,utility_y,125,utility_height),"设置","settings")
+	button(Rect2(417,utility_y,125,utility_height),"旅途簿","journey_records")
+	button(Rect2(552,utility_y,125,utility_height),"回到标题","title")
+	button(Rect2(350,action_y,260,action_height),"自由跳关","stage_select")
 func rush_result():
 	if game.state=="stage_clear":
 		# Between bosses: show the automatic reward and the restored tonic, then continue.
@@ -338,13 +389,15 @@ func rush_result():
 		centered(268,"月露已补满 ×"+str(game.TONIC_MAX)+"   ·   生命恢复",15,game.TEAL)
 		next_boss_silhouette(next.boss_id,Vector2(812,452),178)
 		button(Rect2(350,330,260,45),"下一战 · "+next.title,"next",true)
-		button(Rect2(350,395,260,38),"回到标题","title")
+		var title_y=touch_menu_row_y(safe_rect_in_hud(),395,44) if game.is_touch else 395
+		button(Rect2(350,title_y,260,44 if game.is_touch else 38),"回到标题","title")
 		return
 	centered(138,"四境皆破",38,game.GOLD)
 	centered(186,"守灯 · 渡影 · 噬月 · 断誓",17,game.TEAL)
 	centered(244,format_time(game.elapsed)+"   ·   四战告捷",22)
 	button(Rect2(350,320,260,45),"再战四境","new",true)
-	button(Rect2(350,385,260,38),"回到标题","title")
+	var title_y=touch_menu_row_y(safe_rect_in_hud(),385,44) if game.is_touch else 385
+	button(Rect2(350,title_y,260,44 if game.is_touch else 38),"回到标题","title")
 # A dark silhouette of the coming boss teases the next fight without spelling it out.
 func next_boss_silhouette(id,feet,height):
 	var texture;var source
@@ -363,23 +416,27 @@ func next_boss_silhouette(id,feet,height):
 	var w=game.font.get_string_size(boss.title,HORIZONTAL_ALIGNMENT_LEFT,-1,13).x
 	text(Vector2(feet.x-w*.5,feet.y+22),boss.title,13,Color(game.TEAL,.8))
 func challenge_result(result):
-	centered(75,"步战已破" if result.get("practice",false) else "断誓已了",34,game.GOLD)
-	centered(107,game.boss.spec.title+(" · 步战演武完成" if result.get("practice",false) else " · 马战与步战均已击破"),14,game.TEAL)
-	panel(Rect2(185,132,590,170),Color(.025,.055,.075,.97))
+	var action_height=44 if game.is_touch else 34
+	var action_y=touch_menu_row_y(safe_rect_in_hud(),439,action_height) if game.is_touch else 439
+	var content_shift=439-action_y if game.is_touch else 0
+	centered(75-content_shift,"步战已破" if result.get("practice",false) else "断誓已了",34,game.GOLD)
+	centered(107-content_shift,game.boss.spec.title+(" · 步战演武完成" if result.get("practice",false) else " · 马战与步战均已击破"),14,game.TEAL)
+	panel(Rect2(185,132-content_shift,590,170),Color(.025,.055,.075,.97))
 	var record=game.stage_record(game.CHALLENGE_LEVEL,game.progress.get("journey_mode","standard"))
 	var labels=["本次用时","最快用时","挑战完成"]
 	var values=[format_time(result.get("seconds",0)),format_time(record.get("best_seconds",0)),str(record.get("completions",0))+" 次"]
 	for i in 3:
 		var x=215+i*190
-		text(Vector2(x,174),labels[i],12,Color("aebdc0"))
-		text(Vector2(x,219),values[i],26,game.GOLD if i==0 else game.WHITE)
-		if i<2:canvas.draw_line(Vector2(x+160,158),Vector2(x+160,246),Color(.35,.5,.52,.25),1)
-	centered(277,"步战演武 · 不计完整双阶段纪录" if result.get("practice",false) else "独立挑战 · 不影响旅途进度",12,Color("aebdc0"))
-	button(Rect2(350,330,260,45),"再战一次","next",true)
-	button(Rect2(282,389,125,36),"设置","settings")
-	button(Rect2(417,389,125,36),"旅途簿","journey_records")
-	button(Rect2(552,389,125,36),"回到标题","title")
-	button(Rect2(350,439,260,34),"自由跳关","stage_select")
+		text(Vector2(x,174-content_shift),labels[i],12,Color("aebdc0"))
+		text(Vector2(x,219-content_shift),values[i],26,game.GOLD if i==0 else game.WHITE)
+		if i<2:canvas.draw_line(Vector2(x+160,158-content_shift),Vector2(x+160,246-content_shift),Color(.35,.5,.52,.25),1)
+	centered(277-content_shift,"步战演武 · 不计完整双阶段纪录" if result.get("practice",false) else "独立挑战 · 不影响旅途进度",12,Color("aebdc0"))
+	button(Rect2(350,330-content_shift,260,45),"再战一次","next",true)
+	var utility_height=44 if game.is_touch else 36
+	button(Rect2(282,389-content_shift,125,utility_height),"设置","settings")
+	button(Rect2(417,389-content_shift,125,utility_height),"旅途簿","journey_records")
+	button(Rect2(552,389-content_shift,125,utility_height),"回到标题","title")
+	button(Rect2(350,action_y,260,action_height),"自由跳关","stage_select")
 func format_time(seconds):
 	var whole=maxi(0,int(seconds))
 	return "%02d:%02d" % [whole/60,whole%60]
@@ -394,15 +451,19 @@ func relic_journal_screen():
 	centered(58,"月 痕 札 记",30,game.GOLD)
 	centered(88,"已寻得 "+str(game.relic_count())+" / 6 · 月色会记住走过的路",13,game.TEAL)
 	var rows=relic_journal_rows()
+	var card_rects=touch_relic_journal_rects(safe_rect_in_hud()) if game.is_touch else []
 	for i in rows.size():
-		var row=rows[i];var rect=Rect2(55+(i%2)*430,112+(i/2)*112,410,92)
+		var row=rows[i];var rect=card_rects[i] if game.is_touch else Rect2(55+(i%2)*430,112+(i/2)*112,410,92)
 		panel(rect,Color(.035,.072,.092,.98) if row.collected else Color(.025,.045,.06,.92))
 		var icon=rect.position+Vector2(31,45);var color=game.GOLD if row.collected else Color("52636a")
 		canvas.draw_arc(icon,14,-PI*.72,PI*.72,18,color,3)
 		text(rect.position+Vector2(58,29),row.name if row.collected else "月痕之"+str(row.number),17,color)
-		text(rect.position+Vector2(314,28),"第 "+str(row.stage)+" 关",11,game.TEAL if row.collected else Color("68777b"))
+		var stage_label="第 "+str(row.stage)+" 关";var stage_width=game.font.get_string_size(stage_label,HORIZONTAL_ALIGNMENT_LEFT,-1,11).x
+		text(rect.position+Vector2(minf(314.0,rect.size.x-stage_width-16),28),stage_label,11,game.TEAL if row.collected else Color("68777b"))
 		text(rect.position+Vector2(58,61),row.body if row.collected else "尚未寻得",12,game.WHITE if row.collected else Color("77868a"))
-	button(Rect2(380,468,200,38),"返回","relic_journal_back",true)
+	var back_height=44 if game.is_touch else 38
+	var back_y=touch_menu_row_y(safe_rect_in_hud(),468,back_height) if game.is_touch else 468
+	button(Rect2(380,back_y,200,back_height),"返回","relic_journal_back",true)
 func journey_record_rows():
 	var rows=[]
 	# The book follows the four-boss journey; records share the stage numbers 1–4.
@@ -414,11 +475,13 @@ func journey_record_rows():
 func journey_records_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.018,.038,.058,.99))
 	centered(55,"旅 途 簿",30,game.GOLD)
-	button(Rect2(340,97,135,34),"标准记录","records_standard",journey_records_mode=="standard")
-	button(Rect2(485,97,135,34),"从容记录","records_relaxed",journey_records_mode=="relaxed")
+	var tab_height=44 if game.is_touch else 34
+	button(Rect2(340,97,135,tab_height),"标准记录","records_standard",journey_records_mode=="standard")
+	button(Rect2(485,97,135,tab_height),"从容记录","records_relaxed",journey_records_mode=="relaxed")
 	var rows=journey_record_rows()
+	var card_rects=touch_journey_record_rects(safe_rect_in_hud()) if game.is_touch else []
 	for i in rows.size():
-		var row=rows[i];var rect=Rect2(40+i*222,151,214,273);var record=row.record
+		var row=rows[i];var rect=card_rects[i] if game.is_touch else Rect2(40+i*222,151,214,273);var record=row.record
 		var done=not record.is_empty()
 		panel(rect,Color(.035,.072,.092,.98) if done else Color(.025,.045,.06,.92))
 		centered_card(rect,185,"第 "+str(row.number)+" 战",12,game.TEAL)
@@ -429,15 +492,18 @@ func journey_records_screen():
 			centered_card(rect,306,"最快  "+format_time(record.best_seconds),20,game.GOLD)
 			centered_card(rect,340,"击破 "+str(record.completions)+" 次",13)
 			# A simple seal marks a defeated boss.
-			var seal=rect.position+Vector2(rect.size.x*.5,392)
+			var seal=Vector2(rect.get_center().x,rect.end.y-32)
 			canvas.draw_arc(seal,14,0,TAU,28,Color(game.GOLD,.7),2,true)
 			canvas.draw_line(seal+Vector2(-6,0),seal+Vector2(-1,5),game.GOLD,2);canvas.draw_line(seal+Vector2(-1,5),seal+Vector2(7,-5),game.GOLD,2)
 		else:
 			centered_card(rect,320,"尚未击破",17,Color("7f9295"))
-	button(Rect2(380,466,200,38),"返回","journey_records_back",true)
+	var back_height=44 if game.is_touch else 38
+	var back_y=touch_menu_row_y(safe_rect_in_hud(),466,back_height) if game.is_touch else 466
+	button(Rect2(380,back_y,200,back_height),"返回","journey_records_back",true)
 func stage_select_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.025,.045,.07,.98))
 	centered(76,"自由跳关",30,game.GOLD)
+	var action_x=touch_stage_select_button_x(safe_rect_in_hud()) if game.is_touch else 600.0
 	for i in 4:
 		var stage=load("res://data/arenas/boss_"+str(i+1)+".tres")
 		var boss=load("res://data/bosses/"+stage.boss_id+".tres")
@@ -451,43 +517,192 @@ func stage_select_screen():
 		var cleared=i+1 in game.progress.get("rush_clears",[])
 		text(Vector2(322,y+28),str(i+1)+" · "+stage.title,20,game.GOLD)
 		text(Vector2(322,y+52),boss.title+("   · 已击破" if cleared else ""),13,game.TEAL if cleared else Color("9aa8aa"))
-		button(Rect2(600,y+11,200,40),"进入战场","jump_"+str(i+1)+"_0")
-	button(Rect2(380,473,200,38),"返回","stage_select_back")
+		button(Rect2(action_x,y+11,200,44 if game.is_touch else 40),"进入战场","jump_"+str(i+1)+"_0")
+	var back_height=44 if game.is_touch else 38
+	var back_y=touch_menu_row_y(safe_rect_in_hud(),473,back_height) if game.is_touch else 473
+	button(Rect2(380,back_y,200,back_height),"返回","stage_select_back")
 func settings_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.025,.045,.07,.98))
 	centered(65,"设置",30,game.GOLD)
-	panel(Rect2(70,100,390,325));panel(Rect2(490,100,400,325))
-	text(Vector2(100,137),"声音",18,game.GOLD)
+	var safe_rect=safe_rect_in_hud() if game.is_touch else HUD_BOUNDS
+	var left_offset=touch_settings_left_offset(safe_rect) if game.is_touch else 0.0
+	var right_offset=touch_settings_right_offset(safe_rect) if game.is_touch else 0.0
+	var left_panel_x=70+left_offset;var left_panel_width=minf(390.0,490.0-left_panel_x)
+	var right_panel_width=minf(400.0,safe_rect.end.x-16.0-490.0) if game.is_touch else 400.0
+	panel(Rect2(left_panel_x,100,left_panel_width,325));panel(Rect2(490,100,right_panel_width,325))
+	text(Vector2(100+left_offset,137),"声音",18,game.GOLD)
 	var labels={"music":"音乐","sfx":"音效","ambience":"环境"}
 	var index=0
 	for key in labels:
-		var y=160+index*57;text(Vector2(100,y+24),labels[key],16)
-		button(Rect2(235,y,36,34),"−","volume_"+key+"_-1")
-		text(Vector2(292,y+24),str(int(game.progress[key]*100))+"%",16)
-		button(Rect2(390,y,36,34),"＋","volume_"+key+"_1");index+=1
-	button(Rect2(100,347,145,34),"声音：关" if game.progress.muted else "声音：开","mute")
-	button(Rect2(265,347,160,34),"试听","melee_audition")
-	button(Rect2(100,393,145,25),"AI 配音","voice_ai",game.progress.get("boss_voice","ai")=="ai")
-	button(Rect2(265,393,160,25),"经典配音","voice_classic",game.progress.get("boss_voice","ai")=="classic")
-	text(Vector2(520,137),"旅途",18,game.GOLD)
-	button(Rect2(520,161,340,38),"难度 · "+("从容" if game.relaxed_journey() else "标准"),"journey_mode")
-	button(Rect2(520,214,340,34),"震动 · "+("开" if game.progress.screen_shake else "关"),"screen_shake")
-	text(Vector2(520,286),"角色外观",14,game.TEAL)
-	button(Rect2(520,303,160,34),"骨骼动画","hero_modern",game.use_skeletal)
-	button(Rect2(700,303,160,34),"经典 2D","hero_legacy",not game.use_skeletal)
-	button(Rect2(520,360,340,34),"操作与按键","controls")
-	button(Rect2(380,465,200,40),"返回","back",true)
+		var y=160+index*57;text(Vector2(100+left_offset,y+24),labels[key],16)
+		var volume_size=44 if game.is_touch else 36
+		var volume_y=y-5 if game.is_touch else y
+		button(Rect2((231 if game.is_touch else 235)+left_offset,volume_y,volume_size,44 if game.is_touch else 34),"−","volume_"+key+"_-1")
+		text(Vector2(292+left_offset,y+24),str(int(game.progress[key]*100))+"%",16)
+		button(Rect2((386 if game.is_touch else 390)+left_offset,volume_y,volume_size,44 if game.is_touch else 34),"＋","volume_"+key+"_1");index+=1
+	var mute_y=329 if game.is_touch else 347
+	var mute_height=44 if game.is_touch else 34
+	var voice_y=381 if game.is_touch else 393
+	var voice_height=44 if game.is_touch else 25
+	button(Rect2(100+left_offset,mute_y,145,mute_height),"声音：关" if game.progress.muted else "声音：开","mute")
+	button(Rect2(265+left_offset,mute_y,160,mute_height),"试听","melee_audition")
+	button(Rect2(100+left_offset,voice_y,145,voice_height),"AI 配音","voice_ai",game.progress.get("boss_voice","ai")=="ai")
+	button(Rect2(265+left_offset,voice_y,160,voice_height),"经典配音","voice_classic",game.progress.get("boss_voice","ai")=="classic")
+	text(Vector2(520+right_offset,137),"旅途",18,game.GOLD)
+	button(Rect2(520+right_offset,161,340,44 if game.is_touch else 38),"难度 · "+("从容" if game.relaxed_journey() else "标准"),"journey_mode")
+	button(Rect2(520+right_offset,214,340,44 if game.is_touch else 34),"震动 · "+("开" if game.progress.screen_shake else "关"),"screen_shake")
+	text(Vector2(520+right_offset,286),"角色外观",14,game.TEAL)
+	button(Rect2(520+right_offset,303,160,44 if game.is_touch else 34),"骨骼动画","hero_modern",game.use_skeletal)
+	button(Rect2(700+right_offset,303,160,44 if game.is_touch else 34),"经典 2D","hero_legacy",not game.use_skeletal)
+	button(Rect2(520+right_offset,360,340,44 if game.is_touch else 34),"操作与按键","controls")
+	var back_rect=touch_settings_back_rect(safe_rect_in_hud()) if game.is_touch else Rect2(380,465,200,40)
+	button(back_rect,"返回","back",true)
 
 func story_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.025,.045,.075,.9))
-	portrait(niu,niu_region,Vector2(630,315),130)
-	portrait(hero,Rect2(0,0,181,208),Vector2(350,315),120)
+	var action_height=44 if game.is_touch else 38
+	var action_y=touch_menu_row_y(safe_rect_in_hud(),459,action_height) if game.is_touch else 459
+	var content_shift=459-action_y
+	portrait(niu,niu_region,Vector2(630,315-content_shift),130)
+	portrait(hero,Rect2(0,0,181,208),Vector2(350,315-content_shift),120)
 	var lines=["牛大侠：前面的路更险了。把这个葫芦带上。","牛大侠：需要帮忙就唤我一声，我的牛角会替你开路。","羊小侠：那就一起走。哥，下一关见！"]
-	panel(Rect2(155,340,650,95));text(Vector2(180,377),lines[game.story_page],16)
-	button(Rect2(590,459,215,38),"继续  →","story_next",true);button(Rect2(155,459,145,38),"跳过剧情","story_skip")
+	panel(Rect2(155,340-content_shift,650,95));text(Vector2(180,377-content_shift),lines[game.story_page],16)
+	button(Rect2(590,action_y,215,action_height),"继续  →","story_next",true);button(Rect2(155,action_y,145,action_height),"跳过剧情","story_skip")
+static func safe_area_in_hud(screen_area:Rect2i,screen_to_hud:Transform2D):
+	if screen_area.size.x<=0 or screen_area.size.y<=0:return HUD_BOUNDS
+	var source=Rect2(screen_area.position,screen_area.size)
+	var corners=[source.position,Vector2(source.end.x,source.position.y),source.end,Vector2(source.position.x,source.end.y)]
+	var first=screen_to_hud*corners[0];var left=first.x;var right=first.x;var top=first.y;var bottom=first.y
+	for corner in corners.slice(1):
+		var point=screen_to_hud*corner
+		left=minf(left,point.x);right=maxf(right,point.x);top=minf(top,point.y);bottom=maxf(bottom,point.y)
+	var mapped=Rect2(Vector2(left,top),Vector2(right-left,bottom-top)).intersection(HUD_BOUNDS)
+	return HUD_BOUNDS if mapped.size.x<=0 or mapped.size.y<=0 else mapped
+static func touch_safe_shifts(safe_rect:Rect2):
+	return Vector3(maxf(0,safe_rect.position.x+16-34),maxf(0,920-(safe_rect.end.x-16)),maxf(0,501-(safe_rect.end.y-16)))
+static func touch_combat_message_rect(safe_rect:Rect2):
+	var controls_up=touch_safe_shifts(safe_rect).z
+	return Rect2(200,382-controls_up-42,560,30)
+static func touch_menu_row_y(safe_rect:Rect2,base_y:float,row_height:float):
+	return minf(base_y,safe_rect.end.y-row_height-16)
+static func touch_overlay_shift(safe_rect:Rect2,content_bottom:float):
+	return maxf(0.0,content_bottom-(safe_rect.end.y-16))
+static func touch_overlay_toggle_x(safe_rect:Rect2,row_top:float,row_step:float,row_count:int,row_height:float,toggle_y:float,toggle_height:float):
+	var left=maxf(35.0,safe_rect.position.x+16)
+	var right=maxf(safe_rect.position.x+16,safe_rect.end.x-16-260)
+	var left_clear=true;var right_clear=true
+	for i in row_count:
+		var row=Rect2(350,row_top+i*row_step,260,row_height)
+		left_clear=left_clear and not Rect2(left,toggle_y,260,toggle_height).intersects(row)
+		right_clear=right_clear and not Rect2(right,toggle_y,260,toggle_height).intersects(row)
+	if left_clear:return left
+	if right_clear:return right
+	return right
+static func touch_menu_left_x(safe_rect:Rect2,base_x:float):
+	return maxf(base_x,safe_rect.position.x+16)
+static func touch_status_offset(safe_rect:Rect2):
+	return Vector2(maxf(0,safe_rect.position.x+16-18),maxf(0,safe_rect.position.y+16-15))
+static func touch_soul_slow_rect(status_offset:Vector2):
+	return Rect2(Vector2(30,50)+status_offset,Vector2(212,5))
+static func touch_controls_row_xs(safe_rect:Rect2):
+	var left=safe_rect.position.x+16;var right=safe_rect.end.x-16
+	var gap_total=minf(95.0,maxf(0,right-left-715))
+	var first_gap=gap_total*30.0/95.0;var second_gap=gap_total-first_gap
+	var row_width=715+gap_total;var start=(left+right-row_width)*.5
+	return [start,start+260+first_gap,start+260+first_gap+220+second_gap]
+static func touch_animation_lab_xs(safe_rect:Rect2):
+	var left=maxf(55,safe_rect.position.x+16);var right=minf(895,safe_rect.end.x-16)
+	var gap_total=minf(130.0,maxf(0,right-left-710));var ratio=gap_total/130.0
+	var gaps=[15*ratio,15*ratio,40*ratio,60*ratio]
+	var x=[left]
+	x.append(x[0]+110+gaps[0]);x.append(x[1]+125+gaps[1]);x.append(x[2]+110+gaps[2]);x.append(x[3]+235+gaps[3])
+	return x
+static func touch_animation_lab_layout(safe_rect:Rect2):
+	var control_y=touch_menu_row_y(safe_rect,451,44)
+	var shift=451-control_y
+	return {"control_y":control_y,"shift":shift,"panel_bottom":400-shift,"preview_y":372-shift,"title_y":control_y-24,"footnote_y":104}
+static func touch_upgrade_shift(safe_rect:Rect2):
+	return maxf(0.0,450.0-(safe_rect.end.y-16.0))
+static func touch_upgrade_card_rects(safe_rect:Rect2,top:float,height:float):
+	var left=maxf(55.0,safe_rect.position.x+16)
+	var right=minf(905.0,safe_rect.end.x-16)
+	var available=right-left
+	var gap=minf(35.0,maxf(12.0,(available-780.0)*.5))
+	var width=(available-gap*2)/3.0
+	var rects=[]
+	for i in 3:rects.append(Rect2(left+i*(width+gap),top,width,height))
+	return rects
+static func touch_title_left_x(safe_rect:Rect2):
+	return maxf(70.0,safe_rect.position.x+16)
+static func touch_title_footer_right(safe_rect:Rect2):
+	return minf(860.0,safe_rect.end.x-16)
+static func touch_title_portrait_feet(footer_y:float):
+	return minf(453.0,footer_y-8.0)
+static func touch_developer_button_rect(safe_rect:Rect2):
+	var left=safe_rect.position.x+16
+	var right=safe_rect.end.x-16-122
+	return Rect2(maxf(left,minf(818.0,right)),maxf(12.0,safe_rect.position.y+16),122,44)
+static func touch_settings_left_offset(safe_rect:Rect2):
+	return maxf(0.0,safe_rect.position.x+16.0-70.0)
+static func touch_settings_right_offset(safe_rect:Rect2):
+	return minf(0.0,safe_rect.end.x-16.0-860.0)
+static func touch_controls_help_ys(action_y:float):
+	return Vector2(action_y-52,action_y-24)
+static func touch_controls_columns(safe_rect:Rect2):
+	var left=maxf(80.0,safe_rect.position.x+16)
+	var right=minf(865.0,safe_rect.end.x-16)
+	var span=right-left
+	var gap=clampf(span-730.0,16.0,55.0)
+	var column_width=(span-gap)/2.0
+	return [left,left+column_width+gap,maxf(44.0,minf(175.0,column_width-190.0))]
+static func touch_stage_select_button_x(safe_rect:Rect2):
+	return minf(600.0,safe_rect.end.x-16.0-200.0)
+static func touch_relic_journal_rects(safe_rect:Rect2):
+	var action_y=touch_menu_row_y(safe_rect,468,44)
+	var cards_bottom=minf(428.0,action_y-12.0)
+	var row_height=minf(92.0,maxf(60.0,(cards_bottom-112.0-24.0)/3.0))
+	var row_gap=(cards_bottom-112.0-row_height*3)/2.0
+	var left=maxf(55.0,safe_rect.position.x+16)
+	var right=minf(905.0,safe_rect.end.x-16)
+	var column_gap=20.0
+	var card_width=minf(410.0,(right-left-column_gap)/2.0)
+	var rects=[]
+	for i in 6:rects.append(Rect2(left+(i%2)*(card_width+column_gap),112+(i/2)*(row_height+row_gap),card_width,row_height))
+	return rects
+static func touch_journey_record_rects(safe_rect:Rect2):
+	var left=maxf(40.0,safe_rect.position.x+16)
+	var right=minf(920.0,safe_rect.end.x-16)
+	var gap=8.0
+	var card_width=(right-left-gap*3)/4.0
+	var rects=[]
+	for i in 4:rects.append(Rect2(left+i*(card_width+gap),151,card_width,273))
+	return rects
+static func touch_settings_back_rect(safe_rect:Rect2):
+	var back_y=touch_menu_row_y(safe_rect,465,44)
+	var centered_back=Rect2(380,back_y,200,44)
+	if centered_back.intersects(Rect2(100,381,325,44)) or centered_back.intersects(Rect2(520,360,340,44)):
+		var gap_back=Rect2(426,back_y,94,44)
+		if safe_rect.encloses(gap_back):return gap_back
+	return centered_back
+static func touch_quick_action_rects(safe_rect:Rect2):
+	var width=44.0;var gap=4.0;var total_width=width*4+gap*3
+	var right=minf(942.0,safe_rect.end.x-16)
+	var left=maxf(safe_rect.position.x+16,right-total_width)
+	var top=maxf(12.0,safe_rect.position.y+16)
+	var rects=[]
+	for i in 4:rects.append(Rect2(left+i*(width+gap),top,width,width))
+	return rects
+static func touch_layout_for_safe_rect(safe_rect:Rect2):
+	var edge_inset=16.0;var shifts=touch_safe_shifts(safe_rect)
+	var left=shifts.x;var right=shifts.y;var up=shifts.z
+	return [{"rect":Rect2(18+edge_inset+left,440-up,48,48),"label":"←","action":"left"},{"rect":Rect2(74+edge_inset+left,440-up,48,48),"label":"→","action":"right"},{"rect":Rect2(130+edge_inset+left,440-up,48,48),"label":"↓","action":"down"},{"rect":Rect2(876-edge_inset-right,441-up,60,60),"label":"剑","action":"attack"},{"rect":Rect2(817-edge_inset-right,445-up,48,48),"label":"跳","action":"jump"},{"rect":Rect2(758-edge_inset-right,445-up,48,48),"label":"闪","action":"dash"},{"rect":Rect2(878-edge_inset-right,382-up,48,48),"label":"弓","action":"bow"},{"rect":Rect2(819-edge_inset-right,382-up,48,48),"label":"蓄","action":"charge"},{"rect":Rect2(760-edge_inset-right,382-up,48,48),"label":"羊","action":"transform"},{"rect":Rect2(701-edge_inset-right,445-up,48,48),"label":"兄","action":"summon"},{"rect":Rect2(701-edge_inset-right,382-up,48,48),"label":"露","action":"item"}]
+func safe_rect_in_hud():
+	var screen_area=DisplayServer.get_display_safe_area()
+	return safe_area_in_hud(screen_area,canvas.get_screen_transform().affine_inverse())
 func touch_layout():
-	return [{"rect":Rect2(18,440,48,48),"label":"←","action":"left"},{"rect":Rect2(74,440,48,48),"label":"→","action":"right"},{"rect":Rect2(130,440,48,48),"label":"↓","action":"down"},{"rect":Rect2(876,441,60,60),"label":"剑","action":"attack"},{"rect":Rect2(817,445,48,48),"label":"跳","action":"jump"},{"rect":Rect2(758,445,48,48),"label":"闪","action":"dash"},{"rect":Rect2(878,382,48,48),"label":"弓","action":"bow"},{"rect":Rect2(819,382,48,48),"label":"蓄","action":"charge"},{"rect":Rect2(760,382,48,48),"label":"羊","action":"transform"},{"rect":Rect2(701,445,48,48),"label":"兄","action":"summon"},{"rect":Rect2(701,382,48,48),"label":"露","action":"item"}]
+	return touch_layout_for_safe_rect(safe_rect_in_hud())
 func handle_click(at):
+	if pad_state!=game.state:return false
 	for b in buttons:
 		if b.rect.has_point(at):action(b.action);return true
 	return false
@@ -551,6 +766,7 @@ func action(id):
 		"story_skip":game.complete_story()
 
 func pad_move(direction):
+	if pad_state!=game.state:return
 	if buttons.is_empty():return
 	pad_focus=clampi(pad_focus,0,buttons.size()-1)
 	var origin=buttons[pad_focus].rect.get_center()
@@ -566,6 +782,7 @@ func pad_move(direction):
 	if best<0:best=posmod(pad_focus+(1 if direction.x+direction.y>0 else -1),buttons.size())
 	pad_focus=best;game.audio.play("ui_focus",-12)
 func pad_activate():
+	if pad_state!=game.state:return
 	if buttons.is_empty():return
 	var selected=buttons[clampi(pad_focus,0,buttons.size()-1)].action
 	action(selected)
@@ -574,28 +791,44 @@ func animation_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color("111f2c"))
 	centered(55,"羊小侠 · 连续动作样片",27,game.GOLD)
 	centered(86,"同一原画，左侧切换姿势，右侧二维网格补间",13,game.TEAL)
-	panel(Rect2(35,115,430,285));panel(Rect2(495,115,430,285))
+	var touch_layout=touch_animation_lab_layout(safe_rect_in_hud()) if game.is_touch else {}
+	var preview_shift=touch_layout.get("shift",0.0)
+	var panel_bottom=400-preview_shift
+	game.animation_lab.preview_offset=preview_shift
+	panel(Rect2(35,115,430,panel_bottom-115));panel(Rect2(495,115,430,panel_bottom-115))
 	text(Vector2(60,146),"原版 · 姿势切帧",17)
 	text(Vector2(520,146),"新版 · 二维网格 / 连续补间",17,game.GOLD)
-	for x in [55,515]:canvas.draw_line(Vector2(x,375),Vector2(x+385,375),Color("638680"),2)
-	centered(427,game.animation_lab.title(),17,game.GOLD)
-	button(Rect2(55,451,110,36),"暂停" if game.animation_lab.playing else "播放","lab_pause")
-	button(Rect2(180,451,125,36),"速度 ×"+str(game.animation_lab.speed),"lab_speed")
-	button(Rect2(320,451,110,36),"重播","lab_restart")
-	button(Rect2(470,451,235,36),"游戏：原画优化" if game.use_skeletal else "游戏：旧版图集","lab_switch")
-	button(Rect2(765,451,130,36),"返回","lab_back")
-	centered(518,"头颈完整 · 身体补间 · 挥剑有效时间与伤害同步",12,game.TEAL)
+	for x in [55,515]:canvas.draw_line(Vector2(x,375-preview_shift),Vector2(x+385,375-preview_shift),Color("638680"),2)
+	var control_height=44 if game.is_touch else 36
+	var control_y=touch_layout.control_y if game.is_touch else 451
+	centered(control_y-24,game.animation_lab.title(),17,game.GOLD)
+	var control_xs=[55.0,180.0,320.0,470.0,765.0]
+	if game.is_touch:control_xs=touch_animation_lab_xs(safe_rect_in_hud())
+	button(Rect2(control_xs[0],control_y,110,control_height),"暂停" if game.animation_lab.playing else "播放","lab_pause")
+	button(Rect2(control_xs[1],control_y,125,control_height),"速度 ×"+str(game.animation_lab.speed),"lab_speed")
+	button(Rect2(control_xs[2],control_y,110,control_height),"重播","lab_restart")
+	button(Rect2(control_xs[3],control_y,235,control_height),"游戏：原画优化" if game.use_skeletal else "游戏：旧版图集","lab_switch")
+	button(Rect2(control_xs[4],control_y,130,control_height),"返回","lab_back")
+	centered(104 if game.is_touch else 518,"头颈完整 · 身体补间 · 挥剑有效时间与伤害同步",12,game.TEAL)
 
 func controls_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color("111f2c"));centered(54,"手柄键位",28,game.GOLD)
-	centered(85,"Switch：A跳跃 · X冲刺 · B召唤 · Y变身 · ZR翻滚",14,game.TEAL)
+	centered(85,"左摇杆移动 · 下方显示当前键位，可点选修改",14,game.TEAL)
 	var labels=["跳跃","近战 / 长按蓄力","远程攻击","翻滚","冲刺","羊灵觉醒","召唤牛大侠"]
+	var columns=[80.0,500.0,175.0]
+	if game.is_touch:columns=touch_controls_columns(safe_rect_in_hud())
 	for i in game.gamepad.ACTIONS.size():
-		var action_name=game.gamepad.ACTIONS[i];var x=80+(i%2)*420;var y=111+(i/2)*58
+		var action_name=game.gamepad.ACTIONS[i];var x=columns[i%2];var y=111+(i/2)*58
 		text(Vector2(x,y+25),labels[i],16)
-		button(Rect2(x+190,y,175,36),"等待按键…" if game.gamepad.rebinding==action_name else game.gamepad.binding_label(action_name),"bind_"+action_name)
-	centered(380,"点选后按新键 · 长按近战蓄力",13)
-	centered(410,"↓→ 斩 踏月剑气   ↓← 斩 回风斩   →↓→ 斩 升龙斩",12,game.GOLD)
-	button(Rect2(75,455,260,38),"按键图标："+{"auto":"自动","xbox":"Xbox","ps":"PlayStation","switch":"Switch"}.get(game.gamepad.glyphs,"自动"),"pad_glyphs")
-	button(Rect2(365,455,220,38),"恢复推荐键位","pad_reset")
-	button(Rect2(650,455,235,38),"返回","controls_back",true)
+		var waiting=game.gamepad.rebinding==action_name
+		button(Rect2(x+190,y,columns[2],44 if game.is_touch else 36),"等待按键…" if waiting else game.gamepad.binding_label(action_name),"bind_"+action_name,waiting)
+	var action_height=44 if game.is_touch else 38
+	var action_y=touch_menu_row_y(safe_rect_in_hud(),455,action_height) if game.is_touch else 455
+	var help_ys=touch_controls_help_ys(action_y) if game.is_touch else Vector2(380,410)
+	centered(help_ys.x,"按下手柄新键 · Esc / Start 取消" if not game.gamepad.rebinding.is_empty() else "点选后按新键 · 长按近战蓄力",13,game.GOLD if not game.gamepad.rebinding.is_empty() else game.WHITE)
+	centered(help_ys.y,"↓→ 斩 踏月剑气   ↓← 斩 回风斩   →↓→ 斩 升龙斩",12,game.GOLD)
+	var action_xs=[75.0,365.0,650.0]
+	if game.is_touch:action_xs=touch_controls_row_xs(safe_rect_in_hud())
+	button(Rect2(action_xs[0],action_y,260,action_height),"按键图标："+{"auto":"自动","xbox":"Xbox","ps":"PlayStation","switch":"Switch"}.get(game.gamepad.glyphs,"自动"),"pad_glyphs")
+	button(Rect2(action_xs[1],action_y,220,action_height),"恢复推荐键位","pad_reset")
+	button(Rect2(action_xs[2],action_y,235,action_height),"返回","controls_back",true)

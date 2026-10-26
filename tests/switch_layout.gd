@@ -16,7 +16,9 @@ func run():
  check(pad.binding_label("jump")=="A" and pad.binding_label("summon")=="B" and pad.binding_label("sprint")=="X" and pad.binding_label("transform")=="Y","Switch printed letters match requested actions")
  button(JOY_BUTTON_B,true);await frames(2);button(JOY_BUTTON_B,false)
  check(game.active(),"Switch A confirms menu")
- for e in game.enemies:e.dead=true;e.set_physics_process(false)
+ for e in game.enemies:
+  if e==game.boss:e.set_physics_process(false)
+  else:e.dead=true;e.set_physics_process(false)
  var p=game.player;p.invincible=0;await frames(5)
  button(JOY_BUTTON_B,true);await frames(2);check(p.velocity.y<0,"A jumps");button(JOY_BUTTON_B,false);await frames(50)
  button(JOY_BUTTON_LEFT_SHOULDER,true);await frames(5)
@@ -42,7 +44,7 @@ func run():
  var custom=InputEventJoypadMotion.new();custom.device=0;custom.axis=JOY_AXIS_TRIGGER_LEFT;custom.axis_value=1;Input.parse_input_event(custom);await frames(25)
  check(pad.charge_active,"rebound trigger supports held melee charge")
  custom.axis_value=0;Input.parse_input_event(custom);await frames(2);check(not pad.melee_held and p.charge==0,"rebound trigger release clears charge")
- var config_path="user://qa_controller_layout.cfg"
+ var config_path="/private/tmp/yang-daxia-qa-controller-layout.cfg"
  pad.save_bindings(config_path);pad.bindings=pad.defaults();pad.load_bindings(config_path)
  check(pad.bindings.attack=="a"+str(JOY_AXIS_TRIGGER_LEFT),"versioned custom controls survive reload")
  var old=ConfigFile.new();old.set_value("bindings","attack","b2");old.save(config_path);pad.load_bindings(config_path)

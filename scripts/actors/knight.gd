@@ -480,6 +480,7 @@ func run_bow(dt,id):
 		if once("arrow"+str(i),at):
 			for angle in ([-.14,0.0,.14] if id=="bow_volley" else [0.0]):
 				release_arrow("knight:"+id,angle)
+			if i==0:soul.queue_echo()
 			move_sound("release");pressure_flash("bow",.24)
 	if t>=times[-1]+.18:finish(.8)
 func act_bow_volley(dt):run_bow(dt,"bow_volley")
@@ -509,7 +510,6 @@ func release_arrow(identity,spread=0.0):
 	var shot=game.combat.fire(bow_origin(),aim.rotated(spread)*(EMPOWERED_ARROW_SPEED if empowered else ARROW_SPEED),(EMPOWERED_ARROW_DAMAGE if empowered else ARROW_DAMAGE),"enemy","knight_arrow",{"owner":get_instance_id(),"life":2.2})
 	shout(.5)
 	shot.seal=cfg("knight_hit_seal");shot.attack_sound=identity;shot.empowered=empowered;shot.radius=19 if empowered else 13
-	soul.queue_echo()
 func act_bow_double(dt):run_bow(dt,"bow_double")
 # ---------------------------------------------------------------- mounted
 func act_charge(dt):run_lance(dt,cfg("knight_charge_windup"),.9,.75)

@@ -5,6 +5,8 @@ var actor
 var strength=0.0
 func _ready():z_index=-1
 func _process(dt):
+	if is_instance_valid(actor) and actor.game and (not actor.game.active() or actor.game.hitstop>0):
+		queue_redraw();return
 	var target=0.0
 	var boss=actor.game.boss if is_instance_valid(actor) and actor.game else null
 	if is_instance_valid(boss) and not boss.dead and boss.visible:

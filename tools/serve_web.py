@@ -11,5 +11,5 @@ class Handler(SimpleHTTPRequestHandler):
  def end_headers(self):
   self.send_header('Cache-Control','no-cache')
   super().end_headers()
-print(f'羊大侠试玩：http://127.0.0.1:{args.port}',flush=True)
+print(f'羊小侠试玩：http://127.0.0.1:{args.port}',flush=True)
 ThreadingHTTPServer(('127.0.0.1',args.port),Handler).serve_forever()

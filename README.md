@@ -1,4 +1,4 @@
-# 羊大侠 · 月下同行（v0.2）
+# 羊小侠（v0.2）
 
 Godot 4.7 / GDScript / Compatibility 渲染的三关固定路线横版动作游戏。主角羊小侠按旧版身高的 60% 绘制（52.8 像素），哥哥牛大侠保持旧版主角的 88 像素。主角保留完整像素原画，使用二维网格与解剖引导点补间；头颈保持整块移动，跑跳、落地与三连斩在原画姿势之间插值，攻击对齐伤害时刻。Blender 主角实验资源保留，但不用于当前游戏人物显示。牛大侠仍使用保留原画的二维骨骼。
 
@@ -12,7 +12,7 @@ Godot 4.7 / GDScript / Compatibility 渲染的三关固定路线横版动作游�
 
 ## 试玩
 
-- Mac：打开 `builds/macos/羊大侠 · 月下试炼.app`，或解压 `builds/macos/YangDaxia.zip`。
+- Mac：打开 `builds/macos/羊小侠.app`，或解压 `builds/macos/YangDaxia.zip`。
 - Chrome：运行 `试玩网页.command`，访问 http://127.0.0.1:8765 。点击「新的旅途」或「继续」后开始播放音频。通过 HTTP 打开，不能直接双击 HTML。
 - Godot：导入 `project.godot` 后按 F5。
 
@@ -123,6 +123,8 @@ Boss 跨过生命阈值时会进入 1.25 秒阶段转换：旧招式和该 Boss 
 `./tools/build.sh web`、`./tools/build.sh macos`、`./tools/build.sh windows`。
 
 发布站点（落地页 + 网页版 + Mac/Windows 下载）：`tools/release.sh build` 只在本地生成 `dist/site/`；`tools/release.sh deploy` 才上传到 https://yang-xiaoxia.newnew-tang.site/ ，另有 `status` 和 `rollback`。规则见 `.agents/skills/release-deploy/SKILL.md`：只有明确说“部署”才部署。
+
+只改首页时，运行 `tools/release.sh site` 更新本地 `dist/site/`，保留已有游戏与下载包。首页实机介绍素材放在 `builds/site-media/`（`intro.mp4`、`intro-poster.jpg`、`intro.zh.vtt`），不进 Git；完整构建也会复制它们，素材缺失会停止。本地预览：`.venv/bin/python -m http.server 8766 --bind 127.0.0.1 --directory dist/site`。
 
 Android 预设保留 arm64、横屏与触屏操作；配置 Android SDK / Java SDK 后运行 `./tools/build.sh android`。**Android 尚未真机验证。**
 

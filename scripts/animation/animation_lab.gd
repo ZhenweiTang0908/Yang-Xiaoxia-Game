@@ -11,6 +11,7 @@ var speed=1.0
 var playing=true
 var current="idle"
 var jump_offset=0.0
+var preview_offset=0.0
 var previous="title"
 func _ready():
  layer=21
@@ -22,14 +23,13 @@ func _process(dt):
  if not visible:
   rig.set_process(false);return
  rig.set_process(playing)
- if playing:clock+=dt*speed
- if clock>=SEQUENCE[cursor][1]:clock-=SEQUENCE[cursor][1];cursor=(cursor+1)%SEQUENCE.size()
+ advance(dt)
  current=SEQUENCE[cursor][0];rig.preview_state=current;rig.preview_time=clock
  rig.preview_speed=225;rig.playback_rate=speed
  if current=="jump":jump_offset=-sin(clock/.84*PI)*30
  elif current=="fall":jump_offset=-sin((clock+.42)/.84*PI)*30
  else:jump_offset=0
- rig.position.y=372+jump_offset;legacy.position.y=rig.position.y;heavy.position=legacy.position
+ rig.position.y=372-preview_offset+jump_offset;legacy.position.y=rig.position.y;heavy.position=legacy.position
  var frame=0
  match current:
   "idle":frame=int(clock*6)%8
@@ -41,6 +41,11 @@ func _process(dt):
   "slash2":frame=24+mini(7,int(clock/.41*8))
  legacy.frame=frame;legacy.visible=current!="slash3";heavy.visible=current=="slash3"
  if heavy.visible:heavy.frame=mini(7,int(clock/.49*8))
+func advance(dt):
+ if not playing:return
+ clock+=dt*speed
+ while clock>=SEQUENCE[cursor][1]:
+  clock-=SEQUENCE[cursor][1];cursor=(cursor+1)%SEQUENCE.size()
 func restart():cursor=0;clock=0;playing=true
 func title():
  return {"idle":"站立呼吸","run":"起跑与支撑步","jump":"起跳收腿","fall":"下落准备","land":"屈膝落地","slash1":"第一斩 · 蓄势挥出","slash2":"第二斩 · 回身连斩","slash3":"第三斩 · 蓄势上挑"}[current]

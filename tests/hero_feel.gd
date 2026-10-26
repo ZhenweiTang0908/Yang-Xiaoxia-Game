@@ -29,6 +29,11 @@ func run():
  game=load("res://scenes/main.tscn").instantiate();root.add_child(game);game.qa_mode=true;game.progress=game.SAVE.defaults();game.start_new()
  game.set_process(false);game.set_physics_process(false);game.player.set_physics_process(false);game.combat.set_physics_process(false);game.boss.set_physics_process(false)
  await process_frame
+ var motion=game.player.skeletal_visual.painted_motion
+ motion.rig.sample_action("hurt",.24);game.player.hurt_anim=.22;game.player.hurt_time=0;game.hitstop=.06
+ motion._physics_process(.016)
+ verify(is_equal_approx(motion.rig.action_elapsed,.07),"a fresh hit during hurt recovery restores the impact pose during hitstop")
+ game.hitstop=0;game.player.hurt_anim=0;game.player.hurt_time=-1
  for combo in [1,2,3]:
   var hero=melee_damage(false,combo);var sheep=melee_damage(true,combo)
   verify(is_equal_approx(sheep,hero*1.4),"sheep melee hit "+str(combo)+" deals 1.4x the hero ("+str(sheep)+" vs "+str(hero)+")")

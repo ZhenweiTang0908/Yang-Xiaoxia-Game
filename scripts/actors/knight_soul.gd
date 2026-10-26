@@ -70,8 +70,11 @@ func advance(dt):
 		var release=.62 if ghost.strong else .55
 		if ghost.age>=release and not ghost.fired:
 			ghost.fired=true
-			var shot=actor.game.combat.fire(ghost.p,ghost.aim*(608 if ghost.strong else 488),(EMPOWERED_ARROW_DAMAGE if ghost.strong else ARROW_DAMAGE),"enemy","soul_eagle" if ghost.strong else "soul_arrow",{"owner":actor.get_instance_id(),"life":1.7,"radius":17 if ghost.strong else 13})
-			shot.slow=1.4;shot.attack_sound="knight:soul_arrow"
+			var count=7 if ghost.strong else 5
+			for i in count:
+				var direction=ghost.aim.rotated((i-(count-1)*.5)*.06)
+				var shot=actor.game.combat.fire(ghost.p,direction*(608 if ghost.strong else 488),(EMPOWERED_ARROW_DAMAGE if ghost.strong else ARROW_DAMAGE),"enemy","soul_eagle" if ghost.strong else "soul_arrow",{"owner":actor.get_instance_id(),"life":1.7,"radius":17 if ghost.strong else 13})
+				shot.slow=1.4;shot.attack_sound="knight:soul_arrow"
 			actor.game.audio.enemy_cue("knight:soul_arrow","release",-5)
 	echoes=echoes.filter(func(ghost):return ghost.age<1.05)
 	for soldier in soldiers:
@@ -97,7 +100,7 @@ func begin_legion():
 		if kind=="blade":x=clampf(hero.position.x+side*hero.facing*85,left,right)
 		var ground=Vector2(x,actor.GROUND-38)
 		var age=-.09*i-(.45 if side>0 else 0.0)
-		legion.append({"p":ground-Vector2(0,110),"ground":ground,"age":age,"kind":kind,"side":side,"dir":1.0,"aim":Vector2.RIGHT,"hits":0,"locked":false,"travel":0.0,"box":null})
+		legion.append({"p":ground-Vector2(0,152 if kind=="archer" else 110),"ground":ground,"age":age,"kind":kind,"side":side,"dir":1.0,"aim":Vector2.RIGHT,"hits":0,"locked":false,"travel":0.0,"box":null})
 func advance_legion(dt):
 	for unit in legion:
 		unit.age+=dt
@@ -105,7 +108,7 @@ func advance_legion(dt):
 		if unit.age-dt<=0:actor.sound("ghost_rise",-5)
 		var fade_at=3.25 if unit.kind=="archer" else 1.95
 		if unit.age>=fade_at and unit.age-dt<fade_at:actor.sound("ghost_fade",-6)
-		unit.p.y=lerpf(unit.ground.y-110,unit.ground.y,smoothstep(0,.5,unit.age))
+		unit.p.y=unit.ground.y-152 if unit.kind=="archer" else lerpf(unit.ground.y-110,unit.ground.y,smoothstep(0,.5,unit.age))
 		if unit.kind=="archer":
 			for i in 3:
 				var release=1.1+i*.95

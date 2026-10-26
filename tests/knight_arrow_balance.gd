@@ -26,14 +26,21 @@ func run():
    if shots.is_empty():verify(false,"knight released real arrows");quit(1);return
    verify(shots.all(func(s):return s.damage==(12 if strong else 8)),id+" uses exact specified damage")
    verify(shots.all(func(s):return is_equal_approx(s.v.length(),1100 if strong else 780)),id+" restores old speed")
+   verify(k.soul.echoes.size()==1,id+" begins with exactly one ghost archer")
+   for at in k.bow_times(id):
+    k.time+=.1;k.t=at;k.run_bow(0,id)
+   verify(k.soul.echoes.size()==1,id+" never summons additional archers during the volley")
    actual_hit(shots[0],12 if strong else 8)
   reset();k.empowered=strong;k.soul.queue_echo();k.soul.advance(.7)
   var ghosts=game.combat.shots.filter(func(s):return s.kind in ["soul_arrow","soul_eagle"])
   if ghosts.is_empty():verify(false,"echo released a real arrow");quit(1);return
+  verify(ghosts.size()==(7 if strong else 5),"single ghost fires the expanded arrow fan")
+  verify(ghosts.all(func(s):return is_equal_approx(s.v.length(),608 if strong else 488)),"all extra arrows preserve their original speed")
   verify(ghosts[0].damage==(8 if strong else 6),"ghost echo uses exact specified damage")
   verify(is_equal_approx(ghosts[0].v.length(),608 if strong else 488),"ghost echo keeps existing projectile speed")
   actual_hit(ghosts[0],8 if strong else 6)
   reset();k.empowered=strong;k.soul.begin_legion();k.soul.advance_legion(1.4)
+  verify(k.soul.legion.filter(func(unit):return unit.kind=="archer").all(func(unit):return is_equal_approx(unit.p.y,k.GROUND-190)),"legion archers remain in the sky while shooting")
   var arrows=game.combat.shots.filter(func(s):return s.kind in ["soul_arrow","soul_eagle"])
   verify(arrows.size()==3 and arrows.all(func(s):return s.damage==6),"summoned archers always shoot ordinary 6-damage arrows")
  reset();game.summon.request();game.summon.brother.set_physics_process(false);game.summon.phase="active";game.summon.remaining=30

@@ -39,12 +39,15 @@ func handle(event):
   if event is InputEventJoypadMotion and event.axis in [JOY_AXIS_TRIGGER_LEFT,JOY_AXIS_TRIGGER_RIGHT] and event.axis_value>.65:
    assign(rebinding,"a"+str(event.axis));return true
   return true
+ if event is InputEventMouseMotion:
+  game.pad_mode=false;game.keyboard_nav=false;direction=Vector2.ZERO
+  return false
  if event is InputEventKey or event is InputEventMouseButton or event is InputEventScreenTouch:
   if event.is_pressed():game.pad_mode=false;direction=Vector2.ZERO
   return false
  if not (event is InputEventJoypadButton or event is InputEventJoypadMotion):return false
  if event is InputEventJoypadButton and event.pressed or event is InputEventJoypadMotion and absf(event.axis_value)>.3:
-  game.pad_mode=true;game.is_touch=false;device=event.device
+  game.pad_mode=true;game.keyboard_nav=false;game.is_touch=false;device=event.device
  if event is InputEventJoypadButton and event.button_index==JOY_BUTTON_DPAD_UP and game.state=="playing":
   if event.pressed:game.use_tonic()
   return true

@@ -18,6 +18,7 @@ var facing=1.0
 var invincible=0.0
 var soul_slow=0.0
 var sheep_time=0.0
+var ready_tint=0.0
 var form_transition=0.0
 var form_visual=false
 var dash_time=0.0
@@ -81,6 +82,10 @@ func _ready():
 	capsule.radius=8; capsule.height=HEIGHT
 	shape.shape=capsule; shape.position.y=-HEIGHT*.5; add_child(shape)
 	art=load("res://scripts/actors/atlas_actor.gd").new(); add_child(art)
+	# Warm both first-use atlases before combat: keyed bounds scan every pixel.
+	for entry in [["res://assets/art/v2/sheep_clean.png",6,4,52.8],["res://assets/art/v3/bull.png",4,2,62.0]]:
+		var warm=load("res://scripts/actors/atlas_actor.gd").new()
+		warm.configure(entry[0],entry[1],entry[2],entry[3]);warm.free()
 	set_form_art(false)
 	heavy_art=load("res://scripts/actors/atlas_actor.gd").new();add_child(heavy_art)
 	heavy_art.configure("res://assets/art/v2/uppercut.png",4,2,52.8);heavy_art.visible=false
@@ -289,21 +294,26 @@ func take_damage(amount:float,direction:float,source="unknown",attack_sound="",u
 	return true
 func perfect_dodge():
 	dodge_rewarded=true;dodge_flash=.7
-	var rage_gain=minf(15,100-rage);var spirit_gain=minf(12,100-spirit)
-	rage+=rage_gain;spirit+=spirit_gain
-	dodge_message="踏月闪 · 战意 +"+str(int(rage_gain))+" · 觉醒 +"+str(int(spirit_gain))
+	var rage_gain=minf(15,100-rage);var spirit_gain=gain_spirit(12)
+	rage+=rage_gain
+	dodge_message="踏月闪 · 战意 +"+str(int(rage_gain))
+	if spirit_gain>0:dodge_message+=" · 觉醒 +"+str(int(spirit_gain))
 	game.fx.ring(position-Vector2(0,20),game.TEAL,42,.35);game.audio.play("pickup",-7)
 func render_tint():
 	# Keep invulnerability readable without a hard on/off transparency flash.
 	var alpha=1.0 if invincible<=0 else .91+.09*sin(anim_clock*TAU*7)
 	var strength=1-smoothstep(.02,.20,.22-hurt_anim) if hurt_anim>0 else 0.0
-	var color=Color.WHITE.lerp(Color(1.0,.48,.34),strength)
+	var color=Color.WHITE.lerp(Color("aa63ff"),ready_tint).lerp(Color(1.0,.48,.34),strength)
 	# A brief white flash on contact, before the red recoil tint.
 	if hurt_time>=0 and hurt_time<.06:color=Color(1.7,1.6,1.5)
 	color.a=alpha
 	return color
+func gain_spirit(amount):
+	var before=spirit
+	if not sheep():spirit=clampf(spirit+amount,0,100)
+	return spirit-before
 func reward(damage:float,killed:bool):
-	rage=minf(100,rage+10);spirit=minf(100,spirit+5+(6 if killed else 0))
+	rage=minf(100,rage+10);gain_spirit(5+(6 if killed else 0))
 	if killed:health=minf(100,health+1)
 # Sheep combo frame orders: quick horizontal draw, overhead chop, full sweeping arc.
 # Each list lands its hit frame (index SHEEP_HIT_FRAME) exactly on the damage event.

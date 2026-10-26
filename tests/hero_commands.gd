@@ -67,7 +67,7 @@ func run():
 	verify(p.special_id=="","pause clears unfinished motion")
 	prepare(p);p.sheep_time=10;direction(p,0,true);direction(p,1,false);p.enqueue("attack");p._physics_process(.01)
 	verify(p.special_id=="" and p.attack_elapsed>=0,"sheep form retains ordinary attacks")
-	prepare(p);p.start_attack();p.attack_elapsed=.05;direction(p,0,true);direction(p,1,false);p.enqueue("attack");p._physics_process(.01)
+	prepare(p);direction(p,0,true);direction(p,1,false);p.start_attack();p.attack_elapsed=.05;p.enqueue("attack");p._physics_process(.01)
 	verify(p.special_id=="" and not p.pending_command.is_empty(),"command buffers through normal anticipation")
 	game.hitstop=0;p._physics_process(.1);game.hitstop=0;p._physics_process(.01)
 	verify(p.special_id=="wave","command cancels ordinary recovery after impact")

@@ -35,14 +35,14 @@ func _draw():
 				for post_x in [p.x+12,p.x+p.w-12]:
 					if post_x<gap.x+8 or post_x>gap.x+gap.y-8:continue
 					for band in 4:
-						var x=post_x+sin(game.clock*1.4+band*.9)*2
+						var x=post_x+sin(game.ambience_clock*1.4+band*.9)*2
 						var y=477+band*7
 						var width=6-band
 						draw_line(Vector2(x-width,y),Vector2(x+width,y),Color(.12,.20,.20,.7-band*.14),2)
 		for row in 4:
 			var y=462+row*14
 			for j in 5:
-				var x=gap.x+fposmod(j*103+game.clock*(5+row*2),gap.y)
+				var x=gap.x+fposmod(j*103+game.ambience_clock*(5+row*2),gap.y)
 				draw_line(Vector2(x,y),Vector2(minf(x+26,gap.x+gap.y),y),Color("365363"),1)
 	# Decorative midground is behind the bright, collision-bearing walking surfaces.
 	for section in game.level.section_names.size():
@@ -97,12 +97,12 @@ func _draw():
 		if absf(x-center)>1100:continue
 		var color=game.TEAL if game.checkpoint_index>=i else Color("697e79")
 		prop(7,Vector2(x,450),82,Color(.85,.87,.82))
-		load("res://scripts/combat/vfx_shapes.gd").flame(self,Vector2(x,417),9,16,game.clock,Color("e5a65f"))
+		load("res://scripts/combat/vfx_shapes.gd").flame(self,Vector2(x,417),9,16,game.ambience_clock,Color("e5a65f"))
 		if absf(game.player.position.x-x)<90 and game.subtitle_time<=0 and game.hint_time<=0:
 			draw_string(game.font,Vector2(x-30,356),"山灯"+(" · 已记录" if game.checkpoint_index>=i else ""),HORIZONTAL_ALIGNMENT_LEFT,-1,11,color)
 	for p in game.pickups:
 		if p.taken or absf(p.x-center)>1000:continue
-		var pos=Vector2(p.x,p.y+sin(game.clock*3)*3)
+		var pos=Vector2(p.x,p.y+sin(game.ambience_clock*3)*3)
 		var color=game.GOLD if p.kind in ["bow","relic"] else game.TEAL
 		if p.kind=="bow":draw_arc(pos,13,-PI/2,PI/2,12,color,2);draw_line(pos-Vector2(0,13),pos+Vector2(0,13),color,1)
 		elif p.kind=="relic":

@@ -42,6 +42,7 @@ var attempt_started_upgrades=0
 var stage_result={}
 var death_source=""
 var clock=0.0
+var ambience_clock=0.0
 var hitstop=0.0
 var shake=0.0
 var hint=""
@@ -61,9 +62,9 @@ var debug_panel
 var subtitle=""
 var subtitle_time=0.0
 var pad_mode=false
-var gamepad
 var keyboard_nav=false
 var keyboard_nav_repeat_left=0.0
+var gamepad
 var use_skeletal=false
 var animation_lab
 var scene_motion
@@ -117,9 +118,8 @@ func configure_input():
 			var e=InputEventKey.new();e.physical_keycode=key;InputMap.action_add_event(action,e)
 func active():return state=="playing" and not switching
 func _input(event):
-	if gamepad and gamepad.handle(event):get_viewport().set_input_as_handled();return
 	if event is InputEventMouseButton or event is InputEventScreenTouch:keyboard_nav=false
-	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_F2:
+	if gamepad and gamepad.handle(event):get_viewport().set_input_as_handled();return
 	if event is InputEventKey and event.pressed and state!="playing" and state!="debug":
 		var directions={KEY_UP:Vector2.UP,KEY_W:Vector2.UP,KEY_DOWN:Vector2.DOWN,KEY_S:Vector2.DOWN,KEY_LEFT:Vector2.LEFT,KEY_A:Vector2.LEFT,KEY_RIGHT:Vector2.RIGHT,KEY_D:Vector2.RIGHT}
 		var direction=directions.get(event.physical_keycode,Vector2.ZERO)
@@ -129,14 +129,15 @@ func _input(event):
 			elif keyboard_nav and keyboard_nav_repeat_left<=0:
 				hud.pad_move(direction);keyboard_nav_repeat_left=.16
 			get_viewport().set_input_as_handled();return
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_F2:
 		debug_panel.toggle();get_viewport().set_input_as_handled();return
 	if state=="debug":
 		if event is InputEventKey and event.pressed and event.physical_keycode==KEY_ESCAPE:debug_panel.close()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
-		match event.physical_keycode:
 		if keyboard_nav and state!="playing" and event.physical_keycode in [KEY_ENTER,KEY_SPACE]:
 			hud.pad_activate();get_viewport().set_input_as_handled();return
+		match event.physical_keycode:
 			KEY_ESCAPE:
 				if state=="playing":state="paused";release_inputs()
 				elif state=="paused":state="playing"
@@ -160,9 +161,10 @@ func _input(event):
 				if action=="item":use_tonic()
 				else:player.enqueue(action)
 		if event.is_action_released("jump"):player.enqueue("jump_release")
-	if event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.device!=InputEvent.DEVICE_ID_EMULATION and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
 		hud.handle_click(event.position)
 	if event is InputEventScreenTouch:
+		if event.device==InputEvent.DEVICE_ID_EMULATION:return
 		is_touch=true
 		if event.pressed:
 			if hud.handle_click(event.position):return
@@ -174,8 +176,10 @@ func _input(event):
 						elif b.action in ["jump","attack","bow","dash","sprint","transform","summon"]:player.enqueue(b.action)
 		else:
 			if touch_ids.has(event.index):
-				var action=touch_ids[event.index];Input.action_release(action);touch_ids.erase(event.index)
-				if action=="jump" and player:player.enqueue("jump_release")
+				var action=touch_ids[event.index];touch_ids.erase(event.index)
+				if not touch_ids.values().has(action):
+					Input.action_release(action)
+					if action=="jump" and player:player.enqueue("jump_release")
 func release_inputs():
 	if gamepad:gamepad.cancel_hold()
 	for action in ["left","right","down","jump","attack","bow","dash","sprint","charge","transform","summon","item"]:Input.action_release(action)
@@ -186,12 +190,13 @@ func _notification(what):
 		state="paused";release_inputs()
 func _process(dt):
 	if gamepad:gamepad.tick(dt)
+	if state=="playing":keyboard_nav=false
+	elif keyboard_nav:keyboard_nav_repeat_left=maxf(0.0,keyboard_nav_repeat_left-dt)
 	world.visible=state not in ["title","new_confirm","story","settings","animation_lab","controls","relic_journal","journey_records"]
 	clock+=dt
 	if state=="story":story_time+=dt
 	if active():
-	if state=="playing":keyboard_nav=false
-	elif keyboard_nav:keyboard_nav_repeat_left=maxf(0.0,keyboard_nav_repeat_left-dt)
+		if hitstop<=0:ambience_clock+=dt
 		subtitle_time=maxf(0,subtitle_time-dt)
 		if is_challenge():challenge_elapsed+=dt
 		else:elapsed+=dt
@@ -216,12 +221,12 @@ func _physics_process(dt):
 			fx.recovery(player.position);show_hint("山灯共鸣 · 选择一式武学",4);begin_upgrade(i)
 			break
 	for p in pickups:
-		if p.taken:continue
+		if p.taken or (p.kind=="spirit" and player.sheep()):continue
 		if Vector2(p.x,p.y).distance_to(player.position-Vector2(0,20))<28:
 			p.taken=true;audio.play("pickup",0);fx.burst(Vector2(p.x,p.y),10,GOLD if p.kind in ["bow","relic"] else TEAL,65)
 			match p.kind:
 				"bow":player.has_bow=true;progress.bow=true;show_hint("拾得山行弓 · K 射箭，J 仍然使用近战",5);save_progress()
-				"spirit":player.spirit=minf(100,player.spirit+28);show_hint("灵息入体 · 觉醒增加",2)
+				"spirit":player.gain_spirit(28);show_hint("灵息入体 · 觉醒增加",2)
 				"heal":player.health=minf(100,player.health+30);show_hint("饮下灵泉 · 生命恢复",2)
 				"relic":collect_relic(p.id)
 	if level.single_boss:
@@ -298,7 +303,7 @@ func load_stage(number,checkpoint,entry_section=0):
 	camera.position=Vector2(clampf(player.position.x+170,480,level.length-480),270)
 	state="playing";switching=false;audio.start();audio.change_music(number,false)
 	attempt_started_elapsed=elapsed;attempt_started_kills=kills;attempt_started_upgrades=progress.get("upgrades",[]).size()
-	challenge_elapsed=0.0;stage_banner=clock
+	challenge_elapsed=0.0;stage_banner=ambience_clock
 	if not level.single_boss:resume_pending_upgrade()
 func gourd_available():return progress.gourd or (level!=null and level.single_boss)
 func upgrade_level(id):
@@ -427,7 +432,7 @@ func update_stage_record(result):
 func collect_relic(id):
 	if id not in RELIC_IDS or id in progress.get("relics",[]):return false
 	var relics=progress.get("relics",[]).duplicate();relics.append(id);progress.relics=relics
-	player.spirit=minf(100,player.spirit+15);fx.ring(player.position-Vector2(0,24),GOLD,46,.65)
+	player.gain_spirit(15);fx.ring(player.position-Vector2(0,24),GOLD,46,.65)
 	show_hint("月痕 "+str(relic_count())+" / 6 · "+RELIC_TEXT[id],5);save_progress()
 	return true
 func section_progress(section):
@@ -446,9 +451,10 @@ func on_enemy_defeated(enemy):
 	section_clears[key]=true
 	journey_clears[key]=true
 	var healed=minf(12,100-player.health)
-	player.health+=healed;player.spirit=minf(100,player.spirit+20)
+	player.health+=healed;var spirit_gain=player.gain_spirit(20)
 	audio.play("pickup",-2);fx.recovery(player.position)
-	var reward_text="觉醒 +20" if healed<=0 else "生命 +"+str(int(healed))+" · 觉醒 +20"
+	var reward_text="生命已恢复" if healed<=0 else "生命 +"+str(int(healed))
+	if spirit_gain>0:reward_text+=" · 觉醒 +"+str(int(spirit_gain))
 	show_hint("本段肃清 · "+reward_text,4)
 	return true
 func safe_ground(p):

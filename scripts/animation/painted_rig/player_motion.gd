@@ -21,7 +21,7 @@ func _physics_process(dt):
  if not actor.game.active():return
  if actor.game.hitstop>0:
   # The damage event can stop time before this child displays the impact pose.
-  if actor.hurt_anim>0 and rig.action_state!="hurt":
+  if actor.hurt_anim>0 and (rig.action_state!="hurt" or actor.hurt_time<=0.001):
    rig.sample_action("hurt",.07);rig.transition_pose.clear();modulate=actor.render_tint();rig.queue_redraw()
   elif actor.attack_elapsed>=0 and rig.attack_index==actor.combo-1 and (not is_equal_approx(rig.attack_elapsed,actor.attack_elapsed) or rig.command_id!=actor.special_id):
    rig.sample_attack(actor.combo-1,actor.attack_elapsed,0,actor.special_id);rig.blend_transition(0);rig.queue_redraw()

@@ -10,10 +10,13 @@ var full_flash=-1.0
 const CHARGE_FULL=1.1
 func _ready():z_index=3
 func _process(dt):
+	if is_instance_valid(actor) and actor.game and (not actor.game.active() or actor.game.hitstop>0):
+		queue_redraw();return
 	clock+=dt
 	var ready=is_instance_valid(actor) and actor.spirit>=100 and not actor.sheep() and actor.visible and not actor.is_carried()
 	if ready:ready_age=0.0 if ready_age<0 else ready_age+dt
 	else:ready_age=-1.0
+	if is_instance_valid(actor):actor.ready_tint=(1.0-smoothstep(.12,1.2,ready_age)) if ready_age>=0 else 0.0
 	if is_instance_valid(actor) and actor.charge>=CHARGE_FULL:full_flash=0.0 if full_flash<0 else full_flash+dt
 	elif is_instance_valid(actor) and actor.charge<=0:full_flash=-1.0
 	queue_redraw()
@@ -24,6 +27,17 @@ func _draw():
 	if ready_age>=0:draw_wisps()
 	elif actor.sheep() and actor.sheep_time<3.0:draw_fading()
 func draw_wisps():
+	# One converging surge, then only the two familiar orbiting wisps remain.
+	if ready_age<.8:
+		var u=clampf(ready_age/.8,0,1)
+		for i in 32:
+			var angle=i*2.399+u*1.5
+			var radius=lerpf(64.0+(i%5)*5,2.0,smoothstep(0,1,u))
+			var at=CENTER+Vector2(cos(angle)*radius,sin(angle)*radius*.65)
+			var tail=at+Vector2(cos(angle-.15),sin(angle-.15)*.65)*(8+12*(1-u))
+			var opacity=(1-smoothstep(.65,1,u))*.8
+			draw_line(tail,at,Color(.72,.45,1,opacity*.55),2,true)
+			draw_circle(at,2.0,Color(.92,.8,1,opacity))
 	# A brief flare marks the moment the gauge fills.
 	if ready_age<.45:
 		var u=ready_age/.45

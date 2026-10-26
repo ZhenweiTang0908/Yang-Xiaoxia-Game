@@ -14,4 +14,4 @@
 
 实机画面检查修正了突进枪、首段横斩的武器高度，保证枪尖/刀刃与腰部命中区一致。双箭瞄准以实际放箭姿态的弓位置计算。截屏与视频保存在 `builds/qa/knight/arsenal-*.png` 和 `knight-arsenal-actions.mp4`。
 
-产物：`builds/macos/羊大侠 · 月下试炼.app`、`builds/macos/YangDaxia.zip`、`builds/web/index.html`。macOS及Web导出成功；Web本轮完成导出，未另做浏览器交互验收。测试退出时Godot仍输出资源未释放提示，环境仍有CA及编辑器设置路径的提示；没有脚本解析或运行异常。
+产物：`builds/macos/羊小侠.app`、`builds/macos/YangDaxia.zip`、`builds/web/index.html`。macOS及Web导出成功；Web本轮完成导出，未另做浏览器交互验收。测试退出时Godot仍输出资源未释放提示，环境仍有CA及编辑器设置路径的提示；没有脚本解析或运行异常。

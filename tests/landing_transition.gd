@@ -10,9 +10,11 @@ func run():
  if p.is_on_floor() or rig.desired_state()!="jump":failures+=1
  p.velocity=Vector2(0,80)
  if rig.desired_state()!="fall":failures+=1
- rig.preview=true;rig.preview_state="land";rig.preview_time=.04;rig._process(.04)
- if rig.skin.current!=35:failures+=1
- rig.preview_time=.17;rig._process(.13)
- if rig.skin.current!=0:failures+=1
+ var preview=load("res://scripts/animation/hero_visual.gd").new();preview.preview=true;preview.preview_state="land";root.add_child(preview);preview.set_process(false)
+ preview.preview_time=.04;preview._process(.04)
+ if preview.skin.current!=35:failures+=1
+ preview.preview_time=.17;preview._process(.13)
+ if preview.skin.current!=0:failures+=1
+ preview.queue_free()
  print("LAND_TRANSITION failures=",failures)
  rig.queue_free();game.queue_free();await process_frame;quit(failures)
