@@ -62,6 +62,8 @@ var subtitle=""
 var subtitle_time=0.0
 var pad_mode=false
 var gamepad
+var keyboard_nav=false
+var keyboard_nav_repeat_left=0.0
 var use_skeletal=false
 var animation_lab
 var scene_motion
@@ -116,13 +118,25 @@ func configure_input():
 func active():return state=="playing" and not switching
 func _input(event):
 	if gamepad and gamepad.handle(event):get_viewport().set_input_as_handled();return
+	if event is InputEventMouseButton or event is InputEventScreenTouch:keyboard_nav=false
 	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_F2:
+	if event is InputEventKey and event.pressed and state!="playing" and state!="debug":
+		var directions={KEY_UP:Vector2.UP,KEY_W:Vector2.UP,KEY_DOWN:Vector2.DOWN,KEY_S:Vector2.DOWN,KEY_LEFT:Vector2.LEFT,KEY_A:Vector2.LEFT,KEY_RIGHT:Vector2.RIGHT,KEY_D:Vector2.RIGHT}
+		var direction=directions.get(event.physical_keycode,Vector2.ZERO)
+		if direction!=Vector2.ZERO:
+			if not event.echo:
+				keyboard_nav=true;pad_mode=false;hud.pad_move(direction);keyboard_nav_repeat_left=.36
+			elif keyboard_nav and keyboard_nav_repeat_left<=0:
+				hud.pad_move(direction);keyboard_nav_repeat_left=.16
+			get_viewport().set_input_as_handled();return
 		debug_panel.toggle();get_viewport().set_input_as_handled();return
 	if state=="debug":
 		if event is InputEventKey and event.pressed and event.physical_keycode==KEY_ESCAPE:debug_panel.close()
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
+		if keyboard_nav and state!="playing" and event.physical_keycode in [KEY_ENTER,KEY_SPACE]:
+			hud.pad_activate();get_viewport().set_input_as_handled();return
 			KEY_ESCAPE:
 				if state=="playing":state="paused";release_inputs()
 				elif state=="paused":state="playing"
@@ -176,6 +190,8 @@ func _process(dt):
 	clock+=dt
 	if state=="story":story_time+=dt
 	if active():
+	if state=="playing":keyboard_nav=false
+	elif keyboard_nav:keyboard_nav_repeat_left=maxf(0.0,keyboard_nav_repeat_left-dt)
 		subtitle_time=maxf(0,subtitle_time-dt)
 		if is_challenge():challenge_elapsed+=dt
 		else:elapsed+=dt
