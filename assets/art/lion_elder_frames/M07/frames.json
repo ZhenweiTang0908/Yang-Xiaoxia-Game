@@ -1,0 +1,210 @@
+{
+	"approved_production_count": 0,
+	"bank": "M07",
+	"draft_frame_count": 12,
+	"frames": [
+		{
+			"anchor": 128.984771728516,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 348.0,
+			"edge_contact": true,
+			"file": "00.png",
+			"frame": 0,
+			"source_frame": 0,
+			"source_rect": [
+				38,
+				21,
+				286,
+				350
+			]
+		},
+		{
+			"anchor": 240.745025634766,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 295.0,
+			"edge_contact": false,
+			"file": "01.png",
+			"frame": 1,
+			"source_frame": 1,
+			"source_rect": [
+				374,
+				72,
+				364,
+				297
+			]
+		},
+		{
+			"anchor": 221.474304199219,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 256.0,
+			"edge_contact": true,
+			"file": "02.png",
+			"frame": 2,
+			"source_frame": 2,
+			"source_rect": [
+				786,
+				113,
+				359,
+				258
+			]
+		},
+		{
+			"anchor": 159.36865234375,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 173.0,
+			"edge_contact": false,
+			"file": "03.png",
+			"frame": 3,
+			"source_frame": 3,
+			"source_rect": [
+				1175,
+				193,
+				341,
+				175
+			]
+		},
+		{
+			"anchor": 204.095245361328,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 268.0,
+			"edge_contact": false,
+			"file": "04.png",
+			"frame": 4,
+			"source_frame": 4,
+			"source_rect": [
+				44,
+				393,
+				337,
+				270
+			]
+		},
+		{
+			"anchor": 165.03190612793,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 190.0,
+			"edge_contact": false,
+			"file": "05.png",
+			"frame": 5,
+			"source_frame": 8,
+			"source_rect": [
+				57,
+				798,
+				344,
+				192
+			]
+		},
+		{
+			"anchor": 330.310729980469,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 270.0,
+			"edge_contact": false,
+			"file": "06.png",
+			"frame": 6,
+			"source_frame": 5,
+			"source_rect": [
+				388,
+				391,
+				369,
+				272
+			]
+		},
+		{
+			"anchor": 255.297958374023,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 248.0,
+			"edge_contact": false,
+			"file": "07.png",
+			"frame": 7,
+			"source_frame": 6,
+			"source_rect": [
+				762,
+				414,
+				399,
+				250
+			]
+		},
+		{
+			"anchor": 212.066650390625,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 212.0,
+			"edge_contact": false,
+			"file": "08.png",
+			"frame": 8,
+			"source_frame": 7,
+			"source_rect": [
+				1184,
+				449,
+				316,
+				214
+			]
+		},
+		{
+			"anchor": 126.888717651367,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 317.0,
+			"edge_contact": false,
+			"file": "09.png",
+			"frame": 9,
+			"source_frame": 9,
+			"source_rect": [
+				457,
+				674,
+				300,
+				319
+			]
+		},
+		{
+			"anchor": 144.10546875,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 312.0,
+			"edge_contact": false,
+			"file": "10.png",
+			"frame": 10,
+			"source_frame": 10,
+			"source_rect": [
+				809,
+				679,
+				329,
+				314
+			]
+		},
+		{
+			"anchor": 123.892295837402,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 325.0,
+			"edge_contact": true,
+			"file": "11.png",
+			"frame": 11,
+			"source_frame": 11,
+			"source_rect": [
+				1203,
+				666,
+				283,
+				327
+			]
+		}
+	],
+	"production_target_total": 272,
+	"reference_frame": 0,
+	"reference_height": 120,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/production/M07-v1.png",
+	"source_facing": -1,
+	"status": "DRAFT_REQUIRES_REVIEW",
+	"study_frame_count": 0,
+	"warnings": [
+		"Generated frames require per-frame support, crop, identity and action-contact review. No fluency acceptance."
+	]
+}

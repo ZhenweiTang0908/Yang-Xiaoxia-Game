@@ -74,9 +74,9 @@ func run():
  verify(side_relic_fit,"touch relic journal columns narrow to remain inside bilateral notch insets")
  var records_back_y=HUD.touch_menu_row_y(stage_safe,466,44);var records_back=Rect2(380,records_back_y,200,44)
  verify(records_back_y==440 and Rect2(76,40,808,444).encloses(records_back) and not records_back.intersects(Rect2(40,151,880,273)),"journey-record return avoids the gesture inset and record cards")
- var narrow_record_cards=HUD.touch_journey_record_rects(Rect2(100,24,760,476));var narrow_records_fit=narrow_record_cards.size()==4
+ var narrow_record_cards=HUD.touch_journey_record_rects(Rect2(100,24,760,476));var narrow_records_fit=narrow_record_cards.size()==5
  for i in narrow_record_cards.size():
-  narrow_records_fit=narrow_records_fit and is_equal_approx(narrow_record_cards[i].size.x,176) and Rect2(116,40,728,444).encloses(narrow_record_cards[i])
+  narrow_records_fit=narrow_records_fit and is_equal_approx(narrow_record_cards[i].size.x,139.2) and Rect2(116,40,728,444).encloses(narrow_record_cards[i])
   for j in range(i+1,narrow_record_cards.size()):narrow_records_fit=narrow_records_fit and not narrow_record_cards[i].intersects(narrow_record_cards[j])
  verify(narrow_records_fit,"touch journey-record columns shrink to fit between bilateral notches")
  var story_action_y=HUD.touch_menu_row_y(stage_safe,459,44);var story_shift=459-story_action_y
@@ -121,9 +121,9 @@ func run():
  tight_lab_fit=tight_lab_fit and tight_lab.panel_bottom>115 and tight_lab.title_y<tight_lab.control_y and tight_lab.title_y>tight_lab.panel_bottom and tight_lab.footnote_y<115
  verify(tight_lab_fit,"touch animation-lab preview and labels reflow above controls in a tall bottom safe inset")
  var status_offset=HUD.touch_status_offset(mapped_safe)
- verify(status_offset==Vector2(58,1) and Rect2(76,16,808,418).encloses(Rect2(Vector2(18,15)+status_offset,Vector2(304,66))),"touch combat status stays inside simulated top-left safe insets")
+ verify(status_offset==Vector2(58,1) and Rect2(76,16,808,418).encloses(Rect2(Vector2(18,15)+status_offset,Vector2(304,85))),"touch combat status stays inside simulated top-left safe insets")
  var soul_slow_rect=HUD.touch_soul_slow_rect(status_offset)
- verify(soul_slow_rect==Rect2(88,51,212,5) and Rect2(76,16,808,418).encloses(soul_slow_rect),"touch soul-slow meter follows the combat status clear of side and top insets")
+ verify(soul_slow_rect==Rect2(88,70,212,4) and Rect2(76,16,808,418).encloses(soul_slow_rect),"touch soul-slow meter follows the combat status clear of side and top insets")
  var quick_rects=HUD.touch_quick_action_rects(mapped_safe);var quick_actions_fit=true
  for i in quick_rects.size():
   quick_actions_fit=quick_actions_fit and Rect2(76,16,808,418).encloses(quick_rects[i])
@@ -176,7 +176,7 @@ func run():
    if not quick.has(other):touch_targets_fit=touch_targets_fit and not entry.rect.intersects(other.rect)
  verify(touch_targets_fit,"touch quick actions have 44px targets without HUD overlap")
  var tonic_targets=game.hud.buttons.filter(func(entry):return entry.action=="tonic")
- verify(tonic_targets.size()==1 and tonic_targets[0].rect.size==Vector2(58,44) and not tonic_targets[0].rect.intersects(Rect2(18,15,236,32)),"touch HUD tonic tap target reaches 44px without covering combat status")
+ verify(tonic_targets.size()==1 and tonic_targets[0].rect.size==Vector2(58,48) and not tonic_targets[0].rect.intersects(Rect2(18,15,236,48)),"touch HUD tonic tap target reaches 44px without covering combat status")
  var gameplay_touch_edges_fit=true;var gameplay_touch=game.hud.touch_layout()
  for i in gameplay_touch.size():
   var rect=gameplay_touch[i].rect

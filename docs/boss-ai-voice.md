@@ -17,3 +17,7 @@
 本轮对白检查覆盖全部音频、事件触发、字幕、冷却、避免连续重复、不抢牛大侠声音、设置内实际试听、模式保存与新旅途保留。设置截图见 builds/qa/interface-settings.png；四位 BOSS 的实际生成试听串为 builds/qa/boss-voice-samples.wav。
 
 本轮追加角色表演 instructions 和 8 条短促发力喊声；效果来源清单为 data/voice/effort_manifest.json，新试音为 builds/qa/boss-threatening-samples.wav。音乐与逐刀音效说明见 docs/scene-combat-audio.md。
+
+## 2026-10-27 重制补齐
+
+前三位重制新增181句已全部补齐真实AI录音，主模型均为gemini-3.8-flash-lite-tts，无备用调用；与经典录音分离，来源哈希并入ai_manifest.json。默认经典2D和AI配音，旧存档一次迁移后保留后续手动选择。设置试听按当前Boss选台词，归月剧情允许对白继续，暂停菜单仍冻结对白。

@@ -205,9 +205,14 @@ func take_hit(amount,faction,direction,_breaking=false,with_sound=true,with_debr
 	hp-=amount;hurt=.12
 	if hp>0 and hp<max_hp*.25 and not low_spoken:low_spoken=speak_event("low")
 	preload("res://scripts/combat/hit_feedback.gd").apply(art,hurt,.12,direction,.65)
-	game.fx.hit_mark(position-Vector2(0,body_height*.45),direction,game.GOLD,1.2)
+	var impact_color=game.GOLD
+	match spec.id:
+		"priest":impact_color=Color("d7cff4")
+		"duelist":impact_color=Color("b8d7cd")
+		"lantern":impact_color=Color("c5c4b4")
+	game.fx.hit_mark(position-Vector2(0,body_height*.45),direction,impact_color,1.2)
 	game.fx.number(position-Vector2(0,body_height),amount,game.TEAL if faction=="brother" else game.GOLD)
-	if with_debris:game.fx.burst(position-Vector2(0,35),5,game.GOLD,70)
+	if with_debris:game.fx.burst(position-Vector2(0,35),5,impact_color,70)
 	if with_sound:game.audio.play("hit_boss",-3)
 	if faction=="player":game.player.current_target=self;game.player.reward(amount,hp<=0);game.hitstop=maxf(game.hitstop,.045)
 	if hp<=0:

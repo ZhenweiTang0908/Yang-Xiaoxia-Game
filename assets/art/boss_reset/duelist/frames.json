@@ -1,0 +1,1438 @@
+{
+  "count": 108,
+  "reference_height": 128.0,
+  "clips": {
+    "flash": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "triple": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "low_sweep": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    "idle": [
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      92,
+      93,
+      94,
+      95
+    ],
+    "leap": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+    ],
+    "fan": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55
+    ],
+    "boomerang": [
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
+    "turn": [
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      106,
+      107
+    ],
+    "feint": [
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+    ],
+    "shadow": [
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91
+    ],
+    "hurt": [
+      96,
+      97,
+      98
+    ],
+    "stagger": [
+      99,
+      100,
+      101
+    ],
+    "death": [
+      102,
+      103,
+      104,
+      105
+    ]
+  },
+  "frames": [
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        43,
+        61,
+        141,
+        144
+      ],
+      "clip": "flash",
+      "order": 0,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        215,
+        76,
+        171,
+        129
+      ],
+      "clip": "flash",
+      "order": 1,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        419,
+        79,
+        249,
+        126
+      ],
+      "clip": "flash",
+      "order": 2,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        629,
+        82,
+        242,
+        123
+      ],
+      "clip": "flash",
+      "order": 3,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        845,
+        86,
+        146,
+        119
+      ],
+      "clip": "flash",
+      "order": 4,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        1018,
+        89,
+        230,
+        117
+      ],
+      "clip": "flash",
+      "order": 5,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        43,
+        288,
+        215,
+        122
+      ],
+      "clip": "flash",
+      "order": 6,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        250,
+        287,
+        142,
+        123
+      ],
+      "clip": "flash",
+      "order": 7,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        440,
+        285,
+        163,
+        125
+      ],
+      "clip": "flash",
+      "order": 8,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        639,
+        285,
+        177,
+        125
+      ],
+      "clip": "flash",
+      "order": 9,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        850,
+        282,
+        166,
+        128
+      ],
+      "clip": "triple",
+      "order": 0,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        1032,
+        267,
+        156,
+        143
+      ],
+      "clip": "triple",
+      "order": 1,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        30,
+        469,
+        196,
+        137
+      ],
+      "clip": "triple",
+      "order": 2,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        238,
+        478,
+        195,
+        128
+      ],
+      "clip": "triple",
+      "order": 3,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        431,
+        481,
+        252,
+        125
+      ],
+      "clip": "triple",
+      "order": 4,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        661,
+        474,
+        157,
+        132
+      ],
+      "clip": "triple",
+      "order": 5,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        847,
+        473,
+        185,
+        133
+      ],
+      "clip": "triple",
+      "order": 6,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        1034,
+        477,
+        214,
+        129
+      ],
+      "clip": "triple",
+      "order": 7,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        45,
+        672,
+        204,
+        130
+      ],
+      "clip": "triple",
+      "order": 8,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        259,
+        673,
+        170,
+        129
+      ],
+      "clip": "triple",
+      "order": 9,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        453,
+        679,
+        217,
+        123
+      ],
+      "clip": "low_sweep",
+      "order": 0,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        661,
+        673,
+        165,
+        129
+      ],
+      "clip": "low_sweep",
+      "order": 1,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        843,
+        682,
+        228,
+        120
+      ],
+      "clip": "low_sweep",
+      "order": 2,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        1067,
+        668,
+        181,
+        134
+      ],
+      "clip": "low_sweep",
+      "order": 3,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        35,
+        876,
+        147,
+        131
+      ],
+      "clip": "low_sweep",
+      "order": 4,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        219,
+        869,
+        134,
+        138
+      ],
+      "clip": "low_sweep",
+      "order": 5,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        387,
+        836,
+        162,
+        171
+      ],
+      "clip": "low_sweep",
+      "order": 6,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        563,
+        877,
+        160,
+        130
+      ],
+      "clip": "low_sweep",
+      "order": 7,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        738,
+        890,
+        189,
+        117
+      ],
+      "clip": "low_sweep",
+      "order": 8,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        928,
+        883,
+        153,
+        124
+      ],
+      "clip": "low_sweep",
+      "order": 9,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        1086,
+        863,
+        139,
+        144
+      ],
+      "clip": "idle",
+      "order": 0,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        45,
+        1056,
+        142,
+        148
+      ],
+      "clip": "idle",
+      "order": 1,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        229,
+        1059,
+        139,
+        145
+      ],
+      "clip": "idle",
+      "order": 2,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        431,
+        1056,
+        176,
+        148
+      ],
+      "clip": "idle",
+      "order": 3,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        646,
+        1060,
+        154,
+        144
+      ],
+      "clip": "idle",
+      "order": 4,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-a.png",
+      "rect": [
+        839,
+        1057,
+        177,
+        147
+      ],
+      "clip": "idle",
+      "order": 5,
+      "sheet_scale": 1.0
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        31,
+        84,
+        155,
+        146
+      ],
+      "clip": "leap",
+      "order": 0,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        240,
+        83,
+        148,
+        147
+      ],
+      "clip": "leap",
+      "order": 1,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        431,
+        50,
+        221,
+        180
+      ],
+      "clip": "leap",
+      "order": 2,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        642,
+        34,
+        151,
+        168
+      ],
+      "clip": "leap",
+      "order": 3,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        825,
+        81,
+        204,
+        156
+      ],
+      "clip": "leap",
+      "order": 4,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1029,
+        103,
+        215,
+        127
+      ],
+      "clip": "leap",
+      "order": 5,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        31,
+        313,
+        177,
+        122
+      ],
+      "clip": "leap",
+      "order": 6,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        244,
+        292,
+        166,
+        143
+      ],
+      "clip": "leap",
+      "order": 7,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        450,
+        284,
+        177,
+        151
+      ],
+      "clip": "leap",
+      "order": 8,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        642,
+        288,
+        198,
+        147
+      ],
+      "clip": "leap",
+      "order": 9,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        846,
+        292,
+        206,
+        143
+      ],
+      "clip": "fan",
+      "order": 0,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1048,
+        277,
+        169,
+        158
+      ],
+      "clip": "fan",
+      "order": 1,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        25,
+        474,
+        174,
+        154
+      ],
+      "clip": "fan",
+      "order": 2,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        225,
+        475,
+        185,
+        153
+      ],
+      "clip": "fan",
+      "order": 3,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        429,
+        477,
+        198,
+        151
+      ],
+      "clip": "fan",
+      "order": 4,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        641,
+        475,
+        180,
+        153
+      ],
+      "clip": "fan",
+      "order": 5,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        838,
+        473,
+        215,
+        155
+      ],
+      "clip": "fan",
+      "order": 6,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1061,
+        475,
+        183,
+        153
+      ],
+      "clip": "fan",
+      "order": 7,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        28,
+        678,
+        192,
+        149
+      ],
+      "clip": "fan",
+      "order": 8,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        233,
+        679,
+        176,
+        148
+      ],
+      "clip": "fan",
+      "order": 9,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        428,
+        676,
+        199,
+        151
+      ],
+      "clip": "boomerang",
+      "order": 0,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        643,
+        676,
+        185,
+        151
+      ],
+      "clip": "boomerang",
+      "order": 1,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        854,
+        679,
+        187,
+        148
+      ],
+      "clip": "boomerang",
+      "order": 2,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1070,
+        672,
+        174,
+        156
+      ],
+      "clip": "boomerang",
+      "order": 3,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        35,
+        868,
+        159,
+        153
+      ],
+      "clip": "boomerang",
+      "order": 4,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        220,
+        870,
+        192,
+        151
+      ],
+      "clip": "boomerang",
+      "order": 5,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        420,
+        865,
+        198,
+        156
+      ],
+      "clip": "boomerang",
+      "order": 6,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        626,
+        874,
+        205,
+        147
+      ],
+      "clip": "boomerang",
+      "order": 7,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        853,
+        871,
+        194,
+        150
+      ],
+      "clip": "boomerang",
+      "order": 8,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1064,
+        869,
+        172,
+        152
+      ],
+      "clip": "boomerang",
+      "order": 9,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        30,
+        1056,
+        162,
+        156
+      ],
+      "clip": "turn",
+      "order": 0,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        241,
+        1056,
+        149,
+        156
+      ],
+      "clip": "turn",
+      "order": 1,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        438,
+        1053,
+        161,
+        159
+      ],
+      "clip": "turn",
+      "order": 2,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        646,
+        1054,
+        175,
+        158
+      ],
+      "clip": "turn",
+      "order": 3,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        861,
+        1056,
+        176,
+        156
+      ],
+      "clip": "turn",
+      "order": 4,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-b.png",
+      "rect": [
+        1073,
+        1051,
+        156,
+        162
+      ],
+      "clip": "turn",
+      "order": 5,
+      "sheet_scale": 0.847682119205298
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        21,
+        44,
+        162,
+        168
+      ],
+      "clip": "feint",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        215,
+        53,
+        182,
+        159
+      ],
+      "clip": "feint",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        417,
+        60,
+        203,
+        152
+      ],
+      "clip": "feint",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        624,
+        64,
+        180,
+        148
+      ],
+      "clip": "feint",
+      "order": 3,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        832,
+        68,
+        212,
+        144
+      ],
+      "clip": "feint",
+      "order": 4,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1045,
+        67,
+        179,
+        146
+      ],
+      "clip": "feint",
+      "order": 5,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        28,
+        272,
+        149,
+        157
+      ],
+      "clip": "feint",
+      "order": 6,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        221,
+        258,
+        161,
+        170
+      ],
+      "clip": "feint",
+      "order": 7,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        412,
+        286,
+        282,
+        142
+      ],
+      "clip": "feint",
+      "order": 8,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        650,
+        290,
+        250,
+        139
+      ],
+      "clip": "feint",
+      "order": 9,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        892,
+        280,
+        184,
+        149
+      ],
+      "clip": "shadow",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1066,
+        269,
+        161,
+        160
+      ],
+      "clip": "shadow",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        20,
+        480,
+        162,
+        159
+      ],
+      "clip": "shadow",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        213,
+        479,
+        167,
+        160
+      ],
+      "clip": "shadow",
+      "order": 3,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        390,
+        490,
+        290,
+        149
+      ],
+      "clip": "shadow",
+      "order": 4,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        639,
+        484,
+        181,
+        155
+      ],
+      "clip": "shadow",
+      "order": 5,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        831,
+        490,
+        210,
+        149
+      ],
+      "clip": "shadow",
+      "order": 6,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1041,
+        484,
+        211,
+        155
+      ],
+      "clip": "shadow",
+      "order": 7,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        12,
+        699,
+        264,
+        146
+      ],
+      "clip": "shadow",
+      "order": 8,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        205,
+        703,
+        236,
+        143
+      ],
+      "clip": "shadow",
+      "order": 9,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        414,
+        703,
+        214,
+        144
+      ],
+      "clip": "idle",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        689,
+        671,
+        151,
+        174
+      ],
+      "clip": "idle",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        876,
+        673,
+        151,
+        175
+      ],
+      "clip": "idle",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1054,
+        673,
+        167,
+        175
+      ],
+      "clip": "idle",
+      "order": 3,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        21,
+        893,
+        142,
+        154
+      ],
+      "clip": "hurt",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        187,
+        905,
+        146,
+        143
+      ],
+      "clip": "hurt",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        405,
+        940,
+        206,
+        107
+      ],
+      "clip": "hurt",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        655,
+        892,
+        207,
+        155
+      ],
+      "clip": "stagger",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        886,
+        911,
+        190,
+        137
+      ],
+      "clip": "stagger",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1076,
+        892,
+        170,
+        155
+      ],
+      "clip": "stagger",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        32,
+        1098,
+        162,
+        119
+      ],
+      "clip": "death",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        213,
+        1095,
+        176,
+        120
+      ],
+      "clip": "death",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        417,
+        1134,
+        192,
+        82
+      ],
+      "clip": "death",
+      "order": 2,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        622,
+        1151,
+        265,
+        62
+      ],
+      "clip": "death",
+      "order": 3,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        900,
+        1062,
+        187,
+        162
+      ],
+      "clip": "turn",
+      "order": 0,
+      "sheet_scale": 0.8338762214983714
+    },
+    {
+      "source": "art_source/boss_reset/duelist-c.png",
+      "rect": [
+        1104,
+        1069,
+        134,
+        155
+      ],
+      "clip": "turn",
+      "order": 1,
+      "sheet_scale": 0.8338762214983714
+    }
+  ]
+}

@@ -13,3 +13,5 @@ features = [{"kind": "ferry", "x": 4930, "y": 425, "w": 190, "travel": 320, "spe
 checkpoints = PackedFloat32Array(100, 8100, 13700)
 boss_id = "lantern"
 boss_x = 14900.0
+
+boss_script = "res://scripts/actors/boss_reset/base.gd"

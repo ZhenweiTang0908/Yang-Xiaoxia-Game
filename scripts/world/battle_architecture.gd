@@ -7,10 +7,10 @@ extends RefCounted
 const FLOOR=450.0
 static func palette(stage):
  return {
-  "stone":[Color("253944"),Color("273e40"),Color("322d43"),Color("343341")][stage-1],
-  "edge":[Color("668083"),Color("6b8680"),Color("817190"),Color("82766d")][stage-1],
-  "deep":[Color("111c26"),Color("10211f"),Color("1a1626"),Color("1a1a24")][stage-1],
-  "glow":[Color("e5a65f"),Color("9fd8c8"),Color("b48cf0"),Color("e07d4f")][stage-1],
+  "stone":[Color("253944"),Color("273e40"),Color("322d43"),Color("343341"),Color("3c3030")][stage-1],
+  "edge":[Color("668083"),Color("6b8680"),Color("817190"),Color("82766d"),Color("967964")][stage-1],
+  "deep":[Color("111c26"),Color("10211f"),Color("1a1626"),Color("1a1a24"),Color("20191d")][stage-1],
+  "glow":[Color("e5a65f"),Color("9fd8c8"),Color("b48cf0"),Color("e07d4f"),Color("edb268")][stage-1],
  }
 static func ledges(game):
  return game.level.platforms.filter(func(p):return p.one_way)
@@ -167,6 +167,11 @@ static func draw(c,game):
     c.draw_circle(Vector2(x,446),4,Color("d8cfb8"))
     c.draw_line(Vector2(x,442),Vector2(x,436),Color("2a2533"),2)
     preload("res://scripts/combat/vfx_shapes.gd").flame(c,Vector2(x,435),3,6,t+x,col.glow)
+  5:
+   # Quiet festival paving and lanterns leave the duel lane clear.
+   for x in range(0,960,80):
+    c.draw_line(Vector2(x,452),Vector2(x+24,475),col.edge.darkened(.5),1)
+   for x in [40,920]:lantern(c,Vector2(x,428),col.glow,t+x)
   _:
    # Trampled field: hoof ruts, scattered straw and broken lances driven into the ground.
    for j in 7:
@@ -212,6 +217,16 @@ static func backdrop(c,game):
     var a=t*.18+i*TAU/6
     var at=center+Vector2(cos(a)*240,sin(a)*60+150)
     c.draw_colored_polygon(PackedVector2Array([at+Vector2(0,-7),at+Vector2(4,0),at+Vector2(0,7),at+Vector2(-4,0)]),Color(.60,.48,.80,.35))
+  5:
+   # Closed shopfronts and plain red cloth, behind the combat silhouettes.
+   for x in range(30,960,150):
+    c.draw_rect(Rect2(x,260,120,150),Color("291f26"))
+    c.draw_rect(Rect2(x-6,252,132,10),Color("473337"))
+    c.draw_rect(Rect2(x+18,270,84,110),Color("33272b"))
+    c.draw_rect(Rect2(x+8,260,12,48),Color("62312f"))
+    lantern(c,Vector2(x+105,282),Color("edb268"),t+x)
+   c.draw_circle(Vector2(805,400),24,Color("614638"))
+   c.draw_circle(Vector2(805,400),19,Color("947957"))
   _:
    # A crenellated fortress wall with watch fires closes the horizon.
    var wall=Color(.11,.13,.19,.78)

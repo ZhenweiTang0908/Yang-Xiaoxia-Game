@@ -18,8 +18,8 @@ static func draw(knight):
 		var u=1-trail.age/.20
 		var art=trail.art;var index=trail.frame;var info=art.frame_info[index]
 		knight.draw_set_transform(Vector2(trail.x-knight.position.x,0),0,Vector2(-trail.dir,1))
-		var size=art.isolated[index].get_size()*art.scale_unit
-		var offset=Vector2(-float(info.anchor),-float(info.baseline))*art.scale_unit
+		var size=art.isolated[index].get_size()*art.frame_unit(index)
+		var offset=Vector2(-float(info.anchor),-float(info.baseline))*art.frame_unit(index)
 		knight.draw_texture_rect(art.isolated[index],Rect2(offset,size),false,Color(1,.84,.59,u*.20))
 	knight.draw_set_transform(Vector2.ZERO)
 	if knight.action=="spin_rush":

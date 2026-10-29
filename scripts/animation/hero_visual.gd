@@ -14,7 +14,7 @@ var preview_ground=true
 var state="idle"
 var state_age=0.0
 var clock=0.0
-var body_height=52.8
+var body_height=56.0
 var facing=1.0
 var alpha=1.0
 var support_foot=-1
@@ -43,6 +43,7 @@ func desired_state():
  if actor.bow_anim>0:return "bow"
  if actor.attack_elapsed>=0:return "slash"+str(actor.combo)
  if actor.hurt_time>=0:return "hurt"
+ if actor.is_carried():return "idle"
  if not actor.is_on_floor():return "jump" if actor.velocity.y<0 else "fall"
  if actor.land_anim>0:return "land"
  return "run" if absf(actor.velocity.x)>12 else "idle"
@@ -56,7 +57,7 @@ func attack_frame(t,index):
  return result
 func _process(dt):
  if not preview:
-  visible=is_instance_valid(actor) and actor.game.use_skeletal and not actor.form_visual and not actor.is_carried()
+  visible=is_instance_valid(actor) and (actor.game.use_skeletal or actor.is_carried()) and not actor.form_visual
   if not visible:blade_trail.clear();cloth_anchor=Vector2.INF;support_foot=-1;return
   # Render ownership must not depend on a player physics tick (initialization,
   # paused previews, and screenshots may render before that tick ever runs).

@@ -1,0 +1,210 @@
+{
+	"approved_production_count": 0,
+	"bank": "common_lion",
+	"draft_frame_count": 12,
+	"frames": [
+		{
+			"anchor": 125.258239746094,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 325.0,
+			"edge_contact": true,
+			"file": "00.png",
+			"frame": 0,
+			"source_frame": 0,
+			"source_rect": [
+				48,
+				25,
+				295,
+				327
+			]
+		},
+		{
+			"anchor": 120.043876647949,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 339.0,
+			"edge_contact": true,
+			"file": "01.png",
+			"frame": 1,
+			"source_frame": 1,
+			"source_rect": [
+				425,
+				11,
+				301,
+				341
+			]
+		},
+		{
+			"anchor": 227.955001831055,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 304.0,
+			"edge_contact": false,
+			"file": "02.png",
+			"frame": 2,
+			"source_frame": 2,
+			"source_rect": [
+				778,
+				41,
+				333,
+				306
+			]
+		},
+		{
+			"anchor": 158.872207641602,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 302.0,
+			"edge_contact": false,
+			"file": "03.png",
+			"frame": 3,
+			"source_frame": 3,
+			"source_rect": [
+				1155,
+				46,
+				343,
+				304
+			]
+		},
+		{
+			"anchor": 210.353988647461,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 303.0,
+			"edge_contact": false,
+			"file": "04.png",
+			"frame": 4,
+			"source_frame": 4,
+			"source_rect": [
+				46,
+				367,
+				330,
+				305
+			]
+		},
+		{
+			"anchor": 200.011840820312,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 302.0,
+			"edge_contact": false,
+			"file": "05.png",
+			"frame": 5,
+			"source_frame": 5,
+			"source_rect": [
+				407,
+				367,
+				334,
+				304
+			]
+		},
+		{
+			"anchor": 152.034652709961,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 306.0,
+			"edge_contact": false,
+			"file": "06.png",
+			"frame": 6,
+			"source_frame": 6,
+			"source_rect": [
+				790,
+				364,
+				328,
+				308
+			]
+		},
+		{
+			"anchor": 137.877578735352,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 309.0,
+			"edge_contact": false,
+			"file": "07.png",
+			"frame": 7,
+			"source_frame": 7,
+			"source_rect": [
+				1206,
+				361,
+				268,
+				311
+			]
+		},
+		{
+			"anchor": 135.128799438477,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 319.0,
+			"edge_contact": true,
+			"file": "08.png",
+			"frame": 8,
+			"source_frame": 8,
+			"source_rect": [
+				50,
+				681,
+				314,
+				321
+			]
+		},
+		{
+			"anchor": 158.01969909668,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 319.0,
+			"edge_contact": true,
+			"file": "09.png",
+			"frame": 9,
+			"source_frame": 9,
+			"source_rect": [
+				407,
+				681,
+				338,
+				321
+			]
+		},
+		{
+			"anchor": 161.019622802734,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 307.0,
+			"edge_contact": false,
+			"file": "10.png",
+			"frame": 10,
+			"source_frame": 10,
+			"source_rect": [
+				802,
+				693,
+				282,
+				309
+			]
+		},
+		{
+			"anchor": 231.384017944336,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 292.0,
+			"edge_contact": false,
+			"file": "11.png",
+			"frame": 11,
+			"source_frame": 11,
+			"source_rect": [
+				1141,
+				708,
+				364,
+				294
+			]
+		}
+	],
+	"production_target_total": 272,
+	"reference_frame": 0,
+	"reference_height": 120,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/production/common_lion-v1.png",
+	"source_facing": -1,
+	"status": "DRAFT_REQUIRES_REVIEW",
+	"study_frame_count": 0,
+	"warnings": [
+		"Generated frames require per-frame support, crop, identity and action-contact review. No fluency acceptance."
+	]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "path": "assets/music/level5_explore.ogg",
+    "duration": 73.84616666666666,
+    "seed": 7520,
+    "source": "original deterministic synthesis; no sampled recordings"
+  },
+  {
+    "path": "assets/music/level5_boss.ogg",
+    "duration": 51.428583333333336,
+    "seed": 7521,
+    "source": "original deterministic synthesis; no sampled recordings"
+  }
+]

@@ -15,7 +15,8 @@ func _ready():
  var wide=1.3 if species in ["guardian","shield","lantern"] else 1.0
  profile(chest,"Quiet torso",[[-.14,.16*wide,.14,0.0],[.05,.17*wide,.14,0.0],[.25,.19*wide,.14,0.0],[.31,.09,.09,0.0]],dark)
  if species=="sheep":
-  profile(chest,"Spirit mantle",[[.05,.18,.15,0.0],[.20,.22,.17,0.0],[.27,.20,.15,0.0],[.29,.11,.10,0.0]],cloth)
+  profile(chest,"Spirit mantle",[[.015,.168,.145,0.0],[.06,.18,.15,0.0],[.15,.195,.16,0.0],[.22,.19,.155,0.0],[.265,.15,.13,0.0],[.29,.10,.095,0.0],[.315,.075,.075,0.0]],cloth)
+  profile(chest,"Spirit collar",[[.27,.092,.09,0.0],[.315,.08,.08,0.0],[.345,.065,.066,0.0]],dark)
   profile(chest,"Jade waist sash",[[-.12,.175,.15,0.0],[-.065,.18,.155,0.0]],skin)
  if species=="niu":profile(chest,"Red shirt",[[-.11,.07,.153,.06],[.24,.065,.153,.03]],cloth)
  bone("neck","chest",Vector3(0,.32,0));var head=bone("head","neck",Vector3.ZERO)
@@ -26,9 +27,15 @@ func _ready():
  for side in ["far","near"]:
   var z=-.12 if side=="far" else .12
   var arm=bone(side+"_arm","chest",Vector3(0,.24,z))
-  taper(arm,Vector3(0,-.12,0),.25,.065*wide,.051,dark)
+  if species=="sheep":
+   ellipsoid(arm,Vector3(0,-.01,0),Vector3(.135,.14,.135),cloth)
+   profile(arm,side+" spirit sleeve",[[.025,.06,.06,0.0],[-.045,.073,.065,0.0],[-.13,.065,.058,0.0],[-.22,.052,.049,0.0],[-.265,.047,.046,0.0]],dark)
+  else:taper(arm,Vector3(0,-.12,0),.25,.065*wide,.051,dark)
   var forearm=bone(side+"_forearm",side+"_arm",Vector3(0,-.25,0))
-  taper(forearm,Vector3(0,-.105,0),.22,.053,.035,skin if species=="niu" else cloth)
+  if species=="sheep":
+   ellipsoid(forearm,Vector3.ZERO,Vector3(.095,.095,.09),dark)
+   profile(forearm,side+" spirit cuff",[[.02,.048,.045,0.0],[-.055,.053,.048,0.0],[-.14,.045,.04,0.0],[-.22,.032,.03,0.0]],cloth)
+  else:taper(forearm,Vector3(0,-.105,0),.22,.053,.035,skin if species=="niu" else cloth)
   var hand=bone(side+"_hand",side+"_forearm",Vector3(0,-.22,0));ellipsoid(hand,Vector3(0,-.025,0),Vector3(.08,.09,.07),skin)
   var thigh=bone(side+"_thigh","hips",Vector3(0,-.035,z*.65));taper(thigh,Vector3(0,-.13,0),.265,.082*wide,.064,dark)
   var shin=bone(side+"_shin",side+"_thigh",Vector3(0,-.265,0));taper(shin,Vector3(0,-.118,0),.235,.065,.04,dark)

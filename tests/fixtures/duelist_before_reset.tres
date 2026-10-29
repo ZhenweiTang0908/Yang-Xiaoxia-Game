@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/combat/move_set.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = "duelist"
+title = "渡影刀客"
+health = 2600.0
+moves = [{"id": "flash", "title": "快闪刀", "damage": 24, "windup": 0.65, "recovery": 0.8}, {"id": "triple", "title": "三段追身斩", "damage": 12, "windup": 0.7, "recovery": 0.8}, {"id": "low_sweep", "title": "低位扫堂刀", "damage": 22, "windup": 0.65, "recovery": 0.8}, {"id": "leap", "title": "跃起劈落", "damage": 30, "windup": 0.85, "recovery": 0.8}, {"id": "fan", "title": "扇形刀气", "damage": 18, "windup": 0.7, "recovery": 0.8}, {"id": "boomerang", "title": "回旋飞刃", "damage": 20, "windup": 0.65, "recovery": 0.8}, {"id": "shadow", "title": "影步夹击", "damage": 28, "windup": 0.9, "recovery": 0.8}]

@@ -6,7 +6,7 @@
   "fallback_voice": "cedar",
   "bosses": {
     "lantern": {
-      "title": "守灯兽",
+      "title": "守石兽",
       "voice": "Algenib",
       "lines": {
         "intro": "灯还亮着，谁也不准过去。",
@@ -24,45 +24,151 @@
         "ground_wave": "这一山的石头，都认得我的脚步。",
         "ground_wave_b": "站得稳，再谈过山门！",
         "pursuit": "跑慢些，山路可不认人。",
-        "pursuit_b": "灯照得见你，我也追得上你。"
+        "pursuit_b": "灯照得见你，我也追得上你。",
+        "reset_intro_01": "山门在此，止步。",
+        "reset_intro_02": "脚下这块石，不许越。",
+        "reset_intro_03": "山石有界，小侠留步。",
+        "reset_intro_04": "这一庭的石头，都由我守。",
+        "reset_intro_05": "要过山门，先站稳了。",
+        "reset_phase_2_01": "山骨未折，我便不退。",
+        "reset_phase_2_02": "听见了么，山石在醒。",
+        "reset_phase_2_03": "这道门，还轮不到你开。",
+        "reset_phase_2_04": "石头也有不肯低头的时候。",
+        "reset_low_01": "角能断，山门不能让。",
+        "reset_low_02": "还站得住。",
+        "reset_low_03": "山风再大，也吹不走我。",
+        "reset_low_04": "这身石骨，还能再守一阵。",
+        "reset_death_01": "石庭的路，交给你了。",
+        "reset_death_02": "你脚下的路……自己走稳。",
+        "reset_death_03": "山门开了，莫忘回头看看。",
+        "reset_death_04": "我守到这里了。",
+        "reset_death_05": "去吧，别让这条路荒了。",
+        "reset_countered_01": "好，知道借力。",
+        "reset_countered_02": "这一块石，你接得住。",
+        "reset_countered_03": "站得稳，才算有本事。",
+        "reset_countered_04": "碎得好，再接下一块。",
+        "reset_player_heavy_01": "小身板，别硬扛山石。",
+        "reset_player_heavy_02": "山路不认莽撞。",
+        "reset_player_heavy_03": "脚下不稳，便要吃亏。",
+        "reset_player_heavy_04": "缓一口气，再来。",
+        "reset_perfect_dodge_01": "倒会寻石缝。",
+        "reset_perfect_dodge_02": "这一步，踏得轻。",
+        "reset_perfect_dodge_03": "过了我的角，未必过得了山门。",
+        "reset_perfect_dodge_04": "好脚法。",
+        "reset_hurt_01": "还不够。",
+        "reset_hurt_02": "石骨不是空壳。",
+        "reset_hurt_03": "这一下，有些分量。",
+        "reset_hurt_04": "再重些。",
+        "reset_S1_01": "看好我的前蹄。",
+        "reset_S1_02": "山门这边，轮不到你站。",
+        "reset_S1_03": "这一扑，莫硬接。",
+        "reset_S2_01": "近了。",
+        "reset_S2_02": "让开我的肩。",
+        "reset_S2_03": "小心这一步。",
+        "reset_S3_01": "听地面的声音。",
+        "reset_S3_02": "石头认得我的脚步。",
+        "reset_S3_03": "这一庭，也会走。",
+        "reset_S4_01": "脚下松了。",
+        "reset_S4_02": "地面不是死物。",
+        "reset_S4_03": "山石，起。",
+        "reset_S5_01": "这一块，送你。",
+        "reset_S5_02": "抬头。",
+        "reset_S5_03": "接得住山石么。",
+        "reset_S6_01": "别只看着我。",
+        "reset_S6_02": "石头还没停。",
+        "reset_S6_03": "滚过的路，要看清。",
+        "reset_S7_01": "第一步。",
+        "reset_S7_02": "站住，再接一下。",
+        "reset_S7_03": "山门前，不许心急。"
       },
       "groups": {
         "intro": [
-          "intro",
-          "intro_b"
+          "reset_intro_01",
+          "reset_intro_02",
+          "reset_intro_03",
+          "reset_intro_04",
+          "reset_intro_05"
         ],
         "phase_2": [
-          "phase_2",
-          "phase_2_b"
+          "reset_phase_2_01",
+          "reset_phase_2_02",
+          "reset_phase_2_03",
+          "reset_phase_2_04"
         ],
         "low": [
-          "low",
-          "low_b"
+          "reset_low_01",
+          "reset_low_02",
+          "reset_low_03",
+          "reset_low_04"
         ],
         "death": [
-          "death",
-          "death_b"
+          "reset_death_01",
+          "reset_death_02",
+          "reset_death_03",
+          "reset_death_04",
+          "reset_death_05"
+        ],
+        "countered": [
+          "reset_countered_01",
+          "reset_countered_02",
+          "reset_countered_03",
+          "reset_countered_04"
+        ],
+        "player_heavy": [
+          "reset_player_heavy_01",
+          "reset_player_heavy_02",
+          "reset_player_heavy_03",
+          "reset_player_heavy_04"
+        ],
+        "perfect_dodge": [
+          "reset_perfect_dodge_01",
+          "reset_perfect_dodge_02",
+          "reset_perfect_dodge_03",
+          "reset_perfect_dodge_04"
+        ],
+        "hurt": [
+          "reset_hurt_01",
+          "reset_hurt_02",
+          "reset_hurt_03",
+          "reset_hurt_04"
         ],
         "pounce": [
-          "pounce",
-          "pounce_b",
-          "pursuit",
-          "pursuit_b"
+          "reset_S1_01",
+          "reset_S1_02",
+          "reset_S1_03"
         ],
         "sweep": [
-          "sweep",
-          "sweep_b"
+          "reset_S2_01",
+          "reset_S2_02",
+          "reset_S2_03"
         ],
         "ground_wave": [
-          "ground_wave",
-          "ground_wave_b"
+          "reset_S3_01",
+          "reset_S3_02",
+          "reset_S3_03"
         ],
-        "pursuit": [
-          "pursuit",
-          "pursuit_b"
+        "stone_lift": [
+          "reset_S4_01",
+          "reset_S4_02",
+          "reset_S4_03"
+        ],
+        "stone_throw": [
+          "reset_S5_01",
+          "reset_S5_02",
+          "reset_S5_03"
+        ],
+        "stone_roll": [
+          "reset_S6_01",
+          "reset_S6_02",
+          "reset_S6_03"
+        ],
+        "stone_combo": [
+          "reset_S7_01",
+          "reset_S7_02",
+          "reset_S7_03"
         ]
       },
-      "performance": "中文游戏BOSS角色配音。山门巨兽，粗粝胸腔共鸣，压着怒火、警告入侵者，威严凶猛。 禁止平静播报、朗读腔；只念输入的台词，不念任何指导，不加词。保持清晰，留出短停顿，避免全句持续尖叫。",
+      "performance": "中文山门守石兽，低沉厚重的胸腔共鸣，沉稳坚决，有石兽的威严。只念输入台词，不报幕，不念指导，不加词。",
       "efforts": {
         "effort_ha": "哈！",
         "effort_ah": "啊！"
@@ -93,52 +199,152 @@
         "boomerang": "刀还未归，莫急着出手。",
         "boomerang_b": "去的是刃，回来的也是。",
         "shadow": "你看见的，是哪一个我？",
-        "shadow_b": "影落两处，刀只认你。"
+        "shadow_b": "影落两处，刀只认你。",
+        "reset_intro_01": "渡口已闭，剑还未收。",
+        "reset_intro_02": "河水向东，你往哪里去。",
+        "reset_intro_03": "想过桥，先过我这一步。",
+        "reset_intro_04": "水声太响，听仔细了。",
+        "reset_phase_2_01": "水急了，脚步也该快些。",
+        "reset_phase_2_02": "试刃到此。",
+        "reset_phase_2_03": "这一回，不再留岸。",
+        "reset_phase_2_04": "站稳，后面才是快剑。",
+        "reset_low_01": "剑还在手。",
+        "reset_low_02": "河有回流，人也有。",
+        "reset_low_03": "只差半步，莫急着得意。",
+        "reset_low_04": "我还能再进一剑。",
+        "reset_death_01": "桥后的路……你去走吧。",
+        "reset_death_02": "这一次，是你先到。",
+        "reset_death_03": "河声未停，我的剑先歇了。",
+        "reset_death_04": "好身法，过去吧。",
+        "reset_countered_01": "这半步，算你的。",
+        "reset_countered_02": "看穿了。",
+        "reset_countered_03": "接得干净。",
+        "reset_countered_04": "原来你也懂留手。",
+        "reset_player_heavy_01": "剑尖不等人。",
+        "reset_player_heavy_02": "再慢，便要落水了。",
+        "reset_player_heavy_03": "别把退路让给我。",
+        "reset_player_heavy_04": "站住不动，最是危险。",
+        "reset_perfect_dodge_01": "好险的一步。",
+        "reset_perfect_dodge_02": "倒比河风轻。",
+        "reset_perfect_dodge_03": "你绕得过去，我还收得回来。",
+        "reset_perfect_dodge_04": "这一剑，落空了。",
+        "reset_hurt_01": "有些锋芒。",
+        "reset_hurt_02": "还差一点。",
+        "reset_hurt_03": "剑别收得太早。",
+        "reset_hurt_04": "好，再来。",
+        "reset_D1_01": "只这一线。",
+        "reset_D1_02": "看剑尖。",
+        "reset_D1_03": "借你身前半步。",
+        "reset_D2_01": "一步未完。",
+        "reset_D2_02": "别急着回来。",
+        "reset_D2_03": "三息，走完。",
+        "reset_D3_01": "收锋，是为了再送。",
+        "reset_D3_02": "脚下让一让。",
+        "reset_D3_03": "这半步归我。",
+        "reset_D4_01": "岸上见。",
+        "reset_D4_02": "看好落脚处。",
+        "reset_D4_03": "我先过来。",
+        "reset_D5_01": "水面，可不只一片叶。",
+        "reset_D5_02": "手里的东西，也要看。",
+        "reset_D5_03": "先接这几枚。",
+        "reset_D6_01": "去得了，也回得来。",
+        "reset_D6_02": "莫忘回头。",
+        "reset_D6_03": "河有回流。",
+        "reset_D7_01": "接镖，再接剑。",
+        "reset_D7_02": "这一步，还没结束。",
+        "reset_D7_03": "看手，也看脚。",
+        "reset_D8_01": "雾里，还有半步。",
+        "reset_D8_02": "别追旧影。",
+        "reset_D8_03": "我还在这一岸。"
       },
       "groups": {
         "intro": [
-          "intro",
-          "intro_b"
+          "reset_intro_01",
+          "reset_intro_02",
+          "reset_intro_03",
+          "reset_intro_04"
         ],
         "phase_2": [
-          "phase_2",
-          "phase_2_b"
+          "reset_phase_2_01",
+          "reset_phase_2_02",
+          "reset_phase_2_03",
+          "reset_phase_2_04"
         ],
         "low": [
-          "low",
-          "low_b"
+          "reset_low_01",
+          "reset_low_02",
+          "reset_low_03",
+          "reset_low_04"
         ],
         "death": [
-          "death",
-          "death_b"
+          "reset_death_01",
+          "reset_death_02",
+          "reset_death_03",
+          "reset_death_04"
+        ],
+        "countered": [
+          "reset_countered_01",
+          "reset_countered_02",
+          "reset_countered_03",
+          "reset_countered_04"
+        ],
+        "player_heavy": [
+          "reset_player_heavy_01",
+          "reset_player_heavy_02",
+          "reset_player_heavy_03",
+          "reset_player_heavy_04"
+        ],
+        "perfect_dodge": [
+          "reset_perfect_dodge_01",
+          "reset_perfect_dodge_02",
+          "reset_perfect_dodge_03",
+          "reset_perfect_dodge_04"
+        ],
+        "hurt": [
+          "reset_hurt_01",
+          "reset_hurt_02",
+          "reset_hurt_03",
+          "reset_hurt_04"
         ],
         "flash": [
-          "flash",
-          "flash_b"
+          "reset_D1_01",
+          "reset_D1_02",
+          "reset_D1_03"
         ],
         "triple": [
-          "triple",
-          "triple_b"
+          "reset_D2_01",
+          "reset_D2_02",
+          "reset_D2_03"
         ],
         "low_sweep": [
-          "low_sweep",
-          "low_sweep_b"
+          "reset_D3_01",
+          "reset_D3_02",
+          "reset_D3_03"
         ],
         "leap": [
-          "leap",
-          "leap_b"
+          "reset_D4_01",
+          "reset_D4_02",
+          "reset_D4_03"
         ],
         "fan": [
-          "fan",
-          "fan_b"
+          "reset_D5_01",
+          "reset_D5_02",
+          "reset_D5_03"
         ],
         "boomerang": [
-          "boomerang",
-          "boomerang_b"
+          "reset_D6_01",
+          "reset_D6_02",
+          "reset_D6_03"
+        ],
+        "feint": [
+          "reset_D7_01",
+          "reset_D7_02",
+          "reset_D7_03"
         ],
         "shadow": [
-          "shadow",
-          "shadow_b"
+          "reset_D8_01",
+          "reset_D8_02",
+          "reset_D8_03"
         ]
       },
       "performance": "中文游戏BOSS角色配音。冷酷的武林刀客，咬字利落带杀意，挑衅时轻蔑，进攻时爆发。 禁止平静播报、朗读腔；只念输入的台词，不念任何指导，不加词。保持清晰，留出短停顿，避免全句持续尖叫。",
@@ -174,65 +380,191 @@
         "rain_b": "千刃悬月，落！",
         "rift": "裂隙之中，影随我行。",
         "ritual": "众影归坛，噬月！",
-        "ritual_b": "身在阵中，何处不是长夜？"
+        "ritual_b": "身在阵中，何处不是长夜？",
+        "reset_intro_01": "月下的路，向来不问归人。",
+        "reset_intro_02": "抬头，今夜有月。",
+        "reset_intro_03": "你带来的影子，太吵了。",
+        "reset_intro_04": "站到月光里来。",
+        "reset_phase_2_01": "月影深了。",
+        "reset_phase_2_02": "你看见的，还不是满月。",
+        "reset_phase_2_03": "衣上这点月光，也够照路。",
+        "reset_phase_2_04": "别只盯着我的手。",
+        "reset_low_01": "月还未落。",
+        "reset_low_02": "这身衣袍，留不住夜。",
+        "reset_low_03": "杖还在，便再借一线光。",
+        "reset_low_04": "这一夜，还没有走完。",
+        "reset_death_01": "夜色……归你了。",
+        "reset_death_02": "把月光，还回去吧。",
+        "reset_death_03": "我这一步，暂到此处。",
+        "reset_death_04": "莫急着说天亮。",
+        "reset_countered_01": "月光也会失手。",
+        "reset_countered_02": "倒叫你截住了。",
+        "reset_countered_03": "这一拍，你听懂了。",
+        "reset_countered_04": "能躲开光，未必躲开影。",
+        "reset_player_heavy_01": "影子，慢了。",
+        "reset_player_heavy_02": "脚下的光，不会等你。",
+        "reset_player_heavy_03": "别在月下停太久。",
+        "reset_player_heavy_04": "这一杖，记住了。",
+        "reset_perfect_dodge_01": "踏月而来么。",
+        "reset_perfect_dodge_02": "好，借光过身。",
+        "reset_perfect_dodge_03": "你倒肯走那一步。",
+        "reset_perfect_dodge_04": "这一瞬，留给你。",
+        "reset_hurt_01": "衣袍而已。",
+        "reset_hurt_02": "你碰到的，是影。",
+        "reset_hurt_03": "这一剑，确有光。",
+        "reset_hurt_04": "还不曾散。",
+        "reset_moon_form_01": "借一轮月，照尽归途。",
+        "reset_moon_form_02": "今夜的月，也该近些了。",
+        "reset_moon_form_03": "抬头，我再借它一程。",
+        "reset_moon_form_04": "月在此处，影便无处藏。",
+        "reset_moon_recall_01": "此身……暂归月下。",
+        "reset_moon_recall_02": "这一缕光……还你。",
+        "reset_moon_recall_03": "月下的路……未完。",
+        "reset_moon_recall_04": "收回去吧……夜还长。",
+        "reset_M1_01": "借一步月色。",
+        "reset_M1_02": "看杖。",
+        "reset_M1_03": "月牙，也有锋。",
+        "reset_M2_01": "月有四转。",
+        "reset_M2_02": "这一步，还要接着走。",
+        "reset_M2_03": "别在我的杖下停。",
+        "reset_M3_01": "月色，沿路走。",
+        "reset_M3_02": "脚下那一线，看清了。",
+        "reset_M3_03": "借地面一程。",
+        "reset_M4_01": "照住你了。",
+        "reset_M4_02": "这道光，落在旧影上。",
+        "reset_M4_03": "月亮看见了。",
+        "reset_M5_01": "月缺一处。",
+        "reset_M5_02": "别只顾眼前。",
+        "reset_M5_03": "散开吧。",
+        "reset_M6_01": "陪他走一段。",
+        "reset_M6_02": "光还未散。",
+        "reset_M6_03": "引你一程。",
+        "reset_M7_01": "这杖，借的是天光。",
+        "reset_M7_02": "沿这一线。",
+        "reset_M7_03": "凝。",
+        "reset_M8_01": "碎月，也照人。",
+        "reset_M8_02": "夜空并不空。",
+        "reset_M8_03": "抬头，再看脚下。",
+        "reset_M9_01": "留在原处的，只是影。",
+        "reset_M9_02": "借影一步。",
+        "reset_M9_03": "我从月下过来。",
+        "reset_M10_01": "月有盈缺，人有去处。",
+        "reset_M10_02": "夜色合拢了。",
+        "reset_M10_03": "别把最后一处暗，让给我。"
       },
       "groups": {
         "intro": [
-          "intro",
-          "intro_b"
+          "reset_intro_01",
+          "reset_intro_02",
+          "reset_intro_03",
+          "reset_intro_04"
         ],
         "phase_2": [
-          "phase_2",
-          "phase_2_b"
-        ],
-        "phase_3": [
-          "phase_3",
-          "phase_3_b"
+          "reset_phase_2_01",
+          "reset_phase_2_02",
+          "reset_phase_2_03",
+          "reset_phase_2_04"
         ],
         "low": [
-          "low",
-          "low_b"
+          "reset_low_01",
+          "reset_low_02",
+          "reset_low_03",
+          "reset_low_04"
         ],
         "death": [
-          "death",
-          "death_b"
+          "reset_death_01",
+          "reset_death_02",
+          "reset_death_03",
+          "reset_death_04"
+        ],
+        "countered": [
+          "reset_countered_01",
+          "reset_countered_02",
+          "reset_countered_03",
+          "reset_countered_04"
+        ],
+        "player_heavy": [
+          "reset_player_heavy_01",
+          "reset_player_heavy_02",
+          "reset_player_heavy_03",
+          "reset_player_heavy_04"
+        ],
+        "perfect_dodge": [
+          "reset_perfect_dodge_01",
+          "reset_perfect_dodge_02",
+          "reset_perfect_dodge_03",
+          "reset_perfect_dodge_04"
+        ],
+        "hurt": [
+          "reset_hurt_01",
+          "reset_hurt_02",
+          "reset_hurt_03",
+          "reset_hurt_04"
+        ],
+        "moon_form": [
+          "reset_moon_form_01",
+          "reset_moon_form_02",
+          "reset_moon_form_03",
+          "reset_moon_form_04"
+        ],
+        "moon_recall": [
+          "reset_moon_recall_01",
+          "reset_moon_recall_02",
+          "reset_moon_recall_03",
+          "reset_moon_recall_04"
         ],
         "horn": [
-          "horn"
+          "reset_M1_01",
+          "reset_M1_02",
+          "reset_M1_03"
         ],
         "four_slash": [
-          "four_slash"
+          "reset_M2_01",
+          "reset_M2_02",
+          "reset_M2_03"
         ],
         "ground_wave": [
-          "ground_wave"
+          "reset_M3_01",
+          "reset_M3_02",
+          "reset_M3_03"
         ],
-        "lightning": [
-          "lightning",
-          "lightning_b"
+        "moonfall": [
+          "reset_M4_01",
+          "reset_M4_02",
+          "reset_M4_03"
         ],
         "ring": [
-          "ring"
+          "reset_M5_01",
+          "reset_M5_02",
+          "reset_M5_03"
         ],
         "homing": [
-          "homing"
+          "reset_M6_01",
+          "reset_M6_02",
+          "reset_M6_03"
         ],
         "beam": [
-          "beam",
-          "beam_b"
+          "reset_M7_01",
+          "reset_M7_02",
+          "reset_M7_03"
         ],
         "rain": [
-          "rain",
-          "rain_b"
+          "reset_M8_01",
+          "reset_M8_02",
+          "reset_M8_03"
         ],
         "rift": [
-          "rift"
+          "reset_M9_01",
+          "reset_M9_02",
+          "reset_M9_03"
         ],
         "ritual": [
-          "ritual",
-          "ritual_b"
+          "reset_M10_01",
+          "reset_M10_02",
+          "reset_M10_03"
         ]
       },
-      "performance": "中文游戏BOSS角色配音。阴森的祭司，低沉沙哑、笃定而危险，像宣判，不要轻松或温柔。 禁止平静播报、朗读腔；只念输入的台词，不念任何指导，不加词。保持清晰，留出短停顿，避免全句持续尖叫。",
+      "performance": "中文月亮祭司，低沉冷静，呼吸里有空旷感，像在向月亮借力。不是雷电法师，不怒吼报幕。只念输入台词，不念指导，不加词。",
       "efforts": {
         "effort_ha": "哈！",
         "effort_ah": "啊！"
@@ -418,6 +750,237 @@
         "effort_kanqiang": "看枪！",
         "effort_po": "破！",
         "effort_qi": "起！"
+      }
+    },
+    "lion": {
+      "title": "衔灯狮叟",
+      "voice": "Orus",
+      "lines": {
+        "intro": "哎哟，今夜可算有观众啦。",
+        "intro_b": "小客官，借你一双眼，看场热闹！",
+        "bow": "先揖个礼，再论高低。",
+        "bow_b": "站稳喽，老狮子要醒啦。",
+        "phase_2": "狮子累了，换我陪你耍耍。",
+        "phase_2_b": "这回看清了，里头就我一个！",
+        "low": "腰是老了，脚可没老。",
+        "low_b": "剩下这点本事，都给你瞧！",
+        "defeat": "好，好！这盏灯，跟你走。",
+        "defeat_b": "老头子服啦，前头的路可别走暗了。",
+        "player_heavy": "疼吧？逞能这毛病，我也有。",
+        "player_heavy_b": "哎呀，收着点下巴呀。",
+        "player_recover": "喝你的，老头子也歇口气。",
+        "player_recover_b": "这口喝完，咱们再热闹。",
+        "player_death": "先歇着，灯给你留着呢。",
+        "player_death_b": "别急，明儿还开场。",
+        "pounce": "看好这张大嘴！",
+        "pounce_b": "老狮子也想亲近人呐。",
+        "wash_foot": "借个地方，抖抖鞋。",
+        "wash_foot_b": "哎，脚底这点事儿。",
+        "lion_slam": "再给你抬高些！",
+        "lion_slam_b": "这一下，可要看仔细。",
+        "lion_roll": "借条路，借条路！",
+        "lion_roll_b": "哎哟，圆的就是跑得快。",
+        "back_kick": "后头那位，也有份儿。",
+        "back_kick_b": "别光看我这张脸呀。",
+        "high_sweep": "抬头看，多精神！",
+        "high_sweep_b": "老狮子还长得高呢。",
+        "lion_sleep": "眯一会儿，就一会儿。",
+        "lion_sleep_b": "别走啊，我没睡着。",
+        "lion_steps": "这腿脚，还上得了场。",
+        "lion_steps_b": "一步一步，热闹起来！",
+        "cup_elbow": "小客官，敬你一下。",
+        "cup_elbow_b": "手抬起来，礼数不能少。",
+        "lean_kick": "腰借我使使。",
+        "lean_kick_b": "站不稳，也有站不稳的妙处。",
+        "sit_kick": "地上也挺舒服。",
+        "sit_kick_b": "矮一点，倒看得清楚。",
+        "ground_roll": "躺着也能陪你聊。",
+        "ground_roll_b": "这边翻完，还有那边。",
+        "handstand": "天地倒过来，照样瞧你。",
+        "handstand_b": "老头子还没倒呢！",
+        "turn_kick": "来来来，再近些。",
+        "turn_kick_b": "别送了，别送了——哎！",
+        "toss_palm": "接好了……我说我自己。",
+        "toss_palm_b": "壶要紧，客人也得招呼。",
+        "shuffle": "挪个座，咱俩都宽敞。",
+        "shuffle_b": "借半张凳子的地方。",
+        "double_palm": "袖子上这点灰呀。",
+        "double_palm_b": "拍两下，精神精神。",
+        "twist": "咦，这脚怎么不听话？",
+        "twist_b": "错一步，也能走回来。",
+        "lion_finale": "这场狮舞，给你收个好尾。",
+        "lion_finale_b": "还没散场呢，小客官。",
+        "drunk_finale": "最后这礼，可得接稳。",
+        "drunk_finale_b": "陪老头子，再热闹一回！",
+        "counter_head": "哎哟，谁把门给关啦？",
+        "counter_head_b": "好小子，连狮子也敢逗！",
+        "counter_gourd": "哎哎哎，我的壶！",
+        "counter_gourd_b": "这手准的，专挑我忙的时候。",
+        "counter_support": "懂行啊，瞧的是脚下。",
+        "counter_support_b": "行，这一下算你眼尖！",
+        "perfect_dodge": "嘿，倒叫你钻过去啦。",
+        "perfect_dodge_b": "漂亮！再来，别让着我。",
+        "ally_enter": "哟，还带了位捧场的。",
+        "ally_enter_b": "两位客官，那可更热闹！",
+        "rest": "一口，就润润嗓子。",
+        "rest_b": "别催呀，老腰也得喘口气。"
+      },
+      "groups": {
+        "intro": [
+          "intro",
+          "intro_b"
+        ],
+        "bow": [
+          "bow",
+          "bow_b"
+        ],
+        "phase_2": [
+          "phase_2",
+          "phase_2_b"
+        ],
+        "low": [
+          "low",
+          "low_b"
+        ],
+        "defeat": [
+          "defeat",
+          "defeat_b"
+        ],
+        "player_heavy": [
+          "player_heavy",
+          "player_heavy_b"
+        ],
+        "player_recover": [
+          "player_recover",
+          "player_recover_b"
+        ],
+        "player_death": [
+          "player_death",
+          "player_death_b"
+        ],
+        "pounce": [
+          "pounce",
+          "pounce_b"
+        ],
+        "wash_foot": [
+          "wash_foot",
+          "wash_foot_b"
+        ],
+        "lion_slam": [
+          "lion_slam",
+          "lion_slam_b"
+        ],
+        "lion_roll": [
+          "lion_roll",
+          "lion_roll_b"
+        ],
+        "back_kick": [
+          "back_kick",
+          "back_kick_b"
+        ],
+        "high_sweep": [
+          "high_sweep",
+          "high_sweep_b"
+        ],
+        "lion_sleep": [
+          "lion_sleep",
+          "lion_sleep_b"
+        ],
+        "lion_steps": [
+          "lion_steps",
+          "lion_steps_b"
+        ],
+        "cup_elbow": [
+          "cup_elbow",
+          "cup_elbow_b"
+        ],
+        "lean_kick": [
+          "lean_kick",
+          "lean_kick_b"
+        ],
+        "sit_kick": [
+          "sit_kick",
+          "sit_kick_b"
+        ],
+        "ground_roll": [
+          "ground_roll",
+          "ground_roll_b"
+        ],
+        "handstand": [
+          "handstand",
+          "handstand_b"
+        ],
+        "turn_kick": [
+          "turn_kick",
+          "turn_kick_b"
+        ],
+        "toss_palm": [
+          "toss_palm",
+          "toss_palm_b"
+        ],
+        "shuffle": [
+          "shuffle",
+          "shuffle_b"
+        ],
+        "double_palm": [
+          "double_palm",
+          "double_palm_b"
+        ],
+        "twist": [
+          "twist",
+          "twist_b"
+        ],
+        "lion_finale": [
+          "lion_finale",
+          "lion_finale_b"
+        ],
+        "drunk_finale": [
+          "drunk_finale",
+          "drunk_finale_b"
+        ],
+        "counter_head": [
+          "counter_head",
+          "counter_head_b"
+        ],
+        "counter_gourd": [
+          "counter_gourd",
+          "counter_gourd_b"
+        ],
+        "counter_support": [
+          "counter_support",
+          "counter_support_b"
+        ],
+        "perfect_dodge": [
+          "perfect_dodge",
+          "perfect_dodge_b"
+        ],
+        "ally_enter": [
+          "ally_enter",
+          "ally_enter_b"
+        ],
+        "rest": [
+          "rest",
+          "rest_b"
+        ]
+      },
+      "performance": "中文游戏角色配音：苍老、气足、带笑意的舞狮老人，顽皮热情。得意时尾音翘，失手时短促嘴硬，认可时坦诚。能听到年纪但不虚弱播报。只念输入台词，不念指导、不加词。败退是笑着认输、护灯送客，不是死亡遗言。",
+      "efforts": {
+        "effort_hei": "嘿！",
+        "effort_hei_b": "嘿！",
+        "effort_ha": "哈！",
+        "effort_ha_b": "哈！",
+        "effort_aiyo": "哎哟！",
+        "effort_aiyo_b": "哎哟！",
+        "effort_yi": "咦？",
+        "effort_yi_b": "咦？",
+        "effort_laugh": "呵呵！",
+        "effort_laugh_b": "呵呵！",
+        "effort_breath": "呼！",
+        "effort_breath_b": "呼！",
+        "effort_chuckle": "咳，呵！",
+        "effort_chuckle_b": "咳，呵！",
+        "effort_snort": "哼！",
+        "effort_snort_b": "哼！"
       }
     }
   }

@@ -1,0 +1,162 @@
+{
+	"approved_production_count": 0,
+	"bank": "transition",
+	"draft_frame_count": 9,
+	"frames": [
+		{
+			"anchor": 140.779251098633,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 409.0,
+			"edge_contact": false,
+			"file": "00.png",
+			"frame": 0,
+			"source_frame": 0,
+			"source_rect": [
+				157,
+				11,
+				301,
+				411
+			]
+		},
+		{
+			"anchor": 202.249664306641,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 309.0,
+			"edge_contact": false,
+			"file": "01.png",
+			"frame": 1,
+			"source_frame": 1,
+			"source_rect": [
+				607,
+				111,
+				329,
+				311
+			]
+		},
+		{
+			"anchor": 224.399993896484,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 215.0,
+			"edge_contact": false,
+			"file": "02.png",
+			"frame": 2,
+			"source_frame": 2,
+			"source_rect": [
+				1059,
+				210,
+				389,
+				217
+			]
+		},
+		{
+			"anchor": 290.0,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 244.0,
+			"edge_contact": false,
+			"file": "03.png",
+			"frame": 3,
+			"source_frame": 3,
+			"source_rect": [
+				83,
+				492,
+				376,
+				246
+			]
+		},
+		{
+			"anchor": 231.399993896484,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 251.0,
+			"edge_contact": false,
+			"file": "04.png",
+			"frame": 4,
+			"source_frame": 4,
+			"source_rect": [
+				537,
+				471,
+				426,
+				266
+			]
+		},
+		{
+			"anchor": 228.5,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 287.0,
+			"edge_contact": false,
+			"file": "05.png",
+			"frame": 5,
+			"source_frame": 5,
+			"source_rect": [
+				1035,
+				434,
+				420,
+				303
+			]
+		},
+		{
+			"anchor": 158.399993896484,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 263.0,
+			"edge_contact": false,
+			"file": "06.png",
+			"frame": 6,
+			"source_frame": 6,
+			"source_rect": [
+				76,
+				741,
+				377,
+				265
+			]
+		},
+		{
+			"anchor": 151.800003051758,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 252.0,
+			"edge_contact": false,
+			"file": "07.png",
+			"frame": 7,
+			"source_frame": 7,
+			"source_rect": [
+				524,
+				752,
+				446,
+				254
+			]
+		},
+		{
+			"anchor": 175.300003051758,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 170.0,
+			"edge_contact": false,
+			"file": "08.png",
+			"frame": 8,
+			"source_frame": 8,
+			"source_rect": [
+				1137,
+				834,
+				318,
+				172
+			]
+		}
+	],
+	"production_target_total": 272,
+	"reference_frame": 0,
+	"reference_height": 120,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/production/transition-v1.png",
+	"source_facing": -1,
+	"status": "DRAFT_REQUIRES_REVIEW",
+	"study_frame_count": 0,
+	"warnings": [
+		"Generated frames require per-frame support, crop, identity and action-contact review. No fluency acceptance."
+	]
+}

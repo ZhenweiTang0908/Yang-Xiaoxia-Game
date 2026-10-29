@@ -7,8 +7,9 @@ var skeletal_visual
 var facing=1.0
 var landing_time=0.0
 var drop_time=0.0
-var health=50.0
-var max_health=50.0
+const STAMINA_DRAIN=3.0
+var health=200.0
+var max_health=200.0
 var invincible=0.0
 var hurt_time=0.0
 var dead=false
@@ -47,6 +48,10 @@ func _physics_process(dt):
 			position=summon.anchor+Vector2(0,-sin(u*PI)*12)
 		else:demon_controller.modulate.a=clampf(summon.remaining/.8,0,1)
 		return
+	# Stamina drains continuously, independent of damage invulnerability.
+	health=maxf(0,health-STAMINA_DRAIN*dt)
+	if health<=0:
+		dead=true;release_child();summon.begin_leaving();return
 	if pinned_left>0:
 		pinned_left=maxf(0,pinned_left-dt);position=pin_anchor;velocity=Vector2.ZERO
 		attack_anim=0;pending_skill=""
@@ -82,6 +87,7 @@ func pin(duration):
 	pending_skill="";attack_anim=0;casting=false
 	if demon and is_instance_valid(demon_controller):
 		demon_controller.rush_left=0;demon_controller.rush_windup=0;demon_controller.lock_left=0;demon_controller.attack_age=10
+		demon_controller.blink_left=0;demon_controller.rig.modulate=Color.WHITE;demon_controller.rig.scale=Vector2.ONE
 	game.combat.remove_owner(get_instance_id())
 	return true
 func clear_pin():
@@ -100,4 +106,5 @@ func take_damage(amount,direction=0.0,attack_sound="",source_owner=0,fixed=false
 		game.boss.on_ally_hit(self,attack_sound)
 	return true
 func heal_on_hit():
-	if demon and not dead and summon.phase=="active":health=minf(max_health,health+cfg("lifesteal"))
+	# Compatibility hook: attacks can never restore stamina.
+	pass

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3]
+[ext_resource type="Script" path="res://scripts/combat/move_set.gd" id="1"]
+[resource]
+script = ExtResource("1")
+id = "lion_elder"
+title = "衔灯狮叟"
+health = 4600.0
+moves = []

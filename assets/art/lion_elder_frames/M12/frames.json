@@ -1,0 +1,274 @@
+{
+	"approved_production_count": 0,
+	"bank": "M12",
+	"draft_frame_count": 16,
+	"frames": [
+		{
+			"anchor": 195.530075073242,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 220.0,
+			"edge_contact": true,
+			"file": "00.png",
+			"frame": 0,
+			"source_frame": 0,
+			"source_rect": [
+				40,
+				75,
+				309,
+				222
+			]
+		},
+		{
+			"anchor": 277.899993896484,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 198.0,
+			"edge_contact": false,
+			"file": "01.png",
+			"frame": 1,
+			"source_frame": 1,
+			"source_rect": [
+				421,
+				94,
+				311,
+				200
+			]
+		},
+		{
+			"anchor": 243.199996948242,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 181.0,
+			"edge_contact": false,
+			"file": "02.png",
+			"frame": 2,
+			"source_frame": 2,
+			"source_rect": [
+				791,
+				111,
+				310,
+				183
+			]
+		},
+		{
+			"anchor": 245.899993896484,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 175.0,
+			"edge_contact": true,
+			"file": "03.png",
+			"frame": 3,
+			"source_frame": 3,
+			"source_rect": [
+				1125,
+				120,
+				376,
+				177
+			]
+		},
+		{
+			"anchor": 130.888854980469,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 156.0,
+			"edge_contact": false,
+			"file": "04.png",
+			"frame": 4,
+			"source_frame": 4,
+			"source_rect": [
+				54,
+				353,
+				259,
+				158
+			]
+		},
+		{
+			"anchor": 248.33561706543,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 140.0,
+			"edge_contact": false,
+			"file": "05.png",
+			"frame": 5,
+			"source_frame": 5,
+			"source_rect": [
+				388,
+				366,
+				369,
+				142
+			]
+		},
+		{
+			"anchor": 252.710311889648,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 133.0,
+			"edge_contact": false,
+			"file": "06.png",
+			"frame": 6,
+			"source_frame": 6,
+			"source_rect": [
+				793,
+				374,
+				376,
+				135
+			]
+		},
+		{
+			"anchor": 181.644424438477,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 137.0,
+			"edge_contact": false,
+			"file": "07.png",
+			"frame": 7,
+			"source_frame": 7,
+			"source_rect": [
+				1204,
+				367,
+				284,
+				139
+			]
+		},
+		{
+			"anchor": 122.682891845703,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 158.0,
+			"edge_contact": false,
+			"file": "08.png",
+			"frame": 8,
+			"source_frame": 8,
+			"source_rect": [
+				80,
+				569,
+				214,
+				160
+			]
+		},
+		{
+			"anchor": 115.362991333008,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 167.0,
+			"edge_contact": false,
+			"file": "09.png",
+			"frame": 9,
+			"source_frame": 9,
+			"source_rect": [
+				439,
+				562,
+				238,
+				169
+			]
+		},
+		{
+			"anchor": 121.715492248535,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 215.0,
+			"edge_contact": true,
+			"file": "10.png",
+			"frame": 10,
+			"source_frame": 10,
+			"source_rect": [
+				829,
+				511,
+				212,
+				217
+			]
+		},
+		{
+			"anchor": 216.810836791992,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 196.0,
+			"edge_contact": false,
+			"file": "11.png",
+			"frame": 11,
+			"source_frame": 11,
+			"source_rect": [
+				1188,
+				538,
+				319,
+				198
+			]
+		},
+		{
+			"anchor": 174.699996948242,
+			"anchor_status": "AUTHORED_SUPPORT_PENDING_RENDER_REVIEW",
+			"approved": false,
+			"baseline": 156.0,
+			"edge_contact": false,
+			"file": "12.png",
+			"frame": 12,
+			"source_frame": 12,
+			"source_rect": [
+				84,
+				805,
+				287,
+				158
+			]
+		},
+		{
+			"anchor": 221.800567626953,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 178.0,
+			"edge_contact": false,
+			"file": "13.png",
+			"frame": 13,
+			"source_frame": 13,
+			"source_rect": [
+				448,
+				789,
+				291,
+				180
+			]
+		},
+		{
+			"anchor": 131.508392333984,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 217.0,
+			"edge_contact": false,
+			"file": "14.png",
+			"frame": 14,
+			"source_frame": 14,
+			"source_rect": [
+				837,
+				752,
+				245,
+				219
+			]
+		},
+		{
+			"anchor": 120.431167602539,
+			"anchor_status": "PROVISIONAL_NEEDS_ANATOMICAL_REVIEW",
+			"approved": false,
+			"baseline": 232.0,
+			"edge_contact": true,
+			"file": "15.png",
+			"frame": 15,
+			"source_frame": 15,
+			"source_rect": [
+				1221,
+				737,
+				237,
+				234
+			]
+		}
+	],
+	"production_target_total": 272,
+	"reference_frame": 15,
+	"reference_height": 86,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/production/M12-v1.png",
+	"source_facing": -1,
+	"status": "DRAFT_REQUIRES_REVIEW",
+	"study_frame_count": 0,
+	"warnings": [
+		"Generated frames require per-frame support, crop, identity and action-contact review. No fluency acceptance."
+	]
+}

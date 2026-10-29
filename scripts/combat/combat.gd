@@ -39,6 +39,8 @@ func remove_owner(owner):
 	queue_redraw()
 	if is_instance_valid(projectile_visual):projectile_visual.queue_redraw()
 func fire(p,v,damage,faction="player",kind="arrow",opts={}):
+	# Snapshot at release; later rewards or sprint costs cannot alter a flying shot.
+	if faction=="player":damage*=float(opts.get("intent",game.player.damage_multiplier()))
 	var s={"p":p,"origin":p,"v":v,"damage":damage,"faction":faction,"kind":kind,"variant":opts.get("variant","plain"),"life":opts.get("life",3.0),"age":0.0,"hits":{},"leg":0,"pierce":opts.get("pierce",0),"owner":opts.get("owner",0),"group":opts.get("group",0),"cap":opts.get("cap",999.0),"homing":opts.get("homing",false),"demon_hit":opts.get("demon_hit",false),"returning":opts.get("returning",false)}
 	s.return_after=opts.get("return_after",.55);s.radius=opts.get("radius",13.0)
 	s.attack_sound=opts.get("attack_sound",ENEMY_AUDIO.for_owner(s.owner))
@@ -49,8 +51,11 @@ func hazard(rect,delay,duration,damage,owner=0,kind="zone"):
 	hazards.back().attack_sound=ENEMY_AUDIO.for_owner(owner)
 	return hazards.back()
 func melee(p):
+	if is_instance_valid(game.boss) and game.boss.has_method("break_rocks"):
+		game.boss.break_rocks(Rect2(p.position+Vector2(0 if p.facing>0 else -80,-65),Vector2(80,65)),18)
 	var contact=""
-	var blade_multiplier=game.upgrade_multiplier("blade",.15)
+	var intent=p.damage_multiplier()
+	var blade_multiplier=game.upgrade_multiplier("blade",.15)*intent
 	var reach=80.0 if p.sheep() else (42.0 if game.use_skeletal else 58.0)
 	if p.sheep() or not game.use_skeletal:game.fx.slash(p.position-Vector2(0,24),p.facing,game.GOLD if p.sheep() else game.TEAL,reach,p.combo if p.sheep() else 0)
 	for e in game.enemies:
@@ -66,9 +71,11 @@ func melee(p):
 	if contact!="":
 		game.shake=maxf(game.shake,1.0 if contact=="block" else (2.5 if p.combo==3 else 1.4))
 		if not p.sheep():game.audio.melee_contact(contact,p.combo)
-	if p.sheep() and p.combo==3:fire(p.position-Vector2(0,24),Vector2(p.facing*430,0),20*blade_multiplier,"player","wave",{"life":.65,"pierce":1})
+	if p.sheep() and p.combo==3:fire(p.position-Vector2(0,24),Vector2(p.facing*430,0),20*game.upgrade_multiplier("blade",.15),"player","wave",{"life":.65,"pierce":1,"intent":intent})
 func command_attack(p,id):
+	if is_instance_valid(game.boss) and game.boss.has_method("break_rocks"):game.boss.break_rocks(Rect2(p.position-Vector2(90,100),Vector2(180,100)),38)
 	var multiplier=game.upgrade_multiplier("blade",.15)
+	var intent=p.damage_multiplier()
 	var origin=p.position-Vector2(0,24)
 	game.fx.command_effect(origin,id,p.facing,p if id=="rising" else null)
 	var landed=false
@@ -85,12 +92,13 @@ func command_attack(p,id):
 				var delta=e.position-p.position
 				var in_range=absf(delta.x)<=90+e.radius and absf(delta.y)<e.body_height+25
 				if rising:in_range=delta.x*p.facing>=-16 and delta.x*p.facing<=65+e.radius and delta.y>=-120 and delta.y<=e.body_height+15
-				if in_range:e.take_hit((56 if rising else 38)*multiplier,"player",p.facing if rising else (-1 if delta.x<0 else 1),rising);landed=true
+				if in_range:e.take_hit((56 if rising else 38)*multiplier*intent,"player",p.facing if rising else (-1 if delta.x<0 else 1),rising);landed=true
 			# Connecting command blows land with a heavier stop and shake than a normal slash.
 			if landed:game.hitstop=maxf(game.hitstop,.07);game.shake=maxf(game.shake,4.0 if rising else 3.0)
 func blast(p,power):
 	var radius=90+90*power
-	var damage=(28+34*power+p.rage*.35)*(SHEEP_BLAST if p.sheep() else 1.0)
+	if is_instance_valid(game.boss) and game.boss.has_method("break_rocks"):game.boss.break_rocks(Rect2(p.position-Vector2(radius,radius),Vector2.ONE*radius*2),28+34*power)
+	var damage=(28+34*power)*p.damage_multiplier()*(SHEEP_BLAST if p.sheep() else 1.0)
 	p.rage=0;game.audio.play("sheep_blast" if p.sheep() else "blast");game.shake=5
 	game.fx.ring(p.position-Vector2(0,20),game.GOLD,radius,.5);game.fx.burst(p.position-Vector2(0,20),22,game.GOLD,150)
 	for e in game.enemies:
@@ -98,10 +106,11 @@ func blast(p,power):
 			e.take_hit(damage,"player",signf(e.position.x-p.position.x),true)
 			if e.dead and p.sheep():p.health=minf(100,p.health+4)
 func horn(p):
+	var damage=32*p.damage_multiplier()
 	for e in game.enemies:
 		if not is_instance_valid(e) or e.dead or (e.kind=="boss" and not e.active_battle) or p.dash_victims.has(e.get_instance_id()):continue
 		if e.position.distance_to(p.position)<e.radius+24:
-			p.dash_victims[e.get_instance_id()]=true;e.take_hit(32,"player",p.facing,true)
+			p.dash_victims[e.get_instance_id()]=true;e.take_hit(damage,"player",p.facing,true)
 func player_shot(p):
 	game.audio.play("ghostflame" if p.sheep() else "bow")
 	var damage=23*SHEEP_HIT+game.upgrade_level("spirit")*4 if p.sheep() else 23.0
@@ -143,6 +152,8 @@ func _physics_process(dt):
 		if wall:
 			s.p=wall.position;s.wall_stop=true;s.life=0;game.fx.impact(wall.position,s.kind,s.v.normalized(),preload("res://scripts/combat/projectile_visual.gd").semantic_tint(s.kind,s.faction) if s.kind in ["orb","flame","ghost_orb"] else null)
 		if s.life<=0:continue
+		if s.faction!="enemy" and is_instance_valid(game.boss) and game.boss.has_method("break_rocks"):
+			if game.boss.break_rocks(Rect2(old,Vector2.ZERO).expand(s.p).grow(s.radius),s.damage):s.life=0;continue
 		if s.faction=="enemy":
 			var target=game.player.position-Vector2(0,21)
 			var hero_key="hero:"+str(s.leg)
@@ -169,11 +180,15 @@ func _physics_process(dt):
 				var center=e.position-Vector2(0,e.body_height*.5)
 				if Geometry2D.get_closest_point_to_segment(center,old,s.p).distance_to(center)<e.radius+6:
 					s.hits[key]=true
+					# Some bosses answer a shot instead of taking it (catch, sway).
+					if e.has_method("answer_projectile") and e.answer_projectile(s):
+						s.life=0;break
 					var amount=s.damage
 					if s.group>0:
 						var gkey=str(s.group)+":"+str(e.get_instance_id())
 						amount=minf(amount,maxf(0,s.cap-groups.get(gkey,0.0)));groups[gkey]=groups.get(gkey,0.0)+amount
 					if amount>0:
+						if e.has_method("on_projectile_contact"):e.on_projectile_contact(s)
 						e.take_hit(amount,s.faction,signf(s.v.x),false)
 						game.fx.impact(s.p,s.kind,s.v.normalized(),preload("res://scripts/combat/projectile_visual.gd").semantic_tint(s.kind,s.faction) if s.kind in ["orb","flame","ghost_orb"] else null)
 						if s.faction=="brother":game.audio.play("card_hit",-6)

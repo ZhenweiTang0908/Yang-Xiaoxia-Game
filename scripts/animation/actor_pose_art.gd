@@ -2,6 +2,8 @@ extends "res://scripts/actors/atlas_actor.gd"
 # A rigid upper silhouette and planted foot strip; small pose curves bridge authored frames.
 static var frame_banks={}
 var actor
+var frame_units=[]
+var rigid_frames=false
 var isolated=[]
 var anchors=[]
 var cache={}
@@ -69,6 +71,19 @@ func posed_vertices():
  var result=PackedVector2Array()
  for p in rest:result.append(deform(p))
  return result
+func frame_unit(index):
+ return float(frame_units[index]) if index<frame_units.size() else scale_unit
+func use_anatomy_profile(key,height):
+ var path="res://assets/animation/boss_scale_guides.json"
+ if not FileAccess.file_exists(path):return
+ var data=JSON.parse_string(FileAccess.get_file_as_string(path))
+ if not data.profiles.has(key):return
+ var profile=data.profiles[key]
+ frame_units=[]
+ for entry in profile.frames:
+  frame_units.append(scale_unit if entry.unit==null else float(entry.unit)*height/float(profile.target_height))
+ rigid_frames=true
+ cache.clear()
 func prepare(index):
  if current==index:return
  if current>=0:
@@ -84,7 +99,7 @@ func prepare(index):
  for y in NY+1:
   for x in NX+1:
    var pixel=Vector2(used.position)+Vector2(used.size)*Vector2(float(x)/NX,float(y)/NY)
-   rest.append((pixel-Vector2(anchors[index],used.end.y))*scale_unit);uv.append(pixel/picture.get_size())
+   rest.append((pixel-Vector2(anchors[index],used.end.y))*frame_unit(index));uv.append(pixel/picture.get_size())
  for y in NY:
   for x in NX:
    var a=y*(NX+1)+x;indices.append_array(PackedInt32Array([a,a+1,a+NX+1,a+1,a+NX+2,a+NX+1]))
@@ -98,7 +113,7 @@ func deform(p):
  return p+((p-pivot).rotated(lean)+pivot-p+Vector2(0,sink))*weight
 func source_socket(index,pixel):
  index=clampi(index,0,bounds.size()-1)
- var local=(pixel-Vector2(anchors[index],bounds[index].end.y))*scale_unit
+ var local=(pixel-Vector2(anchors[index],bounds[index].end.y))*frame_unit(index)
  return deform(local)*Vector2(facing,1)
 func update_pose_mesh():
  if isolated.is_empty():return
@@ -109,7 +124,7 @@ func update_pose_mesh():
  progress=smoothstep(0,1,clampf(progress,0,1))
  displayed=PackedVector2Array()
  for index in target.size():
-  var point=bridge_from[index].lerp(target[index],progress) if bridge_from.size()==target.size() else target[index]
+  var point=bridge_from[index].lerp(target[index],progress) if not rigid_frames and bridge_from.size()==target.size() else target[index]
   displayed.append(point);vertices.append(Vector3(point.x,point.y,0))
  arrays[Mesh.ARRAY_VERTEX]=vertices;mesh.clear_surfaces();mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
 func _draw():

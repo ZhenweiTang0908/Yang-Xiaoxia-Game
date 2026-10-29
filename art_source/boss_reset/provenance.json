@@ -1,0 +1,30 @@
+{
+  "generator": "Built-in image_gen; transparent PNG outputs",
+  "method": "Opaque silhouette extraction, source rectangle retained per authored frame; per-sheet nearest-neighbour normalization. Runtime mirroring and mesh inbetweens are not counted as drawings.",
+  "banks": {
+    "duelist": {
+      "files": 108,
+      "active_unique_frames": 108,
+      "sha256_unique": 108,
+      "manifest": "assets/art/boss_reset/duelist/frames.json"
+    },
+    "lantern": {
+      "files": 108,
+      "active_unique_frames": 108,
+      "sha256_unique": 108,
+      "manifest": "assets/art/boss_reset/lantern/frames.json"
+    },
+    "knight": {
+      "files": 30,
+      "active_unique_frames": 30,
+      "sha256_unique": 30,
+      "manifest": "assets/art/boss_reset/knight/frames.json"
+    },
+    "priest": {
+      "files": 186,
+      "active_unique_frames": 158,
+      "sha256_unique": 158,
+      "manifest": "assets/art/boss_reset/priest/frames.json"
+    }
+  }
+}

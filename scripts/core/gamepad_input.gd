@@ -48,17 +48,14 @@ func handle(event):
  if not (event is InputEventJoypadButton or event is InputEventJoypadMotion):return false
  if event is InputEventJoypadButton and event.pressed or event is InputEventJoypadMotion and absf(event.axis_value)>.3:
   game.pad_mode=true;game.keyboard_nav=false;game.is_touch=false;device=event.device
- if event is InputEventJoypadButton and event.button_index==JOY_BUTTON_DPAD_UP and game.state=="playing":
-  if event.pressed:game.use_tonic()
-  return true
  if game.state=="playing" and event is InputEventJoypadButton and ("b"+str(event.button_index))==bindings.attack:
   handle_melee_press(event.pressed)
   return true
  if event is InputEventJoypadButton and event.pressed:
   if event.button_index==JOY_BUTTON_START:
    direction=Vector2.ZERO
-   if game.state=="playing":game.state="paused";game.release_inputs()
-   elif game.state=="paused":game.state="playing";game.release_inputs()
+   if game.state in ["playing","boss_cinematic"]:game.cinematic_resume=game.state=="boss_cinematic";game.state="paused";game.release_inputs()
+   elif game.state=="paused":game.resume_battle();game.release_inputs()
    elif game.state=="debug":game.debug_panel.close()
    return true
   if event.button_index==JOY_BUTTON_BACK and game.state=="playing":
@@ -83,7 +80,7 @@ func handle(event):
    return true
   if event.button_index==(JOY_BUTTON_A if family()=="switch" else JOY_BUTTON_B):
    if game.state=="debug":game.debug_panel.close()
-   elif game.state=="paused":game.state="playing";game.release_inputs()
+   elif game.state=="paused":game.resume_battle();game.release_inputs()
    elif game.state=="settings":game.hud.action("back")
    elif game.state=="controls":game.hud.action("controls_back")
    elif game.state=="stage_select":game.hud.action("stage_select_back")
@@ -135,13 +132,13 @@ func cleanup():
  if Input.joy_connection_changed.is_connected(connection_changed):Input.joy_connection_changed.disconnect(connection_changed)
 
 const CONFIG="user://controller.cfg"
-const ACTIONS=["jump","attack","bow","dash","sprint","transform","summon"]
+const ACTIONS=["jump","attack","bow","dash","sprint","transform","summon","item"]
 var bindings={}
 var rebinding=""
 var glyphs="auto"
 func defaults():
  # Godot uses physical positions: Switch A=east, B=south, X=north, Y=west.
- return {"jump":"b"+str(JOY_BUTTON_B),"attack":"b"+str(JOY_BUTTON_LEFT_SHOULDER),"bow":"b"+str(JOY_BUTTON_RIGHT_SHOULDER),"dash":"a"+str(JOY_AXIS_TRIGGER_RIGHT),"sprint":"b"+str(JOY_BUTTON_Y),"transform":"b"+str(JOY_BUTTON_X),"summon":"b"+str(JOY_BUTTON_A)}
+ return {"jump":"b"+str(JOY_BUTTON_B),"attack":"b"+str(JOY_BUTTON_LEFT_SHOULDER),"bow":"b"+str(JOY_BUTTON_RIGHT_SHOULDER),"dash":"a"+str(JOY_AXIS_TRIGGER_RIGHT),"sprint":"b"+str(JOY_BUTTON_Y),"transform":"b"+str(JOY_BUTTON_X),"summon":"b"+str(JOY_BUTTON_A),"item":"b"+str(JOY_BUTTON_DPAD_UP)}
 func load_bindings(path=CONFIG):
  bindings=defaults()
  var config=ConfigFile.new()
@@ -155,7 +152,7 @@ func load_bindings(path=CONFIG):
   bindings=candidate;glyphs=str(config.get_value("display","glyphs","auto"))
 func valid_binding(value):
  if value.begins_with("a"):return value in ["a"+str(JOY_AXIS_TRIGGER_LEFT),"a"+str(JOY_AXIS_TRIGGER_RIGHT)]
- return value.begins_with("b") and value.substr(1).is_valid_int() and int(value.substr(1)) in [JOY_BUTTON_A,JOY_BUTTON_B,JOY_BUTTON_X,JOY_BUTTON_Y,JOY_BUTTON_LEFT_STICK,JOY_BUTTON_RIGHT_STICK,JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER]
+ return value.begins_with("b") and value.substr(1).is_valid_int() and int(value.substr(1)) in [JOY_BUTTON_A,JOY_BUTTON_B,JOY_BUTTON_X,JOY_BUTTON_Y,JOY_BUTTON_LEFT_STICK,JOY_BUTTON_RIGHT_STICK,JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER,JOY_BUTTON_DPAD_UP,JOY_BUTTON_DPAD_DOWN,JOY_BUTTON_DPAD_LEFT,JOY_BUTTON_DPAD_RIGHT]
 func save_bindings(path=CONFIG):
  if game.qa_mode and path==CONFIG:return
  var config=ConfigFile.new()
@@ -191,7 +188,9 @@ func label(value):
  var names={"xbox":["A","B","X","Y","Back","Guide","Start","LS","RS","LB","RB"],"ps":["×","○","□","△","Share","PS","Options","L3","R3","L1","R1"],"switch":["B","A","Y","X","−","Home","＋","LS","RS","L","R"]}[family()]
  var index=int(value.substr(1))
  if value.begins_with("a"):return (["L2","R2"] if family()=="ps" else (["ZL","ZR"] if family()=="switch" else ["LT","RT"]))[0 if index==JOY_AXIS_TRIGGER_LEFT else 1]
+ var dpad={JOY_BUTTON_DPAD_UP:"↑",JOY_BUTTON_DPAD_DOWN:"↓",JOY_BUTTON_DPAD_LEFT:"←",JOY_BUTTON_DPAD_RIGHT:"→"}
+ if dpad.has(index):return dpad[index]
  return names[index] if index<names.size() else "D"+str(index)
 func binding_label(action):return label(bindings.attack)+"长按" if action=="charge" else label(bindings[action])
 func summary():
- return "左摇杆移动  "+binding_label("jump")+"跳  "+binding_label("attack")+"斩  "+binding_label("bow")+"弓  "+binding_label("dash")+"翻滚  "+binding_label("sprint")+"冲刺  "+binding_label("charge")+"蓄爆  "+binding_label("transform")+"觉醒  "+binding_label("summon")+"召唤  ↑月露"
+ return "左摇杆移动  "+binding_label("jump")+"跳  "+binding_label("attack")+"斩  "+binding_label("bow")+"弓  "+binding_label("dash")+"翻滚  "+binding_label("sprint")+"冲刺  "+binding_label("charge")+"蓄爆  "+binding_label("transform")+"觉醒  "+binding_label("summon")+"召唤  "+binding_label("item")+"月露"

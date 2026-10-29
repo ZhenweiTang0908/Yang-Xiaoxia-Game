@@ -1,7 +1,8 @@
 extends RefCounted
 const CATALOG=preload("res://scripts/core/enemy_audio_catalog.gd")
 const KNIGHT=preload("res://scripts/core/knight_audio_catalog.gd")
-static func profiles():return CATALOG.PROFILES.merged(KNIGHT.PROFILES)
+const RESET=preload("res://scripts/core/reset_audio_catalog.gd")
+static func profiles():return CATALOG.PROFILES.merged(KNIGHT.PROFILES).merged(RESET.PROFILES)
 const MOB_MOVES={"imp":"sweep","spirit":"orb","guardian":"sweep","pouncer":"pounce","bat":"pounce","dart":"dart","shield":"sweep","shaman":"rune"}
 static func for_actor(actor):
 	if not is_instance_valid(actor) or not actor is Node:return ""

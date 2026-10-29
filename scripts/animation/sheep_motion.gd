@@ -8,12 +8,15 @@ static func sample(action,t,gait,speed):
  var blade_angle=-.32
  if action.begins_with("slash"):
   var index=clampi(int(action.right(1))-1,0,2);var a=HERO.ATTACKS[index]
-  var arms=[ [.35,-.75,1.32,1.55,.85,.35], [1.1,1.95,1.22,.65,.45,.35], [.35,-.65,1.10,2.25,1.20,.35] ]
-  var elbows=[ [.65,1.05,.16,.25,.60,.65], [.45,.70,.18,.30,.60,.65], [.65,1.20,.15,.22,.60,.65] ]
-  var angles=[ [-.32,-1.65,.12,.65,.15,-.32], [.55,1.65,-.18,-.75,-.10,-.32], [-.32,-1.25,.55,1.20,.45,-.32] ]
-  p.near_arm.z=HERO.track(a.times,arms[index],t);p.near_forearm.z=HERO.track(a.times,elbows[index],t)
-  blade_angle=HERO.track(a.times,angles[index],t)
-  var weight=HERO.track(a.times,[0.0,-.035,.10,.075,.025,0.0],t)
+  # Nine authored poses: gather, coil, lead with elbow, cut, impact,
+  # follow-through, recoil, settle, guard. Damage timing remains unchanged.
+  var times=[0.0,a.hit*.35,a.hit*.72,a.hit*.92,a.hit,a.hit+.035,lerpf(a.hit,a.duration,.48),lerpf(a.hit,a.duration,.78),a.duration]
+  var arms=[ [.35,.12,-.75,.45,1.32,1.60,1.35,.65,.35], [1.1,1.45,1.95,1.50,1.22,.65,.50,.39,.35], [.35,.1,-.65,.25,1.10,2.25,1.80,.82,.35] ]
+  var elbows=[ [.65,.82,1.05,.55,.16,.25,.42,.60,.65], [.45,.58,.70,.36,.18,.30,.48,.60,.65], [.65,.90,1.20,.55,.15,.22,.38,.60,.65] ]
+  var angles=[ [-.32,-.85,-1.65,-.65,.12,.65,.45,-.05,-.32], [.55,1.05,1.65,.55,-.18,-.75,-.55,-.22,-.32], [-.32,-.75,-1.25,-.25,.55,1.20,.85,.18,-.32] ]
+  p.near_arm.z=HERO.track(times,arms[index],t);p.near_forearm.z=HERO.track(times,elbows[index],t)
+  blade_angle=HERO.track(times,angles[index],t)
+  var weight=HERO.track(times,[0.0,-.015,-.035,.035,.10,.11,.075,.025,0.0],t)
   p.offset.x=weight
   p.far_arm.z=-.25-p.chest.z*.6;p.far_forearm.z=.85
   # A grounded, wide stance keeps a heavy swing from looking like a run cycle.
@@ -48,5 +51,5 @@ static func sample(action,t,gait,speed):
   p.near_arm.z=.55;p.near_forearm.z=.70;blade_angle=-.45
  p.near_hand.z=blade_angle-p.near_arm.z-p.near_forearm.z-p.chest.z
  p.neck.z=-p.chest.z*.65;p.head.z=sin(t*2.6)*.008
- p.cape=Vector3(0,0,sin(gait-.6)*.035*speed+speed*.12)
+ p.cape=Vector3(0,0,sin(gait-.6)*.045*speed+sin(t*3-.6)*.025+speed*.12)
  return p

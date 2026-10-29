@@ -1,0 +1,285 @@
+extends RefCounted
+# Approved boss-reset design; runtime values are supplied by the F2 balance schema.
+const MOVES={
+ "lantern": [
+  {
+   "id": "pounce",
+   "title": "岩角扑进",
+   "damage": 18,
+   "windup": 0.7,
+   "recovery": 0.8,
+   "travel": 260,
+   "speed": 470,
+   "gap": 0.4,
+   "ordinal": 0
+  },
+  {
+   "id": "sweep",
+   "title": "石肩短撞",
+   "damage": 16,
+   "windup": 0.6,
+   "recovery": 0.8,
+   "travel": 40,
+   "speed": 250,
+   "gap": 0.4,
+   "ordinal": 1
+  },
+  {
+   "id": "ground_wave",
+   "title": "踏石逐浪",
+   "damage": 20,
+   "windup": 0.9,
+   "recovery": 0.8,
+   "travel": 384,
+   "speed": 480,
+   "gap": 0.1,
+   "ordinal": 2
+  },
+  {
+   "id": "stone_lift",
+   "title": "掀石挑击",
+   "damage": 18,
+   "windup": 0.8,
+   "recovery": 0.9,
+   "travel": 84,
+   "speed": 240,
+   "gap": 0.4,
+   "ordinal": 3
+  },
+  {
+   "id": "stone_throw",
+   "title": "拾岩投掷",
+   "damage": 18,
+   "windup": 0.85,
+   "recovery": 0.95,
+   "travel": 350,
+   "speed": 300,
+   "gap": 0.4,
+   "ordinal": 4
+  },
+  {
+   "id": "stone_roll",
+   "title": "盘石滚进",
+   "damage": 16,
+   "windup": 0.85,
+   "recovery": 0.85,
+   "travel": 300,
+   "speed": 220,
+   "gap": 0.4,
+   "ordinal": 5
+  },
+  {
+   "id": "stone_combo",
+   "title": "震蹄二叠",
+   "damage": 12,
+   "windup": 0.75,
+   "recovery": 1.0,
+   "travel": 24,
+   "speed": 240,
+   "gap": 0.4,
+   "ordinal": 6
+  }
+ ],
+ "duelist": [
+  {
+   "id": "flash",
+   "title": "穿雾直刺",
+   "damage": 24,
+   "windup": 0.65,
+   "recovery": 0.8,
+   "travel": 288,
+   "speed": 900,
+   "gap": 0.38,
+   "ordinal": 0
+  },
+  {
+   "id": "triple",
+   "title": "点水三刺",
+   "damage": 12,
+   "windup": 0.7,
+   "recovery": 0.8,
+   "travel": 35,
+   "speed": 250,
+   "gap": 0.38,
+   "ordinal": 1
+  },
+  {
+   "id": "low_sweep",
+   "title": "收锋斜刺",
+   "damage": 22,
+   "windup": 0.65,
+   "recovery": 0.8,
+   "travel": 45,
+   "speed": 300,
+   "gap": 0.4,
+   "ordinal": 2
+  },
+  {
+   "id": "leap",
+   "title": "跃岸落剑",
+   "damage": 30,
+   "windup": 0.85,
+   "recovery": 0.9,
+   "travel": 260,
+   "speed": 470,
+   "gap": 0.4,
+   "ordinal": 3
+  },
+  {
+   "id": "fan",
+   "title": "三叶飞镖",
+   "damage": 18,
+   "windup": 0.7,
+   "recovery": 0.8,
+   "travel": 320,
+   "speed": 250,
+   "gap": 0.4,
+   "ordinal": 4
+  },
+  {
+   "id": "boomerang",
+   "title": "回流飞镖",
+   "damage": 20,
+   "windup": 0.65,
+   "recovery": 0.8,
+   "travel": 350,
+   "speed": 400,
+   "gap": 0.4,
+   "ordinal": 5
+  },
+  {
+   "id": "feint",
+   "title": "踏浪镖刺",
+   "damage": 18,
+   "windup": 0.75,
+   "recovery": 0.9,
+   "travel": 240,
+   "speed": 700,
+   "gap": 0.7,
+   "ordinal": 6
+  },
+  {
+   "id": "shadow",
+   "title": "雾步错位刺",
+   "damage": 28,
+   "windup": 0.9,
+   "recovery": 1.0,
+   "travel": 80,
+   "speed": 365,
+   "gap": 0.4,
+   "ordinal": 7
+  }
+ ],
+ "priest": [
+  {
+   "id": "horn",
+   "title": "拜月进杖",
+   "damage": 28,
+   "windup": 0.75,
+   "recovery": 0.8,
+   "travel": 180,
+   "speed": 560,
+   "gap": 0.38,
+   "ordinal": 0
+  },
+  {
+   "id": "four_slash",
+   "title": "弦月追杖",
+   "damage": 12,
+   "windup": 0.8,
+   "recovery": 0.85,
+   "travel": 32,
+   "speed": 240,
+   "gap": 0.38,
+   "ordinal": 1
+  },
+  {
+   "id": "ground_wave",
+   "title": "月痕逐浪",
+   "damage": 26,
+   "windup": 0.85,
+   "recovery": 0.8,
+   "travel": 384,
+   "speed": 480,
+   "gap": 0.1,
+   "ordinal": 2
+  },
+  {
+   "id": "moonfall",
+   "title": "三引月华",
+   "damage": 24,
+   "windup": 0.9,
+   "recovery": 0.8,
+   "travel": 46,
+   "speed": 0,
+   "gap": 0.55,
+   "ordinal": 3
+  },
+  {
+   "id": "ring",
+   "title": "缺月飞环",
+   "damage": 20,
+   "windup": 0.9,
+   "recovery": 0.8,
+   "travel": 300,
+   "speed": 155,
+   "gap": 0.4,
+   "ordinal": 4
+  },
+  {
+   "id": "homing",
+   "title": "伴月游光",
+   "damage": 22,
+   "windup": 0.8,
+   "recovery": 0.8,
+   "travel": 350,
+   "speed": 130,
+   "gap": 0.45,
+   "ordinal": 5
+  },
+  {
+   "id": "beam",
+   "title": "杖引长照",
+   "damage": 32,
+   "windup": 1.2,
+   "recovery": 1.2,
+   "travel": 330,
+   "speed": 0,
+   "gap": 0.4,
+   "ordinal": 6
+  },
+  {
+   "id": "rain",
+   "title": "碎月垂落",
+   "damage": 24,
+   "windup": 1.2,
+   "recovery": 1.2,
+   "travel": 350,
+   "speed": 320,
+   "gap": 0.4,
+   "ordinal": 7
+  },
+  {
+   "id": "rift",
+   "title": "踏月换位",
+   "damage": 30,
+   "windup": 0.9,
+   "recovery": 0.8,
+   "travel": 130,
+   "speed": 590,
+   "gap": 0.4,
+   "ordinal": 8
+  },
+  {
+   "id": "ritual",
+   "title": "缺月环阵",
+   "damage": 36,
+   "windup": 1.4,
+   "recovery": 1.2,
+   "travel": 300,
+   "speed": 180,
+   "gap": 1.1,
+   "ordinal": 9
+  }
+ ]
+}

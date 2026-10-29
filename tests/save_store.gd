@@ -2,7 +2,7 @@ extends SceneTree
 var failures=[]
 var checks=0
 const STORE=preload("res://scripts/core/save_store.gd")
-const PATH="user://save_store_test.json"
+const PATH="/private/tmp/yang-save-store-test.json"
 
 func _initialize():call_deferred("run")
 func verify(condition,label):
@@ -29,6 +29,11 @@ func run():
 	var corrupt=FileAccess.open(PATH,FileAccess.WRITE);corrupt.store_string("{broken");corrupt.close()
 	var recovered=STORE.read_save(PATH)
 	verify(recovered.level==2 and recovered.screen_shake and is_equal_approx(recovered.music,.4),"corrupt primary recovers backup and defaults")
+	cleanup()
+	var legacy=FileAccess.open(PATH,FileAccess.WRITE);legacy.store_string(JSON.stringify({"version":2,"hero_mesh":false}));legacy.close()
+	verify(not STORE.read_save(PATH).hero_mesh and STORE.read_save(PATH).boss_voice=="ai","legacy save migrates once to 2D and AI")
+	var preference=STORE.defaults();preference.hero_mesh=false
+	verify(STORE.write_save(preference,PATH) and not STORE.read_save(PATH).hero_mesh,"later explicit legacy animation choice is preserved")
 	cleanup()
 	print("SAVE_STORE_RESULT checks=",checks," failures=",failures)
 	quit(0 if failures.is_empty() else 1)

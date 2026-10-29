@@ -27,7 +27,7 @@ func unlock():
 	unlocked=true;phase="ready";remaining=0;game.progress.gourd=true;game.progress.story_seen=true;game.save_progress()
 func arrow_hit():
 	if phase=="active" and is_instance_valid(brother) and not brother.dead:
-		remaining=maxf(minf(remaining,1.0),remaining-8.0)
+		brother.take_damage(24,0.0,"",0,true);remaining=brother.health/brother.STAMINA_DRAIN
 		game.audio.play("gourd_seal",-6);game.fx.ring(brother.position-Vector2(0,35),Color("b397d1"),28,.3)
 	elif phase=="entering" and is_instance_valid(brother):entry_penalty+=8
 	else:seal(game.tuning.get_value("knight_hit_seal"))
@@ -89,11 +89,12 @@ func _physics_process(dt):
 	match phase:
 		"entering":
 			remaining=maxf(0,remaining-dt)
-			if remaining==0:phase="active";remaining=maxf(1,game.tuning.get_value("assist_duration")+game.upgrade_level("brother")*4-entry_penalty);entry_penalty=0;brother.arrive()
-		"active":
-			remaining=maxf(0,remaining-dt)
 			if remaining==0:
-				begin_leaving()
+				phase="active";brother.health=maxf(1,brother.health-entry_penalty*brother.STAMINA_DRAIN)
+				remaining=brother.health/brother.STAMINA_DRAIN;entry_penalty=0;brother.arrive()
+		"active":
+			remaining=brother.health/brother.STAMINA_DRAIN if is_instance_valid(brother) else 0.0
+			if remaining<=0:begin_leaving()
 		"leaving":
 			remaining=maxf(0,remaining-dt)
 			if remaining==0:

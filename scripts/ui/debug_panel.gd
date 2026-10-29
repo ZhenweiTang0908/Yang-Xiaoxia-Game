@@ -17,12 +17,12 @@ func _ready():
  for side in ["left","right","top","bottom"]:margin.add_theme_constant_override("margin_"+side,16)
  panel.add_child(margin)
  var column=VBoxContainer.new();column.add_theme_constant_override("separation",9);margin.add_child(column)
- var heading=Label.new();heading.text="战斗参数调试 · 牛大侠 / 断誓枪骑   F2 / Esc 关闭";heading.add_theme_font_size_override("font_size",20);column.add_child(heading)
+ var heading=Label.new();heading.text="战斗参数调试 · 牛大侠 / 枪骑 / 狮叟   F2 / Esc 关闭";heading.add_theme_font_size_override("font_size",20);column.add_child(heading)
  var note=Label.new();note.text="打开时暂停战斗。牛大侠直接以牛形登场；修改后点击保存。";column.add_child(note)
  var scroll=ScrollContainer.new();scroll.custom_minimum_size=Vector2(660,275);column.add_child(scroll)
  var grid=GridContainer.new();grid.columns=2;grid.size_flags_horizontal=Control.SIZE_EXPAND_FILL;grid.add_theme_constant_override("h_separation",20);scroll.add_child(grid)
  for key in game.tuning.SCHEMA:
-  if key in ["proc_threshold","critical_threshold","proc_chance","critical_chance","extension","normal_incoming","card_damage","fan_damage","return_damage","rune_damage"]:continue
+  if key in ["assist_duration","lifesteal","proc_threshold","critical_threshold","proc_chance","critical_chance","extension","normal_incoming","card_damage","fan_damage","return_damage","rune_damage"]:continue
   var spec=game.tuning.SCHEMA[key];var label=Label.new();label.text=spec[0];label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;grid.add_child(label)
   var spin=SpinBox.new();spin.min_value=spec[2];spin.max_value=spec[3];spin.step=spec[4];spin.custom_minimum_size.x=140;grid.add_child(spin);spins[key]=spin;pad_controls.append(spin)
  var actions=HBoxContainer.new();column.add_child(actions)
@@ -68,7 +68,7 @@ func close():
   if pending=="ready":game.summon.reset(true)
   else:
    if game.summon.phase!="active" or not is_instance_valid(game.summon.brother):
-    game.summon.reset(true);game.summon.request();game.summon.phase="active";game.summon.remaining=game.tuning.get_value("assist_duration")
+    game.summon.reset(true);game.summon.request();game.summon.phase="active";game.summon.remaining=game.summon.brother.health/game.summon.brother.STAMINA_DRAIN
    game.summon.brother.arrive()
  pending=""
 

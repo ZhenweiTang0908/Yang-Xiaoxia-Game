@@ -73,7 +73,9 @@ var challenge_elapsed=0.0
 var challenge_tonic=TONIC_MAX
 var challenge_entry_phase=1
 var challenge_practice=false
+var cinematic_resume=false
 var challenge_finish=-1.0
+const RUSH_BATTLES=5
 const CHALLENGE_LEVEL=4
 # Fixed martial arts granted after bosses 1–3 of the boss rush.
 const RUSH_UPGRADES=["blade","spirit","brother"]
@@ -116,6 +118,8 @@ func configure_input():
 		if not InputMap.has_action(action):InputMap.add_action(action)
 		for key in bindings[action]:
 			var e=InputEventKey.new();e.physical_keycode=key;InputMap.action_add_event(action,e)
+func resume_battle():
+	state="boss_cinematic" if cinematic_resume else "playing";cinematic_resume=false
 func active():return state=="playing" and not switching
 func _input(event):
 	if event is InputEventMouseButton or event is InputEventScreenTouch:keyboard_nav=false
@@ -139,8 +143,8 @@ func _input(event):
 			hud.pad_activate();get_viewport().set_input_as_handled();return
 		match event.physical_keycode:
 			KEY_ESCAPE:
-				if state=="playing":state="paused";release_inputs()
-				elif state=="paused":state="playing"
+				if state in ["playing","boss_cinematic"]:cinematic_resume=state=="boss_cinematic";state="paused";release_inputs()
+				elif state=="paused":resume_battle()
 				elif state=="new_confirm":hud.action("new_confirm_back")
 				elif state=="settings":state=hud.settings_return
 				elif state=="stage_select":state=hud.stage_select_return
@@ -186,8 +190,8 @@ func release_inputs():
 	touch_ids.clear()
 	if player:player.edges.clear();player.clear_commands()
 func _notification(what):
-	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and state=="playing" and not qa_mode:
-		state="paused";release_inputs()
+	if what==NOTIFICATION_APPLICATION_FOCUS_OUT and state in ["playing","boss_cinematic"] and not qa_mode:
+		cinematic_resume=state=="boss_cinematic";state="paused";release_inputs()
 func _process(dt):
 	if gamepad:gamepad.tick(dt)
 	if state=="playing":keyboard_nav=false
@@ -231,7 +235,11 @@ func _physics_process(dt):
 				"relic":collect_relic(p.id)
 	if level.single_boss:
 		if boss.dead:
-			challenge_finish=maxf(0,challenge_finish-dt) if challenge_finish>=0 else 2.4
+			if challenge_finish<0:
+				challenge_finish=2.4
+				if boss.spec.id=="lion_elder" and audio.voice_identity.begins_with("lion_defeat") and audio.voice_player.playing:
+					challenge_finish=maxf(challenge_finish,minf(6.5,audio.voice_player.stream.get_length()+.3))
+			else:challenge_finish=maxf(0,challenge_finish-dt)
 			if challenge_finish==0:finish_level()
 	elif player.position.x>level.length-260 and boss.dead:finish_level()
 func has_journey_progress():
@@ -264,7 +272,7 @@ func start_challenge(number=CHALLENGE_LEVEL,entry_phase=1):
 	challenge_practice=challenge_entry_phase==2
 	load_stage(number,0)
 func jump_to_stage(number,section=0):
-	if switching or number<1 or number>4:return
+	if switching or number<1 or number>RUSH_BATTLES:return
 	boss_rush=true;challenge_practice=false;challenge_entry_phase=1
 	progress.pending_upgrade={};progress.tonic=TONIC_MAX;progress.rush_knight_foot=false
 	load_stage(number,0);save_progress()
@@ -367,6 +375,7 @@ func use_tonic():
 	if player.health>=100:show_hint("生命已满 · 月露未消耗",2.5);return false
 	var healed=minf(TONIC_HEAL,100-player.health)
 	player.health+=healed
+	if is_instance_valid(boss) and boss.spec.id=="lion_elder":boss.speak_event("player_recover")
 	if is_challenge():challenge_tonic=charges-1
 	else:progress.tonic=charges-1
 	audio.play("pickup",-2);fx.recovery(player.position);show_hint("饮下月露 · 生命 +"+str(int(healed))+" · 剩余 "+str(tonic_count()),3);save_progress()
@@ -417,7 +426,7 @@ func stage_record(number,mode):
 	return progress.get("records",{}).get(str(number),{}).get(mode,{})
 func update_stage_record(result):
 	var number=int(result.get("level",0));var mode=progress.get("journey_mode","standard")
-	if number<1 or number>CHALLENGE_LEVEL or mode not in ["standard","relaxed"]:return false
+	if number<1 or number>RUSH_BATTLES or mode not in ["standard","relaxed"]:return false
 	var records=progress.get("records",{}).duplicate(true);var stage_records=records.get(str(number),{}).duplicate(true)
 	var previous=stage_records.get(mode,{})
 	var seconds=maxf(0,float(result.get("seconds",0)));var kills=maxi(0,int(result.get("kills",0)));var clears=clampi(int(result.get("clears",0)),0,4)
@@ -502,7 +511,7 @@ func finish_level():
 				rush_reward=RUSH_UPGRADES[level.number-1]
 				var upgrades=progress.get("upgrades",[]).duplicate();upgrades.append(rush_reward);progress.upgrades=upgrades
 		progress.tonic=TONIC_MAX;progress.pending_upgrade={}
-		if level.number<4:
+		if level.number<RUSH_BATTLES:
 			progress.rush_stage=level.number+1;state="stage_clear";save_progress()
 		else:
 			state="win";progress.rush_completed=true;save_progress();audio.play("ending",0)
@@ -533,7 +542,7 @@ func complete_story():
 	progress.gourd=true;progress.story_seen=true;summon.unlock();state="stage_clear";save_progress()
 func next_level():
 	if boss_rush:
-		if level.number<4:call_deferred("load_stage",level.number+1,0)
+		if level.number<RUSH_BATTLES:call_deferred("load_stage",level.number+1,0)
 		return
 	if is_challenge():retry();return
 	if level.number<3:

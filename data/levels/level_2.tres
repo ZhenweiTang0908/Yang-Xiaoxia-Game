@@ -13,3 +13,5 @@ features = [{"kind": "gust", "x": 1750, "y": 170, "w": 1850, "h": 310, "force": 
 checkpoints = PackedFloat32Array(100, 8100, 13700)
 boss_id = "duelist"
 boss_x = 14900.0
+
+boss_script = "res://scripts/actors/boss_reset/base.gd"

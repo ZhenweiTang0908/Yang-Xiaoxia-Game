@@ -7,12 +7,15 @@ func setup(folder,pixels_per_source,height=106.0):
 	frame_info=JSON.parse_string(FileAccess.get_file_as_string(folder+"/frames.json"))
 	anchors=anchors.duplicate()
 	for i in 12:anchors[i]=float(frame_info[i].anchor)
+	var profile="knight/"+folder.get_file()
+	if folder.get_file()=="arsenal" and height>130:profile="knight/mounted_arsenal"
+	rigid_frames=true;use_anatomy_profile(profile,height)
 	set_process(false)
 func _process(_dt):pass
 func transition_duration(_index):return pose_duration
 func advance(dt):
 	clock+=dt;bridge_left=maxf(0,bridge_left-dt);queue_redraw()
-func ground_offset():return (bounds[frame].end.y-float(frame_info[frame].baseline))*scale_unit
+func ground_offset():return (bounds[frame].end.y-float(frame_info[frame].baseline))*frame_unit(frame)
 func snap_pose():
 	prepare(frame);bridge_left=0;queue_redraw()
 # The new lunging key poses hold a high lance. Lower the forward arm/shaft
@@ -28,5 +31,6 @@ func deform(p):
 		var weight=smoothstep(body_height*.30,body_height*.43,-p.y)
 		var pitch=-.32 if frame==5 else -.26
 		result+=((result-pivot).rotated(pitch)+pivot-result)*weight
-	if weapon_extension>0 and p.y<-42:result.x-=maxf(0,-p.x-28)*weapon_extension
+	# Extend only the exposed shaft; the shoulder and torso retain their size.
+	if weapon_extension>0 and p.y<-42:result.x-=maxf(0,-p.x-body_height*.75)*weapon_extension
 	return result

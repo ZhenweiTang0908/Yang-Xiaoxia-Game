@@ -2,6 +2,7 @@ extends Node2D
 # Same painted PNG + 2D mesh pose technology as the three original bosses.
 const ART=preload("res://scripts/animation/knight/painted_art.gd")
 const FEEDBACK=preload("res://scripts/combat/hit_feedback.gd")
+var reset_art
 var actor
 var foot
 var mounted
@@ -36,6 +37,7 @@ const ARSENAL_SOCKETS={
  11:{"blade_tip":Vector2(1140,773),"blade_base":Vector2(1300,899)}
 }
 func _ready():
+	reset_art=preload("res://scripts/actors/boss_reset/visual.gd").new();reset_art.actor=actor;add_child(reset_art);reset_art.configure_reset("knight",106)
 	foot=make_art("foot",106.0/222.0,106);foot.lower_weapon=true
 	mounted=make_art("mounted",148.0/241.0,148)
 	extra=make_art("extra",106.0/191.0,106)
@@ -82,6 +84,7 @@ func gallop_frame(stride):
 func sync_pose(dt):
 	if not is_instance_valid(actor):return
 	var a=actor
+	reset_art.hide();reset_art.advance(dt)
 	for art in [foot,mounted,extra,horse,arsenal,mounted_arsenal,pressure]:art.hide();art.advance(dt)
 	var action=a.action;var at=a.t
 	if action!="":held_action=action;held_time=at;recovery_age=0
@@ -89,6 +92,17 @@ func sync_pose(dt):
 		recovery_age+=dt;action=held_action;at=held_time+recovery_age
 		if recovery_age>.65:held_action="";action=""
 	current=action if action!="" else "idle";sample_time=at
+	if a.phase==2 and a.reset_turn.remaining>0:
+		reset_art.visible=true;reset_art.facing=-a.reset_turn.from_face;reset_art.pose("turn",a.reset_turn_age/maxf(.01,a.reset_turn.duration));reset_art.facing=-a.reset_turn.from_face;return
+	if a.phase==2 and not a.dead and a.dismount_t<0:
+		var reset_clip=""
+		var reset_progress=0.0
+		if a.action=="" and a.walking:reset_clip="advance";reset_progress=fposmod(a.time*2,1)
+		elif a.action=="" and recovery_age>0 and recovery_age<.60:reset_clip="recover";reset_progress=recovery_age/.60
+		elif a.action in ["thrust","counter","lunge","triple_dash","spear_return"] and at<a.prep_for(a.action)*.75:
+			reset_clip="load";reset_progress=at/maxf(.01,a.prep_for(a.action)*.75)
+		if reset_clip!="":
+			reset_art.visible=true;reset_art.pose(reset_clip,reset_progress);reset_art.facing=-a.facing;selected=null;return
 	if a.dead:
 		show_art(extra,11,Vector2.ZERO,true);held_action=""
 	elif a.dismount_t>=0:
@@ -212,7 +226,7 @@ func departing_horse():
 func source_socket(art,index,pixel):
 	var info=art.frame_info[index]
 	var rect=info.source_rect
-	var local=Vector2(pixel.x-float(rect[0])+8-float(info.anchor),pixel.y-float(rect[1])+8-art.bounds[index].end.y)*art.scale_unit
+	var local=Vector2(pixel.x-float(rect[0])+8-float(info.anchor),pixel.y-float(rect[1])+8-art.bounds[index].end.y)*art.frame_unit(index)
 	return art.position+art.deform(local)*Vector2(-actor.facing,1)
 func foot_socket(index,name):return source_socket(foot,index,FOOT_SOCKETS[index][name])
 func projectile_origin():

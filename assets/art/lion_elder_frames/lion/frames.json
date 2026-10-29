@@ -1,0 +1,273 @@
+{
+	"approved_production_count": 0,
+	"bank": "lion",
+	"frames": [
+		{
+			"anchor": 160.1589958159,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 252,
+			"file": "00.png",
+			"frame": 0,
+			"height": 256,
+			"source_rect": [
+				0,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 155.071146245059,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 252,
+			"file": "01.png",
+			"frame": 1,
+			"height": 256,
+			"source_rect": [
+				384,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 164.137651821862,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 252,
+			"file": "02.png",
+			"frame": 2,
+			"height": 256,
+			"source_rect": [
+				768,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 136.752851711027,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 252,
+			"file": "03.png",
+			"frame": 3,
+			"height": 256,
+			"source_rect": [
+				1152,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 174.48046875,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 246,
+			"file": "04.png",
+			"frame": 4,
+			"height": 256,
+			"source_rect": [
+				0,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 165.771929824561,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 246,
+			"file": "05.png",
+			"frame": 5,
+			"height": 256,
+			"source_rect": [
+				384,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 153.961832061069,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 246,
+			"file": "06.png",
+			"frame": 6,
+			"height": 256,
+			"source_rect": [
+				768,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 157.304659498208,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 246,
+			"file": "07.png",
+			"frame": 7,
+			"height": 256,
+			"source_rect": [
+				1152,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 203.603686635945,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 214,
+			"file": "08.png",
+			"frame": 8,
+			"height": 256,
+			"source_rect": [
+				0,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 210.270386266094,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 214,
+			"file": "09.png",
+			"frame": 9,
+			"height": 256,
+			"source_rect": [
+				384,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 108.967625899281,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 217,
+			"file": "10.png",
+			"frame": 10,
+			"height": 256,
+			"source_rect": [
+				768,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 135.841945288754,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 217,
+			"file": "11.png",
+			"frame": 11,
+			"height": 256,
+			"source_rect": [
+				1152,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 239.239130434783,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 213,
+			"file": "12.png",
+			"frame": 12,
+			"height": 256,
+			"source_rect": [
+				0,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 162.747126436782,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 213,
+			"file": "13.png",
+			"frame": 13,
+			"height": 256,
+			"source_rect": [
+				384,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 170.47602739726,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 213,
+			"file": "14.png",
+			"frame": 14,
+			"height": 256,
+			"source_rect": [
+				768,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 153.760869565217,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 213,
+			"file": "15.png",
+			"frame": 15,
+			"height": 256,
+			"source_rect": [
+				1152,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		}
+	],
+	"production_target_total": 272,
+	"reference_height": 120,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/poses-lion-lift-study-v1.png",
+	"source_facing": -1,
+	"status": "INCOMPLETE",
+	"study_frame_count": 16,
+	"warnings": [
+		"03→04 leg extension and 07→08 head rotation jump; 11/12 grips unclear; cloth too broad; lamp too detailed.",
+		"Study only, not production. Pixel contact is not verified anatomical support. No fluency acceptance. See art_source/lion_elder/art-direction.md."
+	]
+}

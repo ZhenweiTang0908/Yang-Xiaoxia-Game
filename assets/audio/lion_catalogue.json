@@ -1,0 +1,4334 @@
+{
+  "version": 1,
+  "moves": {
+    "pounce": 1,
+    "wash_foot": 1,
+    "lion_slam": 1,
+    "lion_roll": 1,
+    "back_kick": 1,
+    "high_sweep": 1,
+    "lion_sleep": 1,
+    "lion_steps": 3,
+    "cup_elbow": 1,
+    "lean_kick": 1,
+    "sit_kick": 1,
+    "ground_roll": 2,
+    "handstand": 1,
+    "turn_kick": 1,
+    "toss_palm": 1,
+    "shuffle": 1,
+    "double_palm": 2,
+    "twist": 2,
+    "lion_finale": 2,
+    "drunk_finale": 3
+  },
+  "events": {
+    "lion:pounce:1:warning": "lion_pounce_1_warning",
+    "lion:pounce:1:charge": "lion_pounce_1_charge",
+    "lion:pounce:1:release": "lion_pounce_1_release",
+    "lion:pounce:1:impact": "lion_pounce_1_impact",
+    "lion:pounce:1:landing": "lion_pounce_1_landing",
+    "lion:pounce:1:recover": "lion_pounce_1_recover",
+    "lion:wash_foot:1:warning": "lion_wash_foot_1_warning",
+    "lion:wash_foot:1:charge": "lion_wash_foot_1_charge",
+    "lion:wash_foot:1:release": "lion_wash_foot_1_release",
+    "lion:wash_foot:1:impact": "lion_wash_foot_1_impact",
+    "lion:wash_foot:1:landing": "lion_wash_foot_1_landing",
+    "lion:wash_foot:1:recover": "lion_wash_foot_1_recover",
+    "lion:lion_slam:1:warning": "lion_lion_slam_1_warning",
+    "lion:lion_slam:1:charge": "lion_lion_slam_1_charge",
+    "lion:lion_slam:1:release": "lion_lion_slam_1_release",
+    "lion:lion_slam:1:impact": "lion_lion_slam_1_impact",
+    "lion:lion_slam:1:landing": "lion_lion_slam_1_landing",
+    "lion:lion_slam:1:recover": "lion_lion_slam_1_recover",
+    "lion:lion_roll:1:warning": "lion_lion_roll_1_warning",
+    "lion:lion_roll:1:charge": "lion_lion_roll_1_charge",
+    "lion:lion_roll:1:release": "lion_lion_roll_1_release",
+    "lion:lion_roll:1:impact": "lion_lion_roll_1_impact",
+    "lion:lion_roll:1:landing": "lion_lion_roll_1_landing",
+    "lion:lion_roll:1:recover": "lion_lion_roll_1_recover",
+    "lion:back_kick:1:warning": "lion_back_kick_1_warning",
+    "lion:back_kick:1:charge": "lion_back_kick_1_charge",
+    "lion:back_kick:1:release": "lion_back_kick_1_release",
+    "lion:back_kick:1:impact": "lion_back_kick_1_impact",
+    "lion:back_kick:1:landing": "lion_back_kick_1_landing",
+    "lion:back_kick:1:recover": "lion_back_kick_1_recover",
+    "lion:high_sweep:1:warning": "lion_high_sweep_1_warning",
+    "lion:high_sweep:1:charge": "lion_high_sweep_1_charge",
+    "lion:high_sweep:1:release": "lion_high_sweep_1_release",
+    "lion:high_sweep:1:impact": "lion_high_sweep_1_impact",
+    "lion:high_sweep:1:landing": "lion_high_sweep_1_landing",
+    "lion:high_sweep:1:recover": "lion_high_sweep_1_recover",
+    "lion:lion_sleep:1:warning": "lion_lion_sleep_1_warning",
+    "lion:lion_sleep:1:charge": "lion_lion_sleep_1_charge",
+    "lion:lion_sleep:1:release": "lion_lion_sleep_1_release",
+    "lion:lion_sleep:1:impact": "lion_lion_sleep_1_impact",
+    "lion:lion_sleep:1:landing": "lion_lion_sleep_1_landing",
+    "lion:lion_sleep:1:recover": "lion_lion_sleep_1_recover",
+    "lion:lion_steps:1:warning": "lion_lion_steps_1_warning",
+    "lion:lion_steps:1:charge": "lion_lion_steps_1_charge",
+    "lion:lion_steps:1:release": "lion_lion_steps_1_release",
+    "lion:lion_steps:1:impact": "lion_lion_steps_1_impact",
+    "lion:lion_steps:1:landing": "lion_lion_steps_1_landing",
+    "lion:lion_steps:1:recover": "lion_lion_steps_1_recover",
+    "lion:lion_steps:2:warning": "lion_lion_steps_2_warning",
+    "lion:lion_steps:2:charge": "lion_lion_steps_2_charge",
+    "lion:lion_steps:2:release": "lion_lion_steps_2_release",
+    "lion:lion_steps:2:impact": "lion_lion_steps_2_impact",
+    "lion:lion_steps:2:landing": "lion_lion_steps_2_landing",
+    "lion:lion_steps:2:recover": "lion_lion_steps_2_recover",
+    "lion:lion_steps:3:warning": "lion_lion_steps_3_warning",
+    "lion:lion_steps:3:charge": "lion_lion_steps_3_charge",
+    "lion:lion_steps:3:release": "lion_lion_steps_3_release",
+    "lion:lion_steps:3:impact": "lion_lion_steps_3_impact",
+    "lion:lion_steps:3:landing": "lion_lion_steps_3_landing",
+    "lion:lion_steps:3:recover": "lion_lion_steps_3_recover",
+    "lion:cup_elbow:1:warning": "lion_cup_elbow_1_warning",
+    "lion:cup_elbow:1:charge": "lion_cup_elbow_1_charge",
+    "lion:cup_elbow:1:release": "lion_cup_elbow_1_release",
+    "lion:cup_elbow:1:impact": "lion_cup_elbow_1_impact",
+    "lion:cup_elbow:1:landing": "lion_cup_elbow_1_landing",
+    "lion:cup_elbow:1:recover": "lion_cup_elbow_1_recover",
+    "lion:lean_kick:1:warning": "lion_lean_kick_1_warning",
+    "lion:lean_kick:1:charge": "lion_lean_kick_1_charge",
+    "lion:lean_kick:1:release": "lion_lean_kick_1_release",
+    "lion:lean_kick:1:impact": "lion_lean_kick_1_impact",
+    "lion:lean_kick:1:landing": "lion_lean_kick_1_landing",
+    "lion:lean_kick:1:recover": "lion_lean_kick_1_recover",
+    "lion:sit_kick:1:warning": "lion_sit_kick_1_warning",
+    "lion:sit_kick:1:charge": "lion_sit_kick_1_charge",
+    "lion:sit_kick:1:release": "lion_sit_kick_1_release",
+    "lion:sit_kick:1:impact": "lion_sit_kick_1_impact",
+    "lion:sit_kick:1:landing": "lion_sit_kick_1_landing",
+    "lion:sit_kick:1:recover": "lion_sit_kick_1_recover",
+    "lion:ground_roll:1:warning": "lion_ground_roll_1_warning",
+    "lion:ground_roll:1:charge": "lion_ground_roll_1_charge",
+    "lion:ground_roll:1:release": "lion_ground_roll_1_release",
+    "lion:ground_roll:1:impact": "lion_ground_roll_1_impact",
+    "lion:ground_roll:1:landing": "lion_ground_roll_1_landing",
+    "lion:ground_roll:1:recover": "lion_ground_roll_1_recover",
+    "lion:ground_roll:2:warning": "lion_ground_roll_2_warning",
+    "lion:ground_roll:2:charge": "lion_ground_roll_2_charge",
+    "lion:ground_roll:2:release": "lion_ground_roll_2_release",
+    "lion:ground_roll:2:impact": "lion_ground_roll_2_impact",
+    "lion:ground_roll:2:landing": "lion_ground_roll_2_landing",
+    "lion:ground_roll:2:recover": "lion_ground_roll_2_recover",
+    "lion:handstand:1:warning": "lion_handstand_1_warning",
+    "lion:handstand:1:charge": "lion_handstand_1_charge",
+    "lion:handstand:1:release": "lion_handstand_1_release",
+    "lion:handstand:1:impact": "lion_handstand_1_impact",
+    "lion:handstand:1:landing": "lion_handstand_1_landing",
+    "lion:handstand:1:recover": "lion_handstand_1_recover",
+    "lion:turn_kick:1:warning": "lion_turn_kick_1_warning",
+    "lion:turn_kick:1:charge": "lion_turn_kick_1_charge",
+    "lion:turn_kick:1:release": "lion_turn_kick_1_release",
+    "lion:turn_kick:1:impact": "lion_turn_kick_1_impact",
+    "lion:turn_kick:1:landing": "lion_turn_kick_1_landing",
+    "lion:turn_kick:1:recover": "lion_turn_kick_1_recover",
+    "lion:toss_palm:1:warning": "lion_toss_palm_1_warning",
+    "lion:toss_palm:1:charge": "lion_toss_palm_1_charge",
+    "lion:toss_palm:1:release": "lion_toss_palm_1_release",
+    "lion:toss_palm:1:impact": "lion_toss_palm_1_impact",
+    "lion:toss_palm:1:landing": "lion_toss_palm_1_landing",
+    "lion:toss_palm:1:recover": "lion_toss_palm_1_recover",
+    "lion:shuffle:1:warning": "lion_shuffle_1_warning",
+    "lion:shuffle:1:charge": "lion_shuffle_1_charge",
+    "lion:shuffle:1:release": "lion_shuffle_1_release",
+    "lion:shuffle:1:impact": "lion_shuffle_1_impact",
+    "lion:shuffle:1:landing": "lion_shuffle_1_landing",
+    "lion:shuffle:1:recover": "lion_shuffle_1_recover",
+    "lion:double_palm:1:warning": "lion_double_palm_1_warning",
+    "lion:double_palm:1:charge": "lion_double_palm_1_charge",
+    "lion:double_palm:1:release": "lion_double_palm_1_release",
+    "lion:double_palm:1:impact": "lion_double_palm_1_impact",
+    "lion:double_palm:1:landing": "lion_double_palm_1_landing",
+    "lion:double_palm:1:recover": "lion_double_palm_1_recover",
+    "lion:double_palm:2:warning": "lion_double_palm_2_warning",
+    "lion:double_palm:2:charge": "lion_double_palm_2_charge",
+    "lion:double_palm:2:release": "lion_double_palm_2_release",
+    "lion:double_palm:2:impact": "lion_double_palm_2_impact",
+    "lion:double_palm:2:landing": "lion_double_palm_2_landing",
+    "lion:double_palm:2:recover": "lion_double_palm_2_recover",
+    "lion:twist:1:warning": "lion_twist_1_warning",
+    "lion:twist:1:charge": "lion_twist_1_charge",
+    "lion:twist:1:release": "lion_twist_1_release",
+    "lion:twist:1:impact": "lion_twist_1_impact",
+    "lion:twist:1:landing": "lion_twist_1_landing",
+    "lion:twist:1:recover": "lion_twist_1_recover",
+    "lion:twist:2:warning": "lion_twist_2_warning",
+    "lion:twist:2:charge": "lion_twist_2_charge",
+    "lion:twist:2:release": "lion_twist_2_release",
+    "lion:twist:2:impact": "lion_twist_2_impact",
+    "lion:twist:2:landing": "lion_twist_2_landing",
+    "lion:twist:2:recover": "lion_twist_2_recover",
+    "lion:lion_finale:1:warning": "lion_lion_finale_1_warning",
+    "lion:lion_finale:1:charge": "lion_lion_finale_1_charge",
+    "lion:lion_finale:1:release": "lion_lion_finale_1_release",
+    "lion:lion_finale:1:impact": "lion_lion_finale_1_impact",
+    "lion:lion_finale:1:landing": "lion_lion_finale_1_landing",
+    "lion:lion_finale:1:recover": "lion_lion_finale_1_recover",
+    "lion:lion_finale:2:warning": "lion_lion_finale_2_warning",
+    "lion:lion_finale:2:charge": "lion_lion_finale_2_charge",
+    "lion:lion_finale:2:release": "lion_lion_finale_2_release",
+    "lion:lion_finale:2:impact": "lion_lion_finale_2_impact",
+    "lion:lion_finale:2:landing": "lion_lion_finale_2_landing",
+    "lion:lion_finale:2:recover": "lion_lion_finale_2_recover",
+    "lion:drunk_finale:1:warning": "lion_drunk_finale_1_warning",
+    "lion:drunk_finale:1:charge": "lion_drunk_finale_1_charge",
+    "lion:drunk_finale:1:release": "lion_drunk_finale_1_release",
+    "lion:drunk_finale:1:impact": "lion_drunk_finale_1_impact",
+    "lion:drunk_finale:1:landing": "lion_drunk_finale_1_landing",
+    "lion:drunk_finale:1:recover": "lion_drunk_finale_1_recover",
+    "lion:drunk_finale:2:warning": "lion_drunk_finale_2_warning",
+    "lion:drunk_finale:2:charge": "lion_drunk_finale_2_charge",
+    "lion:drunk_finale:2:release": "lion_drunk_finale_2_release",
+    "lion:drunk_finale:2:impact": "lion_drunk_finale_2_impact",
+    "lion:drunk_finale:2:landing": "lion_drunk_finale_2_landing",
+    "lion:drunk_finale:2:recover": "lion_drunk_finale_2_recover",
+    "lion:drunk_finale:3:warning": "lion_drunk_finale_3_warning",
+    "lion:drunk_finale:3:charge": "lion_drunk_finale_3_charge",
+    "lion:drunk_finale:3:release": "lion_drunk_finale_3_release",
+    "lion:drunk_finale:3:impact": "lion_drunk_finale_3_impact",
+    "lion:drunk_finale:3:landing": "lion_drunk_finale_3_landing",
+    "lion:drunk_finale:3:recover": "lion_drunk_finale_3_recover",
+    "lion:step_left:1:material": "lion_step_left_1_material",
+    "lion:step_left:2:material": "lion_step_left_2_material",
+    "lion:step_left:3:material": "lion_step_left_3_material",
+    "lion:step_right:1:material": "lion_step_right_1_material",
+    "lion:step_right:2:material": "lion_step_right_2_material",
+    "lion:step_right:3:material": "lion_step_right_3_material",
+    "lion:turn:1:material": "lion_turn_1_material",
+    "lion:turn:2:material": "lion_turn_2_material",
+    "lion:eye:1:material": "lion_eye_1_material",
+    "lion:eye:2:material": "lion_eye_2_material",
+    "lion:cloth:1:material": "lion_cloth_1_material",
+    "lion:cloth:2:material": "lion_cloth_2_material",
+    "lion:hurt:1:material": "lion_hurt_1_material",
+    "lion:hurt:2:material": "lion_hurt_2_material",
+    "lion:hurt:3:material": "lion_hurt_3_material",
+    "lion:counter_head:1:material": "lion_counter_head_1_material",
+    "lion:counter_head:2:material": "lion_counter_head_2_material",
+    "lion:counter_gourd:1:material": "lion_counter_gourd_1_material",
+    "lion:counter_gourd:2:material": "lion_counter_gourd_2_material",
+    "lion:counter_support:1:material": "lion_counter_support_1_material",
+    "lion:counter_support:2:material": "lion_counter_support_2_material",
+    "lion:sit:1:material": "lion_sit_1_material",
+    "lion:sit:2:material": "lion_sit_2_material",
+    "lion:protect_lamp:1:material": "lion_protect_lamp_1_material",
+    "lion:protect_lamp:2:material": "lion_protect_lamp_2_material",
+    "lion:phase_2:1:material": "lion_phase_2_1_material",
+    "lion:phase_2:2:material": "lion_phase_2_2_material",
+    "lion:defeat:1:material": "lion_defeat_1_material",
+    "lion:defeat:2:material": "lion_defeat_2_material"
+  },
+  "assets": {
+    "lion_pounce_1_warning": {
+      "path": "res://assets/audio/lion_pounce_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 0.905,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "8f71eacc4c9e311753e66a822aaa4848f49d644155a87ad37c32ff1b06bc7ef8",
+      "duration": 0.31527083333333333,
+      "peak": 0.82,
+      "rms": 0.08066249710540964
+    },
+    "lion_pounce_1_charge": {
+      "path": "res://assets/audio/lion_pounce_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.8145,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "228c726d6e2b232f23c90a7180085f8cbfbb27389d83f16d1acf0418288bbdf4",
+      "duration": 0.23525,
+      "peak": 0.6562922532207264,
+      "rms": 0.13
+    },
+    "lion_pounce_1_release": {
+      "path": "res://assets/audio/lion_pounce_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-2.wav",
+          "sha256": "1ce7752cce3d43f16fc222ad7f7ffb69d9a5fc01e64b93d205765fc37b8e9b0d",
+          "speed": 0.905,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "83b9b1b483b7f656177f79b6c85bf18d3fd38da61de54e34bbcf172fb4aff660",
+      "duration": 0.20029166666666667,
+      "peak": 0.8200000000000001,
+      "rms": 0.11026915899869137
+    },
+    "lion_pounce_1_impact": {
+      "path": "res://assets/audio/lion_pounce_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 0.905,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.905,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "8af447ef883eeedf52343003826ea1fe4253b52bdedeab75808aab95a1279869",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12691898170923532
+    },
+    "lion_pounce_1_landing": {
+      "path": "res://assets/audio/lion_pounce_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_001.ogg",
+          "sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+          "speed": 0.905,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.905,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "4714b49a8b5e5d532ff1b04fcfbd718bf77eea88ff12bbb3813966e1e0540055",
+      "duration": 0.25677083333333334,
+      "peak": 0.82,
+      "rms": 0.12936217767948247
+    },
+    "lion_pounce_1_recover": {
+      "path": "res://assets/audio/lion_pounce_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 0.905,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 0.905,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "645c574abe478212ab490afba42b5e1573edc336adb351efeee5c0bf91cabfe5",
+      "duration": 0.39527083333333335,
+      "peak": 0.82,
+      "rms": 0.12364943644315368
+    },
+    "lion_wash_foot_1_warning": {
+      "path": "res://assets/audio/lion_wash_foot_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 0.916,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "6b7698e1eea25d9ba1831e3bbf6d7c2fc6ebff963206fa4aa664fa37e13d0c90",
+      "duration": 0.3117916666666667,
+      "peak": 0.82,
+      "rms": 0.07215933911119196
+    },
+    "lion_wash_foot_1_charge": {
+      "path": "res://assets/audio/lion_wash_foot_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.8244,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "13d4aebc15c49e07427721ff407fe41c504abeab0d062feaa563b4eba8902706",
+      "duration": 0.23983333333333334,
+      "peak": 0.6603581928935683,
+      "rms": 0.13
+    },
+    "lion_wash_foot_1_release": {
+      "path": "res://assets/audio/lion_wash_foot_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-3.wav",
+          "sha256": "55b100e2c67fa43dad8510e31e85bbd51a68d5ce84a6e0259e21e19030083e24",
+          "speed": 0.916,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "59f2ed28e6324686df28339aa86e2e83a552139a01916206c1d40d319f416240",
+      "duration": 0.18420833333333334,
+      "peak": 0.49304862441382824,
+      "rms": 0.13
+    },
+    "lion_wash_foot_1_impact": {
+      "path": "res://assets/audio/lion_wash_foot_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 0.916,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 0.916,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "91f0130498c33c44c06e5fc727e4fc20db8c8415c2fce753c8f9c975c50004c6",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12761328785560588
+    },
+    "lion_wash_foot_1_landing": {
+      "path": "res://assets/audio/lion_wash_foot_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_002.ogg",
+          "sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+          "speed": 0.916,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.916,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "5894a86a32f82140dbdc4137c6d02976daf8f14883b91a66cd907351d9402c42",
+      "duration": 0.2548958333333333,
+      "peak": 0.82,
+      "rms": 0.07580363136067074
+    },
+    "lion_wash_foot_1_recover": {
+      "path": "res://assets/audio/lion_wash_foot_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 0.916,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.916,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "3b6c71d4c9234b68cc0ab8808cc622021fe1d3b103bcefeb42332ddd5fe81679",
+      "duration": 0.39179166666666665,
+      "peak": 0.82,
+      "rms": 0.10807920764197157
+    },
+    "lion_lion_slam_1_warning": {
+      "path": "res://assets/audio/lion_lion_slam_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.927,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "15549e6350922bc68697a3db9b3e6ac4a14b7bfbd399b57a19111e47f23a84c7",
+      "duration": 0.308375,
+      "peak": 0.82,
+      "rms": 0.07159122890034796
+    },
+    "lion_lion_slam_1_charge": {
+      "path": "res://assets/audio/lion_lion_slam_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.8343,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "9793a3c61bbf4e1af7f04512383db2853672e719b1ad4fc36766d3ec48fb57de",
+      "duration": 0.246125,
+      "peak": 0.82,
+      "rms": 0.10508670941519897
+    },
+    "lion_lion_slam_1_release": {
+      "path": "res://assets/audio/lion_lion_slam_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-4.wav",
+          "sha256": "0060f4a7040edce4cc50d1daa10a9cb76764128a942e4688339e69cd1d5d784c",
+          "speed": 0.927,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "244c8655f7585f27b15ce422dc3384569eeef7eb15ab32314bc5c6c4745484c4",
+      "duration": 0.1823125,
+      "peak": 0.6978734156070103,
+      "rms": 0.13
+    },
+    "lion_lion_slam_1_impact": {
+      "path": "res://assets/audio/lion_lion_slam_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 0.927,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.927,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "61e3b04ff9e6a0d748704ac1ab33086aabb43b6c46bad49696597a701188bec7",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12963616812314885
+    },
+    "lion_lion_slam_1_landing": {
+      "path": "res://assets/audio/lion_lion_slam_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 0.927,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.927,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "c712ccaa4206689efda09b9088b40eb41877cdbbecb693586ab6c9cb60a3b46b",
+      "duration": 0.2530625,
+      "peak": 0.82,
+      "rms": 0.0774974429612052
+    },
+    "lion_lion_slam_1_recover": {
+      "path": "res://assets/audio/lion_lion_slam_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 0.927,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 0.927,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "65fd2e136a8a6690e4259f63b7da78adaaa7c4ed34531300e64b386aef7b39e9",
+      "duration": 0.388375,
+      "peak": 0.82,
+      "rms": 0.1117060376976968
+    },
+    "lion_lion_roll_1_warning": {
+      "path": "res://assets/audio/lion_lion_roll_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "cac709ea681755b3f1461e055c6cd4ea92a7fc94ed19af6ee34224e3400c46ad",
+      "duration": 0.3050625,
+      "peak": 0.82,
+      "rms": 0.06678523552384728
+    },
+    "lion_lion_roll_1_charge": {
+      "path": "res://assets/audio/lion_lion_roll_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.8442,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "df8042abb3f81ee3b7da4594972372dd4e73c6c131d6431c02c314244f243506",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.1083649140163523
+    },
+    "lion_lion_roll_1_release": {
+      "path": "res://assets/audio/lion_lion_roll_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-5.wav",
+          "sha256": "4db41f2d2f97caf94627be05ff2870217fecc86534cf30f2aab413b847a0d50a",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "54a835e13c914d9d7b1cf1050a6afe233f52ba809d70fe69993578a0f534ceca",
+      "duration": 0.1701875,
+      "peak": 0.6979149555746962,
+      "rms": 0.13
+    },
+    "lion_lion_roll_1_impact": {
+      "path": "res://assets/audio/lion_lion_roll_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 0.938,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "e099dfd40f146b98f4185d0c700cbf8bc5f053887bd09ae57d315810ab747dcc",
+      "duration": 0.405,
+      "peak": 0.8012663132733602,
+      "rms": 0.13
+    },
+    "lion_lion_roll_1_landing": {
+      "path": "res://assets/audio/lion_lion_roll_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.938,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "0cfe90a59b6e947fc7785e882313ee28ea77817cae2ef0d3653a768593e78a48",
+      "duration": 0.27791666666666665,
+      "peak": 0.82,
+      "rms": 0.0808611458190348
+    },
+    "lion_lion_roll_1_recover": {
+      "path": "res://assets/audio/lion_lion_roll_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.938,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "23e93ca9a1c539841833417692f8db564c94e075419b3df145a791aa10289893",
+      "duration": 0.3850625,
+      "peak": 0.82,
+      "rms": 0.1164286254692386
+    },
+    "lion_back_kick_1_warning": {
+      "path": "res://assets/audio/lion_back_kick_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.949,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "0f033f51b89dd188d23f2e8cc43a7aa92cc38f0bf308ed1f62643d020ff1ad7a",
+      "duration": 0.3018125,
+      "peak": 0.82,
+      "rms": 0.07484968114053935
+    },
+    "lion_back_kick_1_charge": {
+      "path": "res://assets/audio/lion_back_kick_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.8541,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "a60861e99f47c6695e7c206dceee5b18532f3d6f35b79f244803719a1bd1d7f2",
+      "duration": 0.27897916666666667,
+      "peak": 0.82,
+      "rms": 0.10708286343653085
+    },
+    "lion_back_kick_1_release": {
+      "path": "res://assets/audio/lion_back_kick_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-6.wav",
+          "sha256": "edcaacf008da7ae692566f4fe0d6023ea68d0a014149889e95209be7ee0b746d",
+          "speed": 0.949,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "e00bb50f9cef7c9918e38ff5a5ed053edb7f355314fdf8c428d91ffb0be1938d",
+      "duration": 0.17041666666666666,
+      "peak": 0.709402388241035,
+      "rms": 0.13
+    },
+    "lion_back_kick_1_impact": {
+      "path": "res://assets/audio/lion_back_kick_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 0.949,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 0.949,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "5bafd58af36d3ef2da13b49f6a71698b68a3dd1145507d4efc4f65e852731540",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12257684977180677
+    },
+    "lion_back_kick_1_landing": {
+      "path": "res://assets/audio/lion_back_kick_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 0.949,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.949,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "0055593cfc419a40f9cb7b907c84f379087b025bb8530beb632afb51d57ad914",
+      "duration": 0.24947916666666667,
+      "peak": 0.7734767896568844,
+      "rms": 0.13
+    },
+    "lion_back_kick_1_recover": {
+      "path": "res://assets/audio/lion_back_kick_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 0.949,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 0.949,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "b4e3805709726cdb363121c1c42e161255fc23fcd890fc72e310080817cbe534",
+      "duration": 0.3818125,
+      "peak": 0.82,
+      "rms": 0.09283346146815274
+    },
+    "lion_high_sweep_1_warning": {
+      "path": "res://assets/audio/lion_high_sweep_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 0.96,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "e7df39e5db9cd2bc0f134690b0a5c32a0c4c13926710a9afc5be124c4e316ef9",
+      "duration": 0.29864583333333333,
+      "peak": 0.82,
+      "rms": 0.08304221537959439
+    },
+    "lion_high_sweep_1_charge": {
+      "path": "res://assets/audio/lion_high_sweep_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.864,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "1f1565267da2b45431981e17af919d9e7dc1a95824ee815adc46b8c7958c07bc",
+      "duration": 0.23525,
+      "peak": 0.6699528697184779,
+      "rms": 0.13
+    },
+    "lion_high_sweep_1_release": {
+      "path": "res://assets/audio/lion_high_sweep_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-7.wav",
+          "sha256": "e6de737a34de16afed094d6170d7679149022f149e0a8356d2f029b0e8f4a4d7",
+          "speed": 0.96,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "f2337c4109656795497d7a11ae093610072d40ae0c838e888f03c8d2df039ac6",
+      "duration": 0.22029166666666666,
+      "peak": 0.6273413726425852,
+      "rms": 0.13
+    },
+    "lion_high_sweep_1_impact": {
+      "path": "res://assets/audio/lion_high_sweep_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 0.96,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.96,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "9dd2d8c3404651c05b1abd39584ed6e976f23fcffb0b3dcab07451ae860db63c",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.1161446664429612
+    },
+    "lion_high_sweep_1_landing": {
+      "path": "res://assets/audio/lion_high_sweep_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_001.ogg",
+          "sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+          "speed": 0.96,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.96,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "941e350aac8d28025f2e84cc01050cffe002f4137ecf6faa1c027c4aac48d04c",
+      "duration": 0.24779166666666666,
+      "peak": 0.7907155774323268,
+      "rms": 0.13
+    },
+    "lion_high_sweep_1_recover": {
+      "path": "res://assets/audio/lion_high_sweep_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 0.96,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 0.96,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "ce4bc56d7296bcd18964bd323bc228441b6df1a6c7c02b28d7f81eb2497a54f4",
+      "duration": 0.37864583333333335,
+      "peak": 0.8199999999999998,
+      "rms": 0.1226285813176206
+    },
+    "lion_lion_sleep_1_warning": {
+      "path": "res://assets/audio/lion_lion_sleep_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 0.971,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "a1848f4b61029158b414f9c3d0db00f2a3e7eefe75bce0cd1604fa2c9c77e1a4",
+      "duration": 0.29554166666666665,
+      "peak": 0.82,
+      "rms": 0.07413875491166287
+    },
+    "lion_lion_sleep_1_charge": {
+      "path": "res://assets/audio/lion_lion_sleep_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.8739,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "a1f3e4d347188d8ed44d2f7bbb3bcbd6ee26bf1f4d7f5f207944694cbdd6b2cb",
+      "duration": 0.23983333333333334,
+      "peak": 0.6743719212224927,
+      "rms": 0.13
+    },
+    "lion_lion_sleep_1_release": {
+      "path": "res://assets/audio/lion_lion_sleep_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-8.wav",
+          "sha256": "113a3709ad889ad2fcf38eaceaf4eb9d67ffe1e96713fed93a6f0aed08769980",
+          "speed": 0.971,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "7ee36d9a878e73e655cc9c32811ed693e2c13a4e5b3cc875fba50b6d22220173",
+      "duration": 0.18325,
+      "peak": 0.6045430901134409,
+      "rms": 0.12999999999999998
+    },
+    "lion_lion_sleep_1_impact": {
+      "path": "res://assets/audio/lion_lion_sleep_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 0.971,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 0.971,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "3618afd8c60b163a159058e603e1e80fcb53bd9ec51cefe07136b5411e5286cf",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.1281906984081225
+    },
+    "lion_lion_sleep_1_landing": {
+      "path": "res://assets/audio/lion_lion_sleep_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_002.ogg",
+          "sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+          "speed": 0.971,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.971,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "39e80f4e7b5ea2be81fd9edd5e245975c01a8c17e97d1bfa418c801bc883b182",
+      "duration": 0.246125,
+      "peak": 0.8199999999999998,
+      "rms": 0.0740586650107802
+    },
+    "lion_lion_sleep_1_recover": {
+      "path": "res://assets/audio/lion_lion_sleep_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 0.971,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.971,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "6d6968161c189f89dbab44efe0665858a91e6a31b838286e5acedcdeacc5414d",
+      "duration": 0.37554166666666666,
+      "peak": 0.82,
+      "rms": 0.10671816950885796
+    },
+    "lion_lion_steps_1_warning": {
+      "path": "res://assets/audio/lion_lion_steps_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_003.ogg",
+          "sha256": "cdfbe8af2fe7ff9ee28f337a0a989deee0f327620da456c8413644880e9d0004",
+          "speed": 0.982,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "1aad17fe9615e8915f5f184e7a80b2034779634ab78fb116038c2b8191bb8082",
+      "duration": 0.29252083333333334,
+      "peak": 0.8199999999999998,
+      "rms": 0.0735188188329496
+    },
+    "lion_lion_steps_1_charge": {
+      "path": "res://assets/audio/lion_lion_steps_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.8838,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "b074fe2dc2c7a9649736ce42086defb11d14e258131355dcd97ab8d09b653b9e",
+      "duration": 0.246125,
+      "peak": 0.8199999999999998,
+      "rms": 0.10381924145787473
+    },
+    "lion_lion_steps_1_release": {
+      "path": "res://assets/audio/lion_lion_steps_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 0.982,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "7df37f667191201fb700a463d4f67f3a8484242d958559176d16cbc4548c4742",
+      "duration": 0.1345625,
+      "peak": 0.8200000000000001,
+      "rms": 0.12972739533089092
+    },
+    "lion_lion_steps_1_impact": {
+      "path": "res://assets/audio/lion_lion_steps_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 0.982,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.982,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "c883d404665aa9fd4b37915c63357dccdc83e02e68dc83895572d68214589fbc",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11394682763827652
+    },
+    "lion_lion_steps_1_landing": {
+      "path": "res://assets/audio/lion_lion_steps_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 0.982,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.982,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "448662c96ae58969acb3460f2932f8f78c7606d8f07c7ea425a694862010003b",
+      "duration": 0.24447916666666666,
+      "peak": 0.82,
+      "rms": 0.07560836415880232
+    },
+    "lion_lion_steps_1_recover": {
+      "path": "res://assets/audio/lion_lion_steps_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 0.982,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 0.982,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "666696c0eb5de52856df4b8b466af0b651d578dc2ab5f3d6ed26bf69707d0f7c",
+      "duration": 0.37252083333333336,
+      "peak": 0.82,
+      "rms": 0.11062969757139025
+    },
+    "lion_lion_steps_2_warning": {
+      "path": "res://assets/audio/lion_lion_steps_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 1.007,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "f319e5cdff3e318ac92cf6260127e774636e253757e39de3de970b5cbb0a37c6",
+      "duration": 0.285875,
+      "peak": 0.8199999999999998,
+      "rms": 0.06567307163197113
+    },
+    "lion_lion_steps_2_charge": {
+      "path": "res://assets/audio/lion_lion_steps_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9062999999999999,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "f635342e2263531df5307c71803d2bdc3d486e6582cc3af760230f7d4a284834",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.10671206573383006
+    },
+    "lion_lion_steps_2_release": {
+      "path": "res://assets/audio/lion_lion_steps_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 1.007,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "604858d8e9548c641d7fc45fe2926c24f5e76c70010b5879dcad3c83d2aa3111",
+      "duration": 0.13566666666666666,
+      "peak": 0.82,
+      "rms": 0.10412613035928564
+    },
+    "lion_lion_steps_2_impact": {
+      "path": "res://assets/audio/lion_lion_steps_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 1.007,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.007,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "295288900d0d616328f0c93deb3e19ff8c1e67f63c0298fd5615b6313194bf30",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.1291774530320958
+    },
+    "lion_lion_steps_2_landing": {
+      "path": "res://assets/audio/lion_lion_steps_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 1.007,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.007,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "f93aa200127847884d14ae562e2b776fc4db803a166045a9faca819f17583649",
+      "duration": 0.2657291666666667,
+      "peak": 0.82,
+      "rms": 0.07959822658068992
+    },
+    "lion_lion_steps_2_recover": {
+      "path": "res://assets/audio/lion_lion_steps_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.007,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 1.007,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "9a0856b979baf72e684fb8c51c18e3f9f7a7d8ab2a3f780d6e9f24dbdd9f69c9",
+      "duration": 0.365875,
+      "peak": 0.82,
+      "rms": 0.11536261793888508
+    },
+    "lion_lion_steps_3_warning": {
+      "path": "res://assets/audio/lion_lion_steps_3_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 1.032,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "de1468ffeb805e17ee2cc8dfb8dee36fff3b3c2d576934796fc132e1bb0fdb88",
+      "duration": 0.2795625,
+      "peak": 0.82,
+      "rms": 0.07814612186006341
+    },
+    "lion_lion_steps_3_charge": {
+      "path": "res://assets/audio/lion_lion_steps_3_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.9288000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "0336554e3f154e9e2b3f9885202930414a734b44478aa9b6a5897823c5197821",
+      "duration": 0.27897916666666667,
+      "peak": 0.82,
+      "rms": 0.10523939006455561
+    },
+    "lion_lion_steps_3_release": {
+      "path": "res://assets/audio/lion_lion_steps_3_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.032,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "48dce43ed4db41401d92a03184b4f7e5b79823082c92b7da8bf7b81aa4f38344",
+      "duration": 0.1248125,
+      "peak": 0.82,
+      "rms": 0.10824606306135608
+    },
+    "lion_lion_steps_3_impact": {
+      "path": "res://assets/audio/lion_lion_steps_3_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 1.032,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_002.ogg",
+          "sha256": "b183cf7a5bd783817e0e4b82af34ac6658fa1927049089dadc8b15c2ecc771dc",
+          "speed": 1.032,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "8aed66d80e62f08aa6e15f0a261c726ec37813f70fc7872ade3cb63d5bc3f698",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.1097098428933731
+    },
+    "lion_lion_steps_3_landing": {
+      "path": "res://assets/audio/lion_lion_steps_3_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.032,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.032,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "b932823f8fc1c4ed326a12b9ea994811745400a06e5cb182ca2ffe6b2e7bb2ac",
+      "duration": 0.23747916666666666,
+      "peak": 0.7430177354435809,
+      "rms": 0.13
+    },
+    "lion_lion_steps_3_recover": {
+      "path": "res://assets/audio/lion_lion_steps_3_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.032,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.032,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "3863160134bcc4fc247d8abb7a9eb692e5bcddbb60e021c73755146869d3a6da",
+      "duration": 0.3595625,
+      "peak": 0.8200000000000001,
+      "rms": 0.09145762578152647
+    },
+    "lion_cup_elbow_1_warning": {
+      "path": "res://assets/audio/lion_cup_elbow_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 0.993,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "a1f979d08835ffbe80092b22de8080590476f62fdfdc670a7da504f0a1716bd7",
+      "duration": 0.17022916666666665,
+      "peak": 0.6443767161562762,
+      "rms": 0.12999999999999998
+    },
+    "lion_cup_elbow_1_charge": {
+      "path": "res://assets/audio/lion_cup_elbow_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.8937,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "3f6ca9c2fd1dc4b511f1ab64e3f22ab625cb626083eea2278fda1cbfa41ff423",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.10702456615079103
+    },
+    "lion_cup_elbow_1_release": {
+      "path": "res://assets/audio/lion_cup_elbow_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-10.wav",
+          "sha256": "4f7381a76f280d3f36f962ac3f44f16f77eec44797f30715d063c81ea3859024",
+          "speed": 0.993,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "a4b9c688218950a1161b26610525c86eb606dc7e690c95d4e65a5b5c34f59a61",
+      "duration": 0.1701875,
+      "peak": 0.82,
+      "rms": 0.10776435305027417
+    },
+    "lion_cup_elbow_1_impact": {
+      "path": "res://assets/audio/lion_cup_elbow_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 0.993,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 0.993,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "f7f5166dddbbc494ee3e28927614dcf11776f6a6a7f68e79fa761e5f3d49d7bd",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12052149824185747
+    },
+    "lion_cup_elbow_1_landing": {
+      "path": "res://assets/audio/lion_cup_elbow_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 0.993,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.993,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "9dbd1836aebd82fa6b0079456a38887998e5ebe31f6c1d6e1395a6cb202daabe",
+      "duration": 0.2680625,
+      "peak": 0.82,
+      "rms": 0.07897655885792107
+    },
+    "lion_cup_elbow_1_recover": {
+      "path": "res://assets/audio/lion_cup_elbow_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 0.993,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.993,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "afad98af5d0a087d88a09cc8ba89d31d456bcd5511ce1b16f8a0ae2e1f552d74",
+      "duration": 0.2730625,
+      "peak": 0.7996259341319051,
+      "rms": 0.13
+    },
+    "lion_lean_kick_1_warning": {
+      "path": "res://assets/audio/lion_lean_kick_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.004,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "f9cf2fcee50ad0d28a538739d358ea5b616c357c0d62f939f9e7d762f9dbe6d4",
+      "duration": 0.139625,
+      "peak": 0.7266064288675681,
+      "rms": 0.13000000000000003
+    },
+    "lion_lean_kick_1_charge": {
+      "path": "res://assets/audio/lion_lean_kick_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.9036000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "c5605aa1b649e5b48bf4734432f107eb8eeea8856067b4c0013f6831ab0a90da",
+      "duration": 0.27897916666666667,
+      "peak": 0.82,
+      "rms": 0.10583106822185019
+    },
+    "lion_lean_kick_1_release": {
+      "path": "res://assets/audio/lion_lean_kick_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-11.wav",
+          "sha256": "9e81d548d8215fbb36f7a41b5771d4b52c2fd02fbb9b5ff9a4c65118fd88ee4d",
+          "speed": 1.004,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "e222f302022f284eaca64ed912db3565a0cab12ddaf24b010cc19b605c0c4b07",
+      "duration": 0.14591666666666667,
+      "peak": 0.8031934123618797,
+      "rms": 0.13000000000000003
+    },
+    "lion_lean_kick_1_impact": {
+      "path": "res://assets/audio/lion_lean_kick_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 1.004,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.004,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "42fc3c57a5a28e1634eb5655ffc4d50d407f6d8b81bafa250fe088f139b105b3",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.1069704279169924
+    },
+    "lion_lean_kick_1_landing": {
+      "path": "res://assets/audio/lion_lean_kick_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.004,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.004,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "be2c7938f6cd2319bfb59109cf663126e0297188f73b07029244a38d79bbbd91",
+      "duration": 0.2413125,
+      "peak": 0.7499390880694548,
+      "rms": 0.13
+    },
+    "lion_lean_kick_1_recover": {
+      "path": "res://assets/audio/lion_lean_kick_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.004,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.004,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "995bfa05658dfe0fff137913004a62d542bea9f1bb8df6a905bc789db562aa72",
+      "duration": 0.2463125,
+      "peak": 0.82,
+      "rms": 0.11565139303343061
+    },
+    "lion_sit_kick_1_warning": {
+      "path": "res://assets/audio/lion_sit_kick_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "85a17efc7f96afe4ebc9744996868e550a6a2f386d2621ba1cd364ab31accf41",
+      "duration": 0.20272916666666665,
+      "peak": 0.6763736828650679,
+      "rms": 0.13
+    },
+    "lion_sit_kick_1_charge": {
+      "path": "res://assets/audio/lion_sit_kick_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.9135,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "306367b119a5673a588795069823bcaac6f4d945f1783a30929ab0717834846b",
+      "duration": 0.23525,
+      "peak": 0.6607779724475227,
+      "rms": 0.13
+    },
+    "lion_sit_kick_1_release": {
+      "path": "res://assets/audio/lion_sit_kick_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-12.wav",
+          "sha256": "0513a86d428d9ed8601e93b8554580a5932c6c1a82d39d81a8f48883f1807a67",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "e229d213124397a5406abeaa56b0c57e23f77ea56349788b78633d00a7d6e7dc",
+      "duration": 0.20029166666666667,
+      "peak": 0.8199999999999998,
+      "rms": 0.10437746575077389
+    },
+    "lion_sit_kick_1_impact": {
+      "path": "res://assets/audio/lion_sit_kick_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.015,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "c3ba1b4d6339e169bca61b01e658a31e042e16359bdd3fef5e511d1008ea181c",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.10049176238510206
+    },
+    "lion_sit_kick_1_landing": {
+      "path": "res://assets/audio/lion_sit_kick_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_001.ogg",
+          "sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.015,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "178009c735847c55ea204bd2deb1c75e8e296ff89366337929c4d26e3cd04d7b",
+      "duration": 0.23979166666666665,
+      "peak": 0.7671701282466644,
+      "rms": 0.13
+    },
+    "lion_sit_kick_1_recover": {
+      "path": "res://assets/audio/lion_sit_kick_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.015,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "6b114e7ebaded7385a06076c28bd3402a22b1432ec3acf72704ceadbc26cf059",
+      "duration": 0.24479166666666666,
+      "peak": 0.7168366711523583,
+      "rms": 0.13000000000000003
+    },
+    "lion_ground_roll_1_warning": {
+      "path": "res://assets/audio/lion_ground_roll_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.026,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "34ccf8da2d6cd0675007aa1fd9577071a35904c501a24dc4db69cb5612be303b",
+      "duration": 0.1539375,
+      "peak": 0.6693742117557212,
+      "rms": 0.13000000000000003
+    },
+    "lion_ground_roll_1_charge": {
+      "path": "res://assets/audio/lion_ground_roll_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.9234,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "e323212f32ca35042f141cb463500e04d7f0d97836d67a06cdad07e965dbec07",
+      "duration": 0.23983333333333334,
+      "peak": 0.6557987200999726,
+      "rms": 0.13
+    },
+    "lion_ground_roll_1_release": {
+      "path": "res://assets/audio/lion_ground_roll_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-13.wav",
+          "sha256": "698230ba3fe05a68c18d68cd6b3a07fb98e6c1198bb1a4238592ee9912c02c77",
+          "speed": 1.026,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "bb37da54e7cf8db21b61ab8478344bcf6fd19d8de474d77fa2c542f0ee79d3a0",
+      "duration": 0.16022916666666667,
+      "peak": 0.82,
+      "rms": 0.11990777085652712
+    },
+    "lion_ground_roll_1_impact": {
+      "path": "res://assets/audio/lion_ground_roll_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 1.026,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.026,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "84cd47fb96c4575c225174a1ac65d1445b80bef13d43019064f206e6245f25b1",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11334611680157644
+    },
+    "lion_ground_roll_1_landing": {
+      "path": "res://assets/audio/lion_ground_roll_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_002.ogg",
+          "sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+          "speed": 1.026,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.026,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "725e67a843386007c3c839548efb4878202031617cd4e18c5392a16cd0c75e38",
+      "duration": 0.23829166666666668,
+      "peak": 0.82,
+      "rms": 0.07310563424674857
+    },
+    "lion_ground_roll_1_recover": {
+      "path": "res://assets/audio/lion_ground_roll_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.026,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.026,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "e2873ec277c1ccb10a335eb507720c8e65eb50bf621732ff3256d45c9a7e00a4",
+      "duration": 0.24329166666666666,
+      "peak": 0.82,
+      "rms": 0.1299367570319283
+    },
+    "lion_ground_roll_2_warning": {
+      "path": "res://assets/audio/lion_ground_roll_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.051,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "9ae5d8ac1663eee7f16a67b751d29643d29ea71ac645f60179ae1ee8452d3693",
+      "duration": 0.15564583333333334,
+      "peak": 0.6537620664540136,
+      "rms": 0.13000000000000003
+    },
+    "lion_ground_roll_2_charge": {
+      "path": "res://assets/audio/lion_ground_roll_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9459,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "c8a33a6e9c7c95a8ee97c0ebc95a16ccc004096c016f9fca6b881f1cb030573a",
+      "duration": 0.246125,
+      "peak": 0.82,
+      "rms": 0.10237800692459892
+    },
+    "lion_ground_roll_2_release": {
+      "path": "res://assets/audio/lion_ground_roll_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-1.wav",
+          "sha256": "9a15c881345c1ce1c39cc31f52f081c8c4dc81fa41111e0079400f39d3ba0e45",
+          "speed": 1.051,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "31f1ee1547557ec6320063c1ab884aec8d48400f1550a77bd4cc53a5d0daa6c5",
+      "duration": 0.16441666666666666,
+      "peak": 0.82,
+      "rms": 0.12580941985627486
+    },
+    "lion_ground_roll_2_impact": {
+      "path": "res://assets/audio/lion_ground_roll_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 1.051,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.051,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "7653fa6906a3bf9140477044cc629be31f264d2495e05152eb9446735307ebe2",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.10171776970090572
+    },
+    "lion_ground_roll_2_landing": {
+      "path": "res://assets/audio/lion_ground_roll_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 1.051,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.051,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "cba8348f819a304eaee671fbc0282ccc78922967924efda2c8b6620927aa0b43",
+      "duration": 0.235,
+      "peak": 0.8199999999999998,
+      "rms": 0.07562150869862151
+    },
+    "lion_ground_roll_2_recover": {
+      "path": "res://assets/audio/lion_ground_roll_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.051,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.051,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "4ccb602e2b8c2d9426d1d41a8d12d281c6a7416f26f00571db980c6ca0ae195b",
+      "duration": 0.24,
+      "peak": 0.7931827035463784,
+      "rms": 0.13000000000000003
+    },
+    "lion_handstand_1_warning": {
+      "path": "res://assets/audio/lion_handstand_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.037,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "a0b198e4bbb16843d05c47d06fdb6c4f17eab8e9ab86a5735686a4894109cf48",
+      "duration": 0.15739583333333335,
+      "peak": 0.652910364028017,
+      "rms": 0.13
+    },
+    "lion_handstand_1_charge": {
+      "path": "res://assets/audio/lion_handstand_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0,
+          "gain": 0.5
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.06,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "7b2ea12fdd7a8841e0f39bc147d0cf7d6da1c4cef444ba6685b77bcdb7417b74",
+      "duration": 0.20983333333333334,
+      "peak": 0.693829276081027,
+      "rms": 0.12999999999999998
+    },
+    "lion_handstand_1_release": {
+      "path": "res://assets/audio/lion_handstand_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-1.wav",
+          "sha256": "9a15c881345c1ce1c39cc31f52f081c8c4dc81fa41111e0079400f39d3ba0e45",
+          "speed": 1.037,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "0326127c74bec792f47cf59dff37ea190b7c151dd5cfc055dd9d899115400223",
+      "duration": 0.16441666666666666,
+      "peak": 0.82,
+      "rms": 0.12851657118511642
+    },
+    "lion_handstand_1_impact": {
+      "path": "res://assets/audio/lion_handstand_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 1.037,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.037,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "5fcb57204bdd170f9707136d803dbc856b69de9483f9519425c78981a7ebd065",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.10037726659587187
+    },
+    "lion_handstand_1_landing": {
+      "path": "res://assets/audio/lion_handstand_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 1.037,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.037,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "90dabb34c3b02cbef00a4cb5c4371eb314f814959454846abfbf3a33b20284de",
+      "duration": 0.2368125,
+      "peak": 0.82,
+      "rms": 0.07525105819416093
+    },
+    "lion_handstand_1_recover": {
+      "path": "res://assets/audio/lion_handstand_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.037,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.037,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "fc7e0be304c691a96fc93f87faa47a37a0a568c77cadeb947b39098e84a67c2a",
+      "duration": 0.24183333333333334,
+      "peak": 0.7912906109589807,
+      "rms": 0.13000000000000003
+    },
+    "lion_turn_kick_1_warning": {
+      "path": "res://assets/audio/lion_turn_kick_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.048,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "955ecc6a42105ad9522120210c6fcf40aa8b8d517cf94bfd756c466148c9a916",
+      "duration": 0.162625,
+      "peak": 0.6475637750063741,
+      "rms": 0.13
+    },
+    "lion_turn_kick_1_charge": {
+      "path": "res://assets/audio/lion_turn_kick_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9432,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "ca16bc841a1ed3936f74c4057763128690cf093d6cc31297db2762a4cf2be701",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.10578112598671885
+    },
+    "lion_turn_kick_1_release": {
+      "path": "res://assets/audio/lion_turn_kick_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-2.wav",
+          "sha256": "1ce7752cce3d43f16fc222ad7f7ffb69d9a5fc01e64b93d205765fc37b8e9b0d",
+          "speed": 1.048,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "24be325e2d87134235e2f2c15f67defeb0e2156232cb9dedd9ec0163804c2a62",
+      "duration": 0.1701875,
+      "peak": 0.7205027666435141,
+      "rms": 0.13
+    },
+    "lion_turn_kick_1_impact": {
+      "path": "res://assets/audio/lion_turn_kick_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 1.048,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.048,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "26cbd57f88356456bbd5395bc28c37db6b2df1d422439a3a4ba3c76e2cb14f8a",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12174328073772712
+    },
+    "lion_turn_kick_1_landing": {
+      "path": "res://assets/audio/lion_turn_kick_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 1.048,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.048,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "aada32a72d1622f95355cb089cda2db8057403b8636d548aa738b2541a8c61f6",
+      "duration": 0.25925,
+      "peak": 0.8200000000000001,
+      "rms": 0.08096586062018356
+    },
+    "lion_turn_kick_1_recover": {
+      "path": "res://assets/audio/lion_turn_kick_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.048,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.048,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "8a576fda5e36d86b666d8c691aa0caf3d1ebe12e61b5f3aa662b1aac671fb496",
+      "duration": 0.26425,
+      "peak": 0.8059602181280929,
+      "rms": 0.13000000000000003
+    },
+    "lion_toss_palm_1_warning": {
+      "path": "res://assets/audio/lion_toss_palm_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 1.2,
+          "at": 0,
+          "gain": 0.55
+        }
+      ],
+      "sha256": "96ee53bad0a1af39fbcf1aed674448348763d57fe4362f2567b5af732502e063",
+      "duration": 0.24391666666666667,
+      "peak": 0.8200000000000001,
+      "rms": 0.08376352840457962
+    },
+    "lion_toss_palm_1_charge": {
+      "path": "res://assets/audio/lion_toss_palm_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.4,
+          "at": 0,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "838c3ba6905924ee49342bdda8e817297df3a771263b582f2dc8aca0b8267e3a",
+      "duration": 0.21264583333333334,
+      "peak": 0.82,
+      "rms": 0.09823534404175266
+    },
+    "lion_toss_palm_1_release": {
+      "path": "res://assets/audio/lion_toss_palm_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-3.wav",
+          "sha256": "55b100e2c67fa43dad8510e31e85bbd51a68d5ce84a6e0259e21e19030083e24",
+          "speed": 1.059,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "992966ae90b982236d43f7ca1da90cfa2a6d085b9d9967fe5e73a1989b2cb69d",
+      "duration": 0.16272916666666667,
+      "peak": 0.49452349423274794,
+      "rms": 0.13
+    },
+    "lion_toss_palm_1_impact": {
+      "path": "res://assets/audio/lion_toss_palm_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 1.059,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.059,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "6db58792c6835770297146c8607b6718e0113da9694389ba551118ac5551348e",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.10468998153815384
+    },
+    "lion_toss_palm_1_landing": {
+      "path": "res://assets/audio/lion_toss_palm_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.059,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.059,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "99c390cebea35d465fff836fb5d6cfa7b9510d94c79b4f076b7629af637e7acc",
+      "duration": 0.23397916666666665,
+      "peak": 0.7518987425972412,
+      "rms": 0.13
+    },
+    "lion_toss_palm_1_recover": {
+      "path": "res://assets/audio/lion_toss_palm_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.85,
+          "at": 0,
+          "gain": 0.7
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1,
+          "at": 0.04,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "464bcd8dbb5385e7bd99d0113e92d4963114dab49b9792e46a3d3d303debd364",
+      "duration": 0.3340625,
+      "peak": 0.82,
+      "rms": 0.08742433545875908
+    },
+    "lion_shuffle_1_warning": {
+      "path": "res://assets/audio/lion_shuffle_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.07,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "e89cea15236887a0abfbd5c4a99144adfee9bd129468e0d8949bd89939f7bf83",
+      "duration": 0.19358333333333333,
+      "peak": 0.6791002235812332,
+      "rms": 0.12999999999999998
+    },
+    "lion_shuffle_1_charge": {
+      "path": "res://assets/audio/lion_shuffle_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.9630000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "1166628980d1aa8f231b40c4276f5543bf50e556f2546d17a5dd0d85f411c147",
+      "duration": 0.23525,
+      "peak": 0.6382549349008948,
+      "rms": 0.13
+    },
+    "lion_shuffle_1_release": {
+      "path": "res://assets/audio/lion_shuffle_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-4.wav",
+          "sha256": "0060f4a7040edce4cc50d1daa10a9cb76764128a942e4688339e69cd1d5d784c",
+          "speed": 1.07,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "7ee7a1ce2db844514e9b022e867cfa8c54e3c7d86305bbff2fc9b53c412c648a",
+      "duration": 0.20029166666666667,
+      "peak": 0.7539489500388613,
+      "rms": 0.13
+    },
+    "lion_shuffle_1_impact": {
+      "path": "res://assets/audio/lion_shuffle_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 1.07,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.07,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "6c5a053fe676e5511d01689a6ef76c551c94198df2bf3a412e0dc50f78b6bf57",
+      "duration": 0.40041666666666664,
+      "peak": 0.82,
+      "rms": 0.10336820772976936
+    },
+    "lion_shuffle_1_landing": {
+      "path": "res://assets/audio/lion_shuffle_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_001.ogg",
+          "sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+          "speed": 1.07,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.07,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "e599a28ba0488408a89b9b1bf6024a021499ff5d69dbfedc54369b17a122e881",
+      "duration": 0.23258333333333334,
+      "peak": 0.7789702837637973,
+      "rms": 0.13
+    },
+    "lion_shuffle_1_recover": {
+      "path": "res://assets/audio/lion_shuffle_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.07,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.07,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "c2dbd03d60821bd63a2e4588e3b678057c1f524bd887769232bfa200189ecb1d",
+      "duration": 0.23758333333333334,
+      "peak": 0.7164584383658291,
+      "rms": 0.13
+    },
+    "lion_double_palm_1_warning": {
+      "path": "res://assets/audio/lion_double_palm_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.081,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "32c7af189bced53a972cc02e7386cdf4d7b0d21c72daa7f3350f6a8ea2e56d20",
+      "duration": 0.147375,
+      "peak": 0.6728251650497066,
+      "rms": 0.12999999999999998
+    },
+    "lion_double_palm_1_charge": {
+      "path": "res://assets/audio/lion_double_palm_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.9729,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "15a6aff814fc87927f6a890f89069e6535af6d3e0791f7971465f7efca373141",
+      "duration": 0.23983333333333334,
+      "peak": 0.6334982863447858,
+      "rms": 0.13
+    },
+    "lion_double_palm_1_release": {
+      "path": "res://assets/audio/lion_double_palm_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-5.wav",
+          "sha256": "4db41f2d2f97caf94627be05ff2870217fecc86534cf30f2aab413b847a0d50a",
+          "speed": 1.081,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "c2de2ca1946ae3ac0fe7b5c1e964ade16daccdae20e40d1e7e374803764fa97e",
+      "duration": 0.16022916666666667,
+      "peak": 0.7848542251675806,
+      "rms": 0.13
+    },
+    "lion_double_palm_1_impact": {
+      "path": "res://assets/audio/lion_double_palm_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 1.081,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.081,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "ec40313e0bc7a1212b4767031505582493e28146053b458f6584d575c7d427c6",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12005519613589219
+    },
+    "lion_double_palm_1_landing": {
+      "path": "res://assets/audio/lion_double_palm_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_002.ogg",
+          "sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+          "speed": 1.081,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.081,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "397b383862df8ae605f5119743bb455dfbead557262d57b6c8c85819f89d023d",
+      "duration": 0.23125,
+      "peak": 0.82,
+      "rms": 0.07457572459871724
+    },
+    "lion_double_palm_1_recover": {
+      "path": "res://assets/audio/lion_double_palm_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.081,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.081,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "230ac98559dd72f71e928a90766c37d19d00b660f712a08c0032eda103be6252",
+      "duration": 0.23625,
+      "peak": 0.82,
+      "rms": 0.12822565566004815
+    },
+    "lion_double_palm_2_warning": {
+      "path": "res://assets/audio/lion_double_palm_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "a51bb6caf0e97ae88439e3fef7a7083d3d9b7a75a84c158ac161512826ecbf5b",
+      "duration": 0.14916666666666667,
+      "peak": 0.6570683594313571,
+      "rms": 0.13
+    },
+    "lion_double_palm_2_charge": {
+      "path": "res://assets/audio/lion_double_palm_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9954000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "69676f626640bbe8201cf11674c928d0de78fbcf1256e20246a34118047c16f6",
+      "duration": 0.246125,
+      "peak": 0.8200000000000001,
+      "rms": 0.10114035655010928
+    },
+    "lion_double_palm_2_release": {
+      "path": "res://assets/audio/lion_double_palm_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-6.wav",
+          "sha256": "edcaacf008da7ae692566f4fe0d6023ea68d0a014149889e95209be7ee0b746d",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "b9a0d7992ea47d1db9c9803332d21a47aa1461bc268c0affe31280f07a69512a",
+      "duration": 0.16441666666666666,
+      "peak": 0.6666994509640681,
+      "rms": 0.12999999999999998
+    },
+    "lion_double_palm_2_impact": {
+      "path": "res://assets/audio/lion_double_palm_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.106,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "57d190f5cd317e498e02e2c2d37d301dd758105c8b1cc837d3ba1d7f38090178",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11508834035072482
+    },
+    "lion_double_palm_2_landing": {
+      "path": "res://assets/audio/lion_double_palm_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.106,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "085e1bd25fa4a01db4ea9b4829d5b37f1819cc6820d2f3beac12487fb70924b2",
+      "duration": 0.22827083333333334,
+      "peak": 0.8199999999999998,
+      "rms": 0.07701266521827942
+    },
+    "lion_double_palm_2_recover": {
+      "path": "res://assets/audio/lion_double_palm_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.106,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "eae5bd852661ce9a6d7fe10a1c45c9fd171d28aa543671a6c51d52c09c2f48c2",
+      "duration": 0.23327083333333334,
+      "peak": 0.801496193582903,
+      "rms": 0.13000000000000003
+    },
+    "lion_twist_1_warning": {
+      "path": "res://assets/audio/lion_twist_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.092,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "eebd9be7721aeb31e2fc2db7c5b43fb4d25c4d4c48b933153781a4cb1f472b6f",
+      "duration": 0.15075,
+      "peak": 0.6562256326583985,
+      "rms": 0.13000000000000003
+    },
+    "lion_twist_1_charge": {
+      "path": "res://assets/audio/lion_twist_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9828000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "8535965b4396952677c6da930fa113db611bbea43ebafd9d171609b1e7e90f61",
+      "duration": 0.246125,
+      "peak": 0.82,
+      "rms": 0.10146903766494215
+    },
+    "lion_twist_1_release": {
+      "path": "res://assets/audio/lion_twist_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-6.wav",
+          "sha256": "edcaacf008da7ae692566f4fe0d6023ea68d0a014149889e95209be7ee0b746d",
+          "speed": 1.092,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "042509d3e10237af621d6313742e06f6377dda4bf42743988691786b696ad459",
+      "duration": 0.16441666666666666,
+      "peak": 0.6974608450705673,
+      "rms": 0.13000000000000003
+    },
+    "lion_twist_1_impact": {
+      "path": "res://assets/audio/lion_twist_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_003.ogg",
+          "sha256": "2d7c719c05999e0532f4384e1018e04cd916db715140bf16dee2dff3f820e908",
+          "speed": 1.092,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.092,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "b9c9f5e9d84a4341ca499f44e54fc87780f79f45554e17d7bb04e548d36e46bf",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11062621327189717
+    },
+    "lion_twist_1_landing": {
+      "path": "res://assets/audio/lion_twist_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_003.ogg",
+          "sha256": "8b513c2f0316324060b9174b8f28df6c2147418c506e6a53b77f18e149a5547b",
+          "speed": 1.092,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.092,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "ddc827b4fd4d3f951965470ffb9034c7c9b9e157e5825a79d9689960d31d7c0d",
+      "duration": 0.2299375,
+      "peak": 0.82,
+      "rms": 0.07666615411674864
+    },
+    "lion_twist_1_recover": {
+      "path": "res://assets/audio/lion_twist_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.092,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.092,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "37f837688f3c570ed477f110e350778cf0f7538205afe0e092fbac36c722d5e6",
+      "duration": 0.2349375,
+      "peak": 0.7989490201829349,
+      "rms": 0.13
+    },
+    "lion_twist_2_warning": {
+      "path": "res://assets/audio/lion_twist_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.117,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "868b32b1d41b3c850025f2e61547f8e72318bcb6ae3e31eb77eecfc43d35fe5d",
+      "duration": 0.15410416666666665,
+      "peak": 0.6514089444609533,
+      "rms": 0.13
+    },
+    "lion_twist_2_charge": {
+      "path": "res://assets/audio/lion_twist_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.0053,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "2c7c7ada3bbb6df6faf1a1d265b0e015945111aa9dffa7f819fa74e34bc43650",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.10409801172961053
+    },
+    "lion_twist_2_release": {
+      "path": "res://assets/audio/lion_twist_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-7.wav",
+          "sha256": "e6de737a34de16afed094d6170d7679149022f149e0a8356d2f029b0e8f4a4d7",
+          "speed": 1.117,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "3ec5c231aec25a2dde082066edbe4f989e554330285d5ba76df3cc559efb1e53",
+      "duration": 0.19285416666666666,
+      "peak": 0.656114984798197,
+      "rms": 0.13
+    },
+    "lion_twist_2_impact": {
+      "path": "res://assets/audio/lion_twist_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 1.117,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.117,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "8310ffc9eb6a3a2a77d3db5f0d1fe1dd61bb03500ac9160e1574acd22f79d366",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12072089991227354
+    },
+    "lion_twist_2_landing": {
+      "path": "res://assets/audio/lion_twist_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 1.117,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.117,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "fe2cbfa1e51aaf8667feb03fd459ce8c25d27be6d7026753841225c694f54c62",
+      "duration": 0.24939583333333334,
+      "peak": 0.82,
+      "rms": 0.0833484004158496
+    },
+    "lion_twist_2_recover": {
+      "path": "res://assets/audio/lion_twist_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.117,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.117,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "44838d864335bd18c5d3f45fa2dc7875bd9d92831103a01bd56c744e05cb2332",
+      "duration": 0.2543958333333333,
+      "peak": 0.82,
+      "rms": 0.12995280456310088
+    },
+    "lion_lion_finale_1_warning": {
+      "path": "res://assets/audio/lion_lion_finale_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_004.ogg",
+          "sha256": "e10009f67ddaeb3a59a3e1129cfc1615d84ba60ab578eae07e7092ac223f099c",
+          "speed": 1.103,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "5ef4c10a653cd4c710c467ab7b20428b2c3fd14027263de7766611e70b514105",
+      "duration": 0.26316666666666666,
+      "peak": 0.82,
+      "rms": 0.0682073455792272
+    },
+    "lion_lion_finale_1_charge": {
+      "path": "res://assets/audio/lion_lion_finale_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_004.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 0.9927,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "7cb3704dc59dab15b11669b05d094108c92056f736baae9115323357881a1de5",
+      "duration": 0.219625,
+      "peak": 0.82,
+      "rms": 0.10446399327614866
+    },
+    "lion_lion_finale_1_release": {
+      "path": "res://assets/audio/lion_lion_finale_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-7.wav",
+          "sha256": "e6de737a34de16afed094d6170d7679149022f149e0a8356d2f029b0e8f4a4d7",
+          "speed": 1.103,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "3219fc25e0350e07a5b63b0b3d4010be7821e83590d9c4a8a8dc90094d07aea1",
+      "duration": 0.19497916666666668,
+      "peak": 0.6491058404121663,
+      "rms": 0.13
+    },
+    "lion_lion_finale_1_impact": {
+      "path": "res://assets/audio/lion_lion_finale_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_004.ogg",
+          "sha256": "4a256878a3afb994ec9a4399336687748e68c7c136872c08c9c797d8c4e2464a",
+          "speed": 1.103,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.103,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "0168074e03154495d1a3f64d23cb2c53d1bbf358db86134c3aab67cd48208e75",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11875732190239065
+    },
+    "lion_lion_finale_1_landing": {
+      "path": "res://assets/audio/lion_lion_finale_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_004.ogg",
+          "sha256": "24dd8db2413e5b81ad181e1205c12a1c7801da5f85715d471b92a4b2f632e45e",
+          "speed": 1.103,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.103,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "efa24796e1575cc60feddd8f67b9e3f4d4abf67aecf7d4cb2404698aff76c092",
+      "duration": 0.2513125,
+      "peak": 0.82,
+      "rms": 0.0828629304181503
+    },
+    "lion_lion_finale_1_recover": {
+      "path": "res://assets/audio/lion_lion_finale_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.103,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 1.103,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "02449e3a69627849f5a63300d2f4cd99bc9800b10cce68c10cd83360d713ff26",
+      "duration": 0.3431666666666667,
+      "peak": 0.82,
+      "rms": 0.11324995410219134
+    },
+    "lion_lion_finale_2_warning": {
+      "path": "res://assets/audio/lion_lion_finale_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.128,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "acecf578c9bde2b8ec32a784aa73e27a9a94d7212d074e7c0d38e6b931734387",
+      "duration": 0.12704166666666666,
+      "peak": 0.7363063474777682,
+      "rms": 0.12999999999999998
+    },
+    "lion_lion_finale_2_charge": {
+      "path": "res://assets/audio/lion_lion_finale_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.0151999999999999,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "59927ddd5f544825be29dd9564a26634c3484704ed85500f8384c415d152e87b",
+      "duration": 0.27897916666666667,
+      "peak": 0.82,
+      "rms": 0.10578641745056684
+    },
+    "lion_lion_finale_2_release": {
+      "path": "res://assets/audio/lion_lion_finale_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-8.wav",
+          "sha256": "113a3709ad889ad2fcf38eaceaf4eb9d67ffe1e96713fed93a6f0aed08769980",
+          "speed": 1.128,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "4740312e315c69f31424d4cfdfe6706c6c9d12ef5aece2b63e60d73f6e8aeb2b",
+      "duration": 0.16122916666666667,
+      "peak": 0.6143325987330278,
+      "rms": 0.13
+    },
+    "lion_lion_finale_2_impact": {
+      "path": "res://assets/audio/lion_lion_finale_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 1.128,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.128,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "9848d249c1b916551ae2fbe8ddce2277aeeb5e9b773ffebf134787527adfdd61",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.10067746227890287
+    },
+    "lion_lion_finale_2_landing": {
+      "path": "res://assets/audio/lion_lion_finale_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.128,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.128,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "3fafc9eeb555876ae43b08923599baf18d1d797b1e7dfc7dd486a9d5ddab574d",
+      "duration": 0.22577083333333334,
+      "peak": 0.7745831209620531,
+      "rms": 0.13
+    },
+    "lion_lion_finale_2_recover": {
+      "path": "res://assets/audio/lion_lion_finale_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.128,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.128,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "8b4f69eab527786f1e98d94ea715abce4960d706fa8c6686684c47bd3a4cbdf5",
+      "duration": 0.23077083333333334,
+      "peak": 0.82,
+      "rms": 0.11230144638997852
+    },
+    "lion_drunk_finale_1_warning": {
+      "path": "res://assets/audio/lion_drunk_finale_1_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.114,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "b436df93f37da824e116a1a469d44b75cb5620f43202543c7b9df86c0eec0f6f",
+      "duration": 0.1283125,
+      "peak": 0.7351408967809379,
+      "rms": 0.13
+    },
+    "lion_drunk_finale_1_charge": {
+      "path": "res://assets/audio/lion_drunk_finale_1_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.0026000000000002,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "73d20139cd07bec90267f50a4fef963ab40a4b596294a95bb9cf860e717924cd",
+      "duration": 0.27897916666666667,
+      "peak": 0.82,
+      "rms": 0.10477436301375573
+    },
+    "lion_drunk_finale_1_release": {
+      "path": "res://assets/audio/lion_drunk_finale_1_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-8.wav",
+          "sha256": "113a3709ad889ad2fcf38eaceaf4eb9d67ffe1e96713fed93a6f0aed08769980",
+          "speed": 1.114,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "cd4b596e2ab4867539dc86306b2bbcd9aca57a95d3eb8b098bce1da091b797f4",
+      "duration": 0.16291666666666665,
+      "peak": 0.6172920364523226,
+      "rms": 0.13000000000000003
+    },
+    "lion_drunk_finale_1_impact": {
+      "path": "res://assets/audio/lion_drunk_finale_1_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 1.114,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.114,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "8fcc8c5ab10ab5e604cee41f06df0a2ab78b777271965d7fb380c5b1052d6de9",
+      "duration": 0.405,
+      "peak": 0.8200000000000001,
+      "rms": 0.10122543558275747
+    },
+    "lion_drunk_finale_1_landing": {
+      "path": "res://assets/audio/lion_drunk_finale_1_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_000.ogg",
+          "sha256": "d7267e183067757c92c169de2a379abea592cfca6b39bb2e8feea15221ad79fe",
+          "speed": 1.114,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.114,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "4aeb64a773ded18cfe30ed879b2bcaf28d7a69f3ca0aa30e55d135d833b6b99a",
+      "duration": 0.22735416666666666,
+      "peak": 0.7699492215504864,
+      "rms": 0.13
+    },
+    "lion_drunk_finale_1_recover": {
+      "path": "res://assets/audio/lion_drunk_finale_1_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 1.114,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.114,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "c2b27b0c9549b8f178b6f814789b3d99d766fd32e03ccfeb7a4c51a05309bb17",
+      "duration": 0.23235416666666667,
+      "peak": 0.82,
+      "rms": 0.11271243365740694
+    },
+    "lion_drunk_finale_2_warning": {
+      "path": "res://assets/audio/lion_drunk_finale_2_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.139,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "1ee9b1968eb16a5072e09d1e2492111740aa5840c7e60bdf559c65658eedfb95",
+      "duration": 0.183375,
+      "peak": 0.6824927188626351,
+      "rms": 0.12999999999999998
+    },
+    "lion_drunk_finale_2_charge": {
+      "path": "res://assets/audio/lion_drunk_finale_2_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.0251000000000001,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "d4fcf2827e884e6eb9e23a7051d99322cca464efaa302072966b579cfc9babb8",
+      "duration": 0.23525,
+      "peak": 0.6114500707379268,
+      "rms": 0.13
+    },
+    "lion_drunk_finale_2_release": {
+      "path": "res://assets/audio/lion_drunk_finale_2_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-9.wav",
+          "sha256": "123883f006ce55feecbff11eea5f87c4493df4399989983037144570a23723c1",
+          "speed": 1.139,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "31c9f0b70480da6e67e979b9bcc58491282bd7c5e87a7e2777bc3d5ecee79e95",
+      "duration": 0.20029166666666667,
+      "peak": 0.79389460302662,
+      "rms": 0.13
+    },
+    "lion_drunk_finale_2_impact": {
+      "path": "res://assets/audio/lion_drunk_finale_2_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 1.139,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.139,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "1430c5c6dd85bfbbdc3d9fa214391b310eb3b8334ec09b4c7f3608140bd11842",
+      "duration": 0.3776875,
+      "peak": 0.82,
+      "rms": 0.11056208673870349
+    },
+    "lion_drunk_finale_2_landing": {
+      "path": "res://assets/audio/lion_drunk_finale_2_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_001.ogg",
+          "sha256": "507a75eb19b897087855a3be3cf11a12d7fa37d143ad535eeebe0b8031c7325d",
+          "speed": 1.139,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.139,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "b7e4bc9ccac3290f74ff48d0812a79bdadbcec1fcb9cdd3a659470de26fde549",
+      "duration": 0.2245625,
+      "peak": 0.7998491390686213,
+      "rms": 0.12999999999999995
+    },
+    "lion_drunk_finale_2_recover": {
+      "path": "res://assets/audio/lion_drunk_finale_2_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.139,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.139,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "1722b6a7c8245215aa97b4f301322f76f6a3a822c2f41bba5c9532624caa6038",
+      "duration": 0.2295625,
+      "peak": 0.7359806093004212,
+      "rms": 0.13
+    },
+    "lion_drunk_finale_3_warning": {
+      "path": "res://assets/audio/lion_drunk_finale_3_warning.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.164,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "234bdcd4fb98dc913c127011e575bb544439d806bb18eb0aba7e7c30fc8e2bc4",
+      "duration": 0.13864583333333333,
+      "peak": 0.6779392806743669,
+      "rms": 0.13000000000000003
+    },
+    "lion_drunk_finale_3_charge": {
+      "path": "res://assets/audio/lion_drunk_finale_3_charge.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.0475999999999999,
+          "at": 0,
+          "gain": 0.65
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_003.ogg",
+          "sha256": "5c4a1f35fde7e14046931da7bc3d1b23736541b7190ba107e08a379c4ca43cd6",
+          "speed": 1.1,
+          "at": 0.09,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "19e7fd26dcb91fce3a3da826e0bd01a1f2cfc8e8937bec0e5a6c415403698bbe",
+      "duration": 0.23983333333333334,
+      "peak": 0.6177040452346133,
+      "rms": 0.13000000000000003
+    },
+    "lion_drunk_finale_3_release": {
+      "path": "res://assets/audio/lion_drunk_finale_3_release.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/swishes/swishes/swish-10.wav",
+          "sha256": "4f7381a76f280d3f36f962ac3f44f16f77eec44797f30715d063c81ea3859024",
+          "speed": 1.164,
+          "at": 0,
+          "gain": 0.85
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.2,
+          "at": 0.025,
+          "gain": 0.25
+        }
+      ],
+      "sha256": "bc0d151390b716a226251d421d516cd47cce06e519dcced4700d2790fbe43fdc",
+      "duration": 0.16022916666666667,
+      "peak": 0.82,
+      "rms": 0.11679532782458185
+    },
+    "lion_drunk_finale_3_impact": {
+      "path": "res://assets/audio/lion_drunk_finale_3_impact.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 1.164,
+          "at": 0,
+          "gain": 0.9
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_004.ogg",
+          "sha256": "b0a4dea90eed47accf50b768beff1166f2f1486fb139e4d025b2427637624bca",
+          "speed": 1.164,
+          "at": 0.015,
+          "gain": 0.45
+        }
+      ],
+      "sha256": "c238c72d44792041dd246a5f6c085caf001bdf74e9e77d3cc5367047162dec9f",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11299316907137892
+    },
+    "lion_drunk_finale_3_landing": {
+      "path": "res://assets/audio/lion_drunk_finale_3_landing.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_concrete_002.ogg",
+          "sha256": "b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13",
+          "speed": 1.164,
+          "at": 0,
+          "gain": 0.55
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.164,
+          "at": 0.075,
+          "gain": 0.4
+        }
+      ],
+      "sha256": "41da7e9690acc338905d9dd9bd9e2d9b40df742cb34f81dcb14569de4e8d9274",
+      "duration": 0.22189583333333332,
+      "peak": 0.82,
+      "rms": 0.07654852761519093
+    },
+    "lion_drunk_finale_3_recover": {
+      "path": "res://assets/audio/lion_drunk_finale_3_recover.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_002.ogg",
+          "sha256": "5069e3571a77d7f7aae9ef71d0364aa245fb7d64a7c8cc9956f221d03088c089",
+          "speed": 1.164,
+          "at": 0,
+          "gain": 0.6
+        },
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_003.ogg",
+          "sha256": "4ae7454338d57c7d102145919ae653c7d010eb542797c4f25a1c7470be3a7e4c",
+          "speed": 1.164,
+          "at": 0.08,
+          "gain": 0.3
+        }
+      ],
+      "sha256": "010949ff2fd9e5fb4cefea6d1974f189bbbe5f9d29491d5b875e676811e2adcd",
+      "duration": 0.22689583333333332,
+      "peak": 0.82,
+      "rms": 0.12593682740197257
+    },
+    "lion_step_left_1_material": {
+      "path": "res://assets/audio/lion_step_left_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.86,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "270c7e70b0914e30978ba57e328c60fcab0c1dd172a634415afaa0e849850b35",
+      "duration": 0.21904166666666666,
+      "peak": 0.82,
+      "rms": 0.07588159532651524
+    },
+    "lion_step_left_2_material": {
+      "path": "res://assets/audio/lion_step_left_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.95,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "28463f1057ea78261d733810b271b2e90efdf36a4628588c3e8cbae0ffd37254",
+      "duration": 0.17435416666666667,
+      "peak": 0.7427268173757672,
+      "rms": 0.13000000000000003
+    },
+    "lion_step_left_3_material": {
+      "path": "res://assets/audio/lion_step_left_3_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.04,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "ed1d7cc007060bdd56dcca8ef0fa7c027e4a1f26ecca1a9ac2ed325e86052162",
+      "duration": 0.16141666666666668,
+      "peak": 0.6995651007635025,
+      "rms": 0.13000000000000003
+    },
+    "lion_step_right_1_material": {
+      "path": "res://assets/audio/lion_step_right_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.873,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "f48d0ce36acdc0a31cebfb448812f607b3ab0e4b5032d9a92d1b213894ee16d3",
+      "duration": 0.21616666666666667,
+      "peak": 0.82,
+      "rms": 0.07577404041127211
+    },
+    "lion_step_right_2_material": {
+      "path": "res://assets/audio/lion_step_right_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.963,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "9e49b12ee054bb1a948be8d92ae5b03ce9695b1ae539b830f05b4fadf9707131",
+      "duration": 0.17233333333333334,
+      "peak": 0.7346032082521429,
+      "rms": 0.13
+    },
+    "lion_step_right_3_material": {
+      "path": "res://assets/audio/lion_step_right_3_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_002.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.053,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "e8005c08dda77c48b6899dcd345160e35fd96b8bbcb8f431207fcb7a4200f78e",
+      "duration": 0.15975,
+      "peak": 0.7014223148119654,
+      "rms": 0.13
+    },
+    "lion_turn_1_material": {
+      "path": "res://assets/audio/lion_turn_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.886,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "9cbde948d6ac7a9e34ec1d5d7029b70792cf2a289a16fa8b5c998327e6208d03",
+      "duration": 0.21335416666666668,
+      "peak": 0.82,
+      "rms": 0.07567691134162909
+    },
+    "lion_turn_2_material": {
+      "path": "res://assets/audio/lion_turn_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 0.976,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "823278719d8030db167dfeac28ed2cf808ff393b8910b59bd3905730cf9b6b4f",
+      "duration": 0.170375,
+      "peak": 0.7260436503679465,
+      "rms": 0.13000000000000003
+    },
+    "lion_eye_1_material": {
+      "path": "res://assets/audio/lion_eye_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.899,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "5abd6aeaee165e9b1c86ed50a3e4842895de062a2a08e477eee334a3c30a41bc",
+      "duration": 0.3172083333333333,
+      "peak": 0.82,
+      "rms": 0.0728755245143362
+    },
+    "lion_eye_2_material": {
+      "path": "res://assets/audio/lion_eye_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 0.989,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "b6dcc5cfc9f032e0c59f366cbccb7d45ca751e63b590912eecfb038e47f70055",
+      "duration": 0.290625,
+      "peak": 0.82,
+      "rms": 0.08423502301717432
+    },
+    "lion_cloth_1_material": {
+      "path": "res://assets/audio/lion_cloth_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_000.ogg",
+          "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+          "speed": 0.912,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "d981112d0f2f675f2168ff5d8e50bdf14957872e0940be5e1cf9b05b208a5852",
+      "duration": 0.15120833333333333,
+      "peak": 0.7193326033156132,
+      "rms": 0.13000000000000003
+    },
+    "lion_cloth_2_material": {
+      "path": "res://assets/audio/lion_cloth_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactSoft_medium_001.ogg",
+          "sha256": "7642a4fd43e547afe4f7adfadb3dabb681c0ff512f52c1674bae30a726841faf",
+          "speed": 1.002,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "60ad24b2f65bd0f73a068a794a8f9e2fdf220b9082acc5d91e87592888c3f952",
+      "duration": 0.20502083333333335,
+      "peak": 0.6756906797905937,
+      "rms": 0.13000000000000003
+    },
+    "lion_hurt_1_material": {
+      "path": "res://assets/audio/lion_hurt_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_000.ogg",
+          "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+          "speed": 0.925,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "ec580c6397496a61dff635b26b49ad0ae8ef7b413a074f5a371a38e6824d19dd",
+      "duration": 0.405,
+      "peak": 0.8107606636579776,
+      "rms": 0.13
+    },
+    "lion_hurt_2_material": {
+      "path": "res://assets/audio/lion_hurt_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_001.ogg",
+          "sha256": "e71d23abcc3f10d9d6bc9615b2a431fff70b12333a5fcdd9964457564ace4349",
+          "speed": 1.015,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "ae6cc2fe95052e4f56b7ead17c18a6615d01a66cd8268cc7f8c4ae70a1f0601c",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.12361925546843737
+    },
+    "lion_hurt_3_material": {
+      "path": "res://assets/audio/lion_hurt_3_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactPunch_medium_002.ogg",
+          "sha256": "6492f9ccbc8d24dcef607bb1b48790b7870961474561f7fe5601e1c73a3018ef",
+          "speed": 1.105,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "13c3a836598430c027f0dbfb5bbfc1d3f74bf31f3c0e0f7a79b00be5edcd70b2",
+      "duration": 0.405,
+      "peak": 0.82,
+      "rms": 0.11796666217584136
+    },
+    "lion_counter_head_1_material": {
+      "path": "res://assets/audio/lion_counter_head_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.938,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "42591fd64e27063b18854480dd227cd753bb76609fcba41ea1b2345a27913470",
+      "duration": 0.3050625,
+      "peak": 0.82,
+      "rms": 0.07450465276058604
+    },
+    "lion_counter_head_2_material": {
+      "path": "res://assets/audio/lion_counter_head_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.028,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "88f039e611375cbf241c5724cecd6766b700895e4aad470c327d333f4ff80c7a",
+      "duration": 0.2805416666666667,
+      "peak": 0.8200000000000001,
+      "rms": 0.08584470335391729
+    },
+    "lion_counter_gourd_1_material": {
+      "path": "res://assets/audio/lion_counter_gourd_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.951,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "f05a15831dbef7914654a15882d52f950977fd0f721bbc81eba6b0873faa8dd4",
+      "duration": 0.30122916666666666,
+      "peak": 0.82,
+      "rms": 0.07501933419823376
+    },
+    "lion_counter_gourd_2_material": {
+      "path": "res://assets/audio/lion_counter_gourd_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.041,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "21b18c621dfd96a4862f41359b5341a5360068e3a22550711de7b09608a503f1",
+      "duration": 0.2773541666666667,
+      "peak": 0.82,
+      "rms": 0.08642274145997365
+    },
+    "lion_counter_support_1_material": {
+      "path": "res://assets/audio/lion_counter_support_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.964,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "ee93c200172a7732b2af04b2e62e9acb94b3d2471945f98fa870686ce5ab3c9a",
+      "duration": 0.198125,
+      "peak": 0.82,
+      "rms": 0.07497379622050963
+    },
+    "lion_counter_support_2_material": {
+      "path": "res://assets/audio/lion_counter_support_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.054,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "7ce5d15b27a50b243f346785a917c4270a616e6a890e06c3ed9d65d272e5daf1",
+      "duration": 0.15960416666666666,
+      "peak": 0.7014698686569699,
+      "rms": 0.13
+    },
+    "lion_sit_1_material": {
+      "path": "res://assets/audio/lion_sit_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 0.977,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "d0383ac55cc1c8030d0f16671b3e32312b55a875195de8eea1a695dd67c5d2ac",
+      "duration": 0.1958125,
+      "peak": 0.82,
+      "rms": 0.07477957454397834
+    },
+    "lion_sit_2_material": {
+      "path": "res://assets/audio/lion_sit_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.067,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "69b5acf059845860d2709fd493a2d173f246f5348ba880de91b5be2104cf5c29",
+      "duration": 0.15797916666666667,
+      "peak": 0.7034302993407593,
+      "rms": 0.13
+    },
+    "lion_protect_lamp_1_material": {
+      "path": "res://assets/audio/lion_protect_lamp_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 0.99,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "4a9eb9520abba23b7bbb38021dffca17e9db9f803bbb01fc4c08f78185241ae4",
+      "duration": 0.2903541666666667,
+      "peak": 0.82,
+      "rms": 0.07651036105899525
+    },
+    "lion_protect_lamp_2_material": {
+      "path": "res://assets/audio/lion_protect_lamp_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.08,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "5672aca7e8cfd64c06987c37d29bb58d6a773824877f462b1eb41b858c380a06",
+      "duration": 0.2682291666666667,
+      "peak": 0.82,
+      "rms": 0.08797762308629775
+    },
+    "lion_phase_2_1_material": {
+      "path": "res://assets/audio/lion_phase_2_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_000.ogg",
+          "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+          "speed": 1.003,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "506f33901f36fc5a2be2d98ea3fdc7dc22a6d0f44501a5aee8a89c9240cded25",
+      "duration": 0.28691666666666665,
+      "peak": 0.82,
+      "rms": 0.07710227657083805
+    },
+    "lion_phase_2_2_material": {
+      "path": "res://assets/audio/lion_phase_2_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/impactWood_light_001.ogg",
+          "sha256": "4b76bf3ccc8e60d19188f3165b778a7817786faa6887c55d9049bcbeef3b425f",
+          "speed": 1.093,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "d76b32652ab99b5e907d062a0b46ec32df07fccdabbea8d1a20371a2a390413e",
+      "duration": 0.26535416666666667,
+      "peak": 0.82,
+      "rms": 0.08846147532481634
+    },
+    "lion_defeat_1_material": {
+      "path": "res://assets/audio/lion_defeat_1_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_000.ogg",
+          "sha256": "b9524658b52a99a20590f8feefc103088637fd13ea8ec35811aee785e1f2f330",
+          "speed": 1.016,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "7b8d2024142e386ba6f26a89eb362dbd242cfa7f8d14f3f3daeab52ec2851aed",
+      "duration": 0.18925,
+      "peak": 0.82,
+      "rms": 0.07592894639963448
+    },
+    "lion_defeat_2_material": {
+      "path": "res://assets/audio/lion_defeat_2_material.wav",
+      "sources": [
+        {
+          "path": "art_source/audio/kenney-impact/Audio/footstep_carpet_001.ogg",
+          "sha256": "9af3c3f76705107339e72036e4053bdca3eaa50ad31c8c929f42ce8d40e5d781",
+          "speed": 1.106,
+          "at": 0,
+          "gain": 0.65
+        }
+      ],
+      "sha256": "f9689f706acaabda41a540a0b9adc66526553be1257e9f134373c7a93c31a943",
+      "duration": 0.15329166666666666,
+      "peak": 0.7092809811484667,
+      "rms": 0.13
+    }
+  },
+  "license_evidence": [
+    "art_source/audio/kenney-impact/License.txt",
+    "docs/scene-combat-audio.md"
+  ]
+}

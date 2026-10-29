@@ -1,0 +1,406 @@
+{
+  "count": 30,
+  "reference_height": 128.0,
+  "clips": {
+    "turn": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      26,
+      27
+    ],
+    "advance": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      28
+    ],
+    "load": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "recover": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      29
+    ]
+  },
+  "frames": [
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        82,
+        9,
+        146,
+        238
+      ],
+      "clip": "turn",
+      "order": 0,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        314,
+        10,
+        99,
+        237
+      ],
+      "clip": "turn",
+      "order": 1,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        556,
+        9,
+        102,
+        237
+      ],
+      "clip": "turn",
+      "order": 2,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        776,
+        9,
+        129,
+        238
+      ],
+      "clip": "turn",
+      "order": 3,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1009,
+        9,
+        125,
+        237
+      ],
+      "clip": "turn",
+      "order": 4,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1226,
+        9,
+        143,
+        237
+      ],
+      "clip": "turn",
+      "order": 5,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1454,
+        9,
+        147,
+        238
+      ],
+      "clip": "turn",
+      "order": 6,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        12,
+        293,
+        278,
+        173
+      ],
+      "clip": "advance",
+      "order": 0,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        289,
+        292,
+        263,
+        175
+      ],
+      "clip": "advance",
+      "order": 1,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        547,
+        286,
+        269,
+        180
+      ],
+      "clip": "advance",
+      "order": 2,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        797,
+        283,
+        242,
+        183
+      ],
+      "clip": "advance",
+      "order": 3,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1061,
+        289,
+        264,
+        177
+      ],
+      "clip": "advance",
+      "order": 4,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1357,
+        292,
+        255,
+        174
+      ],
+      "clip": "advance",
+      "order": 5,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        18,
+        521,
+        289,
+        172
+      ],
+      "clip": "load",
+      "order": 0,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        307,
+        515,
+        272,
+        177
+      ],
+      "clip": "load",
+      "order": 1,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        570,
+        488,
+        239,
+        204
+      ],
+      "clip": "load",
+      "order": 2,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        817,
+        504,
+        257,
+        188
+      ],
+      "clip": "load",
+      "order": 3,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1042,
+        497,
+        308,
+        195
+      ],
+      "clip": "load",
+      "order": 4,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1358,
+        490,
+        279,
+        202
+      ],
+      "clip": "load",
+      "order": 5,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        18,
+        746,
+        318,
+        164
+      ],
+      "clip": "recover",
+      "order": 0,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        305,
+        745,
+        295,
+        169
+      ],
+      "clip": "recover",
+      "order": 1,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        580,
+        746,
+        257,
+        171
+      ],
+      "clip": "recover",
+      "order": 2,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        828,
+        735,
+        235,
+        182
+      ],
+      "clip": "recover",
+      "order": 3,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1053,
+        726,
+        209,
+        195
+      ],
+      "clip": "recover",
+      "order": 4,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1242,
+        739,
+        241,
+        183
+      ],
+      "clip": "recover",
+      "order": 5,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-extra.png",
+      "rect": [
+        1521,
+        700,
+        128,
+        224
+      ],
+      "clip": "recover",
+      "order": 6,
+      "sheet_scale": 0.6900269541778976
+    },
+    {
+      "source": "art_source/boss_reset/knight-repair.png",
+      "rect": [
+        329,
+        11,
+        320,
+        488
+      ],
+      "clip": "turn",
+      "order": 0,
+      "sheet_scale": 0.293241695303551
+    },
+    {
+      "source": "art_source/boss_reset/knight-repair.png",
+      "rect": [
+        1003,
+        14,
+        302,
+        496
+      ],
+      "clip": "turn",
+      "order": 1,
+      "sheet_scale": 0.293241695303551
+    },
+    {
+      "source": "art_source/boss_reset/knight-repair.png",
+      "rect": [
+        49,
+        582,
+        710,
+        378
+      ],
+      "clip": "advance",
+      "order": 0,
+      "sheet_scale": 0.293241695303551
+    },
+    {
+      "source": "art_source/boss_reset/knight-repair.png",
+      "rect": [
+        794,
+        597,
+        647,
+        385
+      ],
+      "clip": "recover",
+      "order": 0,
+      "sheet_scale": 0.293241695303551
+    }
+  ]
+}

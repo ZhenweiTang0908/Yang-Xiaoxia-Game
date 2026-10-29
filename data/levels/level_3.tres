@@ -13,3 +13,5 @@ features = [{"kind": "ritual", "x": 1880, "y": 450, "radius": 92.0, "period": 3.
 checkpoints = PackedFloat32Array(100, 8100, 13700)
 boss_id = "priest"
 boss_x = 14900.0
+
+boss_script = "res://scripts/actors/boss_reset/base.gd"

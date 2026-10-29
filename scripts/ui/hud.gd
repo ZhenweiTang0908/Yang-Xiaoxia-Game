@@ -1,4 +1,5 @@
 extends CanvasLayer
+const COMBAT_ART=preload("res://scripts/ui/combat_hud_art.gd")
 var game
 var canvas
 var buttons=[]
@@ -23,6 +24,9 @@ var boss_lag=1.0
 var boss_lag_hold=0.0
 var boss_lag_owner=0
 var boss_last_ratio=1.0
+var player_lag=1.0
+var player_lag_hold=0.0
+var player_last_ratio=1.0
 const HUD_BOUNDS=Rect2(0,0,960,540)
 func _ready():
 	layer=20;canvas=Node2D.new();add_child(canvas);canvas.draw.connect(render)
@@ -46,6 +50,14 @@ func _process(_dt):
 			boss_lag_hold-=_dt
 			if boss_lag_hold<=0:boss_lag=move_toward(boss_lag,ratio,_dt*.45)
 		if absf(boss_lag-ratio)<.001:boss_lag_hold=.45
+	if is_instance_valid(game.player) and game.active() and game.hitstop<=0:
+		var health_ratio=clampf(game.player.health/100.0,0,1)
+		if health_ratio<player_last_ratio:player_lag_hold=.32
+		if health_ratio>player_lag:player_lag=health_ratio
+		elif player_lag>health_ratio:
+			player_lag_hold=maxf(0,player_lag_hold-_dt)
+			if player_lag_hold==0:player_lag=move_toward(player_lag,health_ratio,_dt*.65)
+		player_last_ratio=health_ratio
 	var hovered=""
 	if not game.pad_mode and not game.keyboard_nav:
 		var pointer=canvas.get_global_mouse_position()
@@ -112,7 +124,7 @@ func draw_stage_atmosphere(b,stage,px):
 
 func text(p,message,size=15,color=Color("eeeade")):
 	if game.pad_mode:
-		for pair in [["A D 移动","左摇杆移动"],["空格跳跃",game.gamepad.binding_label("jump")+" 跳跃"],["J 连按",game.gamepad.binding_label("attack")+" 连按"],["K 射箭",game.gamepad.binding_label("bow")+" 射箭"],["E 召唤",game.gamepad.binding_label("summon")+" 召唤"],["按住 U","按住 "+game.gamepad.binding_label("charge")],["按 Q","按 "+game.gamepad.binding_label("transform")],["Q  羊灵",game.gamepad.binding_label("transform")+" 羊灵"]]:message=message.replace(pair[0],pair[1])
+		for pair in [["A D 移动","左摇杆移动"],["空格跳跃",game.gamepad.binding_label("jump")+" 跳跃"],["J 连按",game.gamepad.binding_label("attack")+" 连按"],["K 射箭",game.gamepad.binding_label("bow")+" 射箭"],["E 召唤",game.gamepad.binding_label("summon")+" 召唤"],["按住 U","按住 "+game.gamepad.binding_label("charge")],["按 Q","按 "+game.gamepad.binding_label("transform")],["Q  羊灵",game.gamepad.binding_label("transform")+" 羊灵"],["↑月露",game.gamepad.binding_label("item")+" 月露"]]:message=message.replace(pair[0],pair[1])
 	canvas.draw_string(game.font,p,message,HORIZONTAL_ALIGNMENT_LEFT,-1,size,color)
 func centered(y,message,size=17,color=Color("eeeade")):
 	var w=game.font.get_string_size(message,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x;text(Vector2((960-w)/2,y),message,size,color)
@@ -129,11 +141,7 @@ func button(rect,label,action,primary=false):
 		canvas.draw_rect(rect.grow(3),game.GOLD,false,2)
 	buttons.append({"rect":rect,"action":action,"label":label,"text_size":size})
 func bottle(at,full):
-	var c=Color("9fd8c8") if full else Color("3a4a50")
-	var shape=PackedVector2Array([Vector2(-2,-12),Vector2(2,-12),Vector2(2,-8),Vector2(6,-4),Vector2(6,4),Vector2(-6,4),Vector2(-6,-4),Vector2(-2,-8)])
-	for i in shape.size():shape[i]+=at
-	canvas.draw_colored_polygon(shape,c)
-	canvas.draw_line(at+Vector2(-3,-12),at+Vector2(3,-12),Color("c4bd95") if full else Color("4d5a5c"),2)
+	COMBAT_ART.bottle(canvas,at,full)
 func gourd(at,color):
 	canvas.draw_circle(at+Vector2(0,-5),4.5,color);canvas.draw_circle(at+Vector2(0,4),7,color)
 	canvas.draw_line(at+Vector2(0,-10),at+Vector2(2,-13),Color("6b4f33"),2)
@@ -152,6 +160,7 @@ func render():
 		"journey_records":journey_records_screen()
 		"story":story_screen()
 		"upgrade":upgrade_screen()
+		"boss_cinematic":moon_cinematic()
 		"animation_lab":animation_screen()
 		_:
 			if game.player and game.state=="playing":playing_hud()
@@ -167,7 +176,7 @@ func title_screen():
 		button(Rect2(title_x,239,250,46),"继续连战","continue",true)
 		button(Rect2(title_x,300,250,44 if game.is_touch else 40),"开启新旅途","new")
 	else:
-		button(Rect2(title_x,239,250,46),"四境连战","new",true)
+		button(Rect2(title_x,239,250,46),"五境连战","new",true)
 	button(Rect2(title_x,356,120,touch_height),"选择关卡","stage_select")
 	button(Rect2(title_x+130,356,120,touch_height),"设置","settings")
 	var challenge_button_y=touch_menu_row_y(safe_rect,442,44) if game.is_touch else 446
@@ -207,19 +216,27 @@ func portrait(texture,source,feet,height):
 func playing_hud():
 	var p=game.player
 	var status_offset=touch_status_offset(safe_rect_in_hud()) if game.is_touch else Vector2.ZERO
-	# Combat HUD is read from shapes and colour, not labels: bars, bottles, a gourd.
-	panel(Rect2(Vector2(18,15)+status_offset,Vector2(236,32)),Color(.03,.055,.085,.62))
-	meter(Vector2(30,24)+status_offset,212,p.health/100,Color("d8927f"))
-	meter(Vector2(30,35)+status_offset,212,p.rage/100,game.GOLD)
+	panel(Rect2(Vector2(18,15)+status_offset,Vector2(236,48)),Color(.035,.055,.068,.88))
+	canvas.draw_line(Vector2(27,16)+status_offset,Vector2(245,16)+status_offset,Color("b99b69",.45),1)
+	text(Vector2(28,31)+status_offset,"血量 "+str(ceili(p.health))+" / 100",10,Color("ebc5b2"))
+	text(Vector2(28,52)+status_offset,"战意 "+str(roundi(p.rage)),10,Color("d9c399"))
+	COMBAT_ART.bar(canvas,Rect2(Vector2(108,22)+status_offset,Vector2(132,10)),p.health/100.0,Color("bc6d5e"),player_lag)
+	COMBAT_ART.bar(canvas,Rect2(Vector2(108,43)+status_offset,Vector2(132,9)),p.rage/100.0,Color("b99a57"))
+	var boost="×%.3f"%p.damage_multiplier()
+	var boost_width=game.font.get_string_size(boost,HORIZONTAL_ALIGNMENT_LEFT,-1,9).x
+	text(Vector2(239-boost_width,51)+status_offset,boost,9,Color("f4e4c5"))
+	if p.health<=25:canvas.draw_line(Vector2(27,61)+status_offset,Vector2(245,61)+status_offset,Color("d7836c",.4+.15*sin(p.anim_clock*4)),1)
+	if p.rage>=99.5:canvas.draw_line(Vector2(109,54)+status_offset,Vector2(239,54)+status_offset,Color("e7cf8c",.45+.2*sin(p.anim_clock*4)),1)
 	if game.relaxed_journey():canvas.draw_circle(Vector2(248,20)+status_offset,2.5,game.TEAL)
-	var tonic_rect=Rect2(Vector2(264,9 if game.is_touch else 15)+status_offset,Vector2(58,44 if game.is_touch else 32))
+	var tonic_rect=Rect2(Vector2(264,15)+status_offset,Vector2(58,48))
 	button(tonic_rect,"","tonic")
+	text(Vector2(273,28)+status_offset,"月露",10,Color("b4cebf"))
 	for i in game.TONIC_MAX:
-		bottle(Vector2(281+i*22,32)+status_offset,i<game.tonic_count())
+		bottle(Vector2(282+i*22,47)+status_offset,i<game.tonic_count())
 	if resource_feedback>0:
 		var tint=Color(1,.62,.35,resource_feedback*.8)
 		canvas.draw_rect(tonic_rect.grow(2),tint,false,2)
-		canvas.draw_rect(Rect2(Vector2(18,15)+status_offset,Vector2(236,32)).grow(2),tint,false,1)
+		canvas.draw_rect(Rect2(Vector2(18,15)+status_offset,Vector2(236,48)).grow(2),tint,false,1)
 	if p.hurt_anim>0:
 		var hit_alpha=(1-smoothstep(0,.22,.22-p.hurt_anim))*.65
 		for edge in [Rect2(0,0,960,4),Rect2(0,536,960,4),Rect2(0,0,4,540),Rect2(956,0,4,540)]:canvas.draw_rect(edge,Color(1,.38,.24,hit_alpha))
@@ -234,7 +251,7 @@ func playing_hud():
 		canvas.draw_line(Vector2(480+28,214+rise),Vector2(480+half,214+rise),Color(game.GOLD,fade*.55),1)
 		canvas.draw_circle(Vector2(480,214+rise),2,Color(game.GOLD,fade*.8))
 		centered(200+rise,game.level.title,30,Color(game.GOLD,fade))
-		if game.boss_rush:centered(240+rise,"第 "+str(game.level.number)+" / 4 战",13,Color(game.TEAL,fade*.85))
+		if game.boss_rush:centered(240+rise,"第 "+str(game.level.number)+" / 5 战",13,Color(game.TEAL,fade*.85))
 	var quick_actions=[["跳","stage_select"],["调","debug"],["音","settings"],["Ⅱ","pause"]]
 	if game.is_touch:
 		var quick_rects=touch_quick_action_rects(safe_rect_in_hud())
@@ -243,7 +260,7 @@ func playing_hud():
 		for i in quick_actions.size():button(Rect2(785+i*41,15,33,25),quick_actions[i][0],quick_actions[i][1])
 	if game.summon.unlocked:
 		var summon=game.summon;var ally=summon.brother
-		var icon=Vector2(37,66)+status_offset;var ready=summon.phase=="ready" and not summon.is_sealed()
+		var icon=Vector2(37,84)+status_offset;var ready=summon.phase=="ready" and not summon.is_sealed()
 		gourd(icon,Color("d8c08a") if ready else (Color("6c6a62") if summon.is_sealed() else Color("8f8a74")))
 		if summon.is_sealed():
 			canvas.draw_line(icon+Vector2(-8,-9),icon+Vector2(8,9),Color("d39283"),2)
@@ -251,21 +268,29 @@ func playing_hud():
 		elif summon.phase=="cooldown":text(icon+Vector2(16,5),str(ceili(summon.remaining)),12,Color("aab0a6"))
 		elif ready:canvas.draw_arc(icon,13+sin(game.ambience_clock*3)*1.2,0,TAU,24,Color(game.GOLD,.45),1.2,true)
 		if is_instance_valid(ally):
-			meter(Vector2(56,64)+status_offset,120,ally.health/ally.max_health,Color("aeaa85"))
-			meter(Vector2(56,71)+status_offset,120,summon.remaining/maxf(1,game.tuning.get_value("assist_duration")+game.upgrade_level("brother")*4) if summon.phase=="active" else 0.0,Color(game.TEAL,.7))
+			COMBAT_ART.bar(canvas,Rect2(Vector2(56,82)+status_offset,Vector2(120,5)),ally.health/ally.max_health,Color("aeaa85"))
+			text(Vector2(182,86)+status_offset,str(ceili(ally.health))+" / "+str(int(ally.max_health)),10,Color("c5d5b4"))
 	var message_rect=touch_combat_message_rect(safe_rect_in_hud()) if game.is_touch else Rect2(200,493,560,30)
 	if game.subtitle_time>0:
 		panel(message_rect,Color(.025,.04,.055,.72));centered(message_rect.position.y+20,game.subtitle,14,game.GOLD)
 	elif game.hint_time>0 and game.hint in ["获得月痕","出口已开启 →","闸门已开启","获得弓箭 · K 射击","生命已满","月露已用尽","葫芦尚未获得","尚未获得弓箭"]:
 		centered(message_rect.position.y+(20 if game.is_touch else -3),game.hint.replace(" · K 射击",""),13,game.GOLD)
 	if game.boss.active_battle and not game.boss.dead:
-		centered(136,game.boss.spec.title,14,game.GOLD)
+		var title_shadow=game.font.get_string_size(game.boss.spec.title,HORIZONTAL_ALIGNMENT_LEFT,-1,15).x
+		text(Vector2((960-title_shadow)*.5+1,137),game.boss.spec.title,15,Color("161725"))
+		centered(136,game.boss.spec.title,15,game.GOLD)
+		var title_width=game.font.get_string_size(game.boss.spec.title,HORIZONTAL_ALIGNMENT_LEFT,-1,15).x
+		for side in [-1,1]:
+			var at=Vector2(480+side*(title_width*.5+18),131)
+			canvas.draw_colored_polygon(PackedVector2Array([at+Vector2(-3,0),at+Vector2(0,-3),at+Vector2(3,0),at+Vector2(0,3)]),Color("b99b69"))
 		var ratio=clampf(game.boss.hp/game.boss.max_hp,0,1)
-		meter(Vector2(305,147),350,ratio,Color("ce8e83"))
-		if boss_lag>ratio:canvas.draw_rect(Rect2(305+350*ratio,147,350*(boss_lag-ratio),5),Color(1,.93,.82,.75))
+		COMBAT_ART.bar(canvas,Rect2(290,148,380,10),ratio,Color("b56d65"),boss_lag)
+		text(Vector2(290,175),"血量 "+str(ceili(game.boss.hp))+" / "+str(int(game.boss.max_hp)),10,Color("d2c3ae"))
+		var percent=str(maxi(1,roundi(ratio*100)))+"%"
+		text(Vector2(670-game.font.get_string_size(percent,HORIZONTAL_ALIGNMENT_LEFT,-1,10).x,175),percent,10,Color("bca68b"))
 	if game.boss.spec.id=="knight" and game.boss.active_battle and not game.boss.dead:
 		for i in 3:
-			var box=Rect2(414+i*46,158,34,8)
+			var box=Rect2(414+i*46,184,34,8)
 			canvas.draw_rect(box,Color(.08,.065,.12,.96))
 			var fill=clampf(game.boss.soul.rage-i,0,1)
 			if fill>0:canvas.draw_rect(Rect2(box.position,Vector2(box.size.x*fill,box.size.y)),Color("ca9ef0"))
@@ -289,7 +314,7 @@ func upgrade_screen():
 	var cards=[
 		{"id":"blade","name":"破锋","mark":"刃","color":Color("d99b80"),"lines":["连斩与羊灵近战","伤害提高 15%"]},
 		{"id":"spirit","name":"灵火","mark":"焰","color":Color("d6bc72"),"lines":["羊灵延长 2 秒","幽焰更快，伤害 +4"]},
-		{"id":"brother","name":"同心","mark":"契","color":Color("82c6b2"),"lines":["牛大侠助战 +4 秒","冲撞伤害 +12%"]}
+		{"id":"brother","name":"同心","mark":"契","color":Color("82c6b2"),"lines":["普通、蓄力冲撞","伤害均提升 12%"]}
 	]
 	for i in cards.size():
 		var card=cards[i];var rect=card_rects[i];var current=game.upgrade_level(card.id)
@@ -382,7 +407,7 @@ func rush_result():
 		# Between bosses: show the automatic reward and the restored tonic, then continue.
 		var next=load("res://data/arenas/boss_"+str(game.level.number+1)+".tres")
 		centered(118,game.level.title+" · 已破",34,game.GOLD)
-		centered(160,"第 "+str(game.level.number)+" / 4 战",14,game.TEAL)
+		centered(160,"第 "+str(game.level.number)+" / 5 战",14,game.TEAL)
 		panel(Rect2(230,188,500,110),Color(.025,.055,.075,.97))
 		if game.rush_reward!="":
 			centered(230,"自动习得「"+game.UPGRADE_NAMES[game.rush_reward]+"」· 第 "+str(game.upgrade_level(game.rush_reward))+" 层",18,game.WHITE)
@@ -392,15 +417,19 @@ func rush_result():
 		var title_y=touch_menu_row_y(safe_rect_in_hud(),395,44) if game.is_touch else 395
 		button(Rect2(350,title_y,260,44 if game.is_touch else 38),"回到标题","title")
 		return
-	centered(138,"四境皆破",38,game.GOLD)
-	centered(186,"守灯 · 渡影 · 噬月 · 断誓",17,game.TEAL)
-	centered(244,format_time(game.elapsed)+"   ·   四战告捷",22)
-	button(Rect2(350,320,260,45),"再战四境","new",true)
+	centered(138,"五境皆破",38,game.GOLD)
+	centered(186,"守石 · 渡影 · 噬月 · 断誓 · 衔灯",17,game.TEAL)
+	centered(244,format_time(game.elapsed)+"   ·   五战告捷",22)
+	button(Rect2(350,320,260,45),"再战五境","new",true)
 	var title_y=touch_menu_row_y(safe_rect_in_hud(),385,44) if game.is_touch else 385
 	button(Rect2(350,title_y,260,44 if game.is_touch else 38),"回到标题","title")
 # A dark silhouette of the coming boss teases the next fight without spelling it out.
 func next_boss_silhouette(id,feet,height):
 	var texture;var source
+	if id=="lion_elder":
+		# No stand-in portrait: the dedicated frames are supplied by the art task.
+		text(feet+Vector2(-65,-height*.5),"衔灯狮叟",20,game.TEAL)
+		return
 	if id=="knight":
 		texture=load("res://assets/art/knight_frames/mounted/00.png");source=Rect2(Vector2.ZERO,texture.get_size())
 	else:
@@ -466,8 +495,8 @@ func relic_journal_screen():
 	button(Rect2(380,back_y,200,back_height),"返回","relic_journal_back",true)
 func journey_record_rows():
 	var rows=[]
-	# The book follows the four-boss journey; records share the stage numbers 1–4.
-	for number in [1,2,3,4]:
+	# Records follow all five rush battles.
+	for number in range(1,game.RUSH_BATTLES+1):
 		var stage=load("res://data/arenas/boss_"+str(number)+".tres")
 		var boss=load("res://data/bosses/"+stage.boss_id+".tres")
 		rows.append({"number":number,"title":stage.title,"boss":boss.title,"record":game.stage_record(number,journey_records_mode)})
@@ -481,11 +510,11 @@ func journey_records_screen():
 	var rows=journey_record_rows()
 	var card_rects=touch_journey_record_rects(safe_rect_in_hud()) if game.is_touch else []
 	for i in rows.size():
-		var row=rows[i];var rect=card_rects[i] if game.is_touch else Rect2(40+i*222,151,214,273);var record=row.record
+		var row=rows[i];var rect=card_rects[i] if game.is_touch else Rect2(24+i*184,151,176,273);var record=row.record
 		var done=not record.is_empty()
 		panel(rect,Color(.035,.072,.092,.98) if done else Color(.025,.045,.06,.92))
 		centered_card(rect,185,"第 "+str(row.number)+" 战",12,game.TEAL)
-		centered_card(rect,220,row.title,21,game.GOLD if done else Color("8a8f86"))
+		centered_card(rect,220,row.title,18,game.GOLD if done else Color("8a8f86"))
 		canvas.draw_line(rect.position+Vector2(20,88),rect.position+Vector2(rect.size.x-20,88),Color(.35,.55,.55,.3),1)
 		centered_card(rect,262,row.boss,14,game.WHITE if done else Color("6f7d80"))
 		if done:
@@ -504,12 +533,12 @@ func stage_select_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color(.025,.045,.07,.98))
 	centered(76,"自由跳关",30,game.GOLD)
 	var action_x=touch_stage_select_button_x(safe_rect_in_hud()) if game.is_touch else 600.0
-	for i in 4:
+	for i in game.RUSH_BATTLES:
 		var stage=load("res://data/arenas/boss_"+str(i+1)+".tres")
 		var boss=load("res://data/bosses/"+stage.boss_id+".tres")
-		var y=118+i*82
+		var y=108+i*70
 		# A cropped band of the arena's own vista identifies each fight at a glance.
-		var index=[0,1,2,3][i]
+		var index=stage.stage_art()-1
 		var source=Rect2((index%2)*768,(index/2)*512+150,768,240)
 		var thumb=Rect2(150,y,150,62)
 		canvas.draw_texture_rect_region(vistas,thumb,source,Color(.8,.86,.92))
@@ -603,7 +632,7 @@ static func touch_menu_left_x(safe_rect:Rect2,base_x:float):
 static func touch_status_offset(safe_rect:Rect2):
 	return Vector2(maxf(0,safe_rect.position.x+16-18),maxf(0,safe_rect.position.y+16-15))
 static func touch_soul_slow_rect(status_offset:Vector2):
-	return Rect2(Vector2(30,50)+status_offset,Vector2(212,5))
+	return Rect2(Vector2(30,69)+status_offset,Vector2(212,4))
 static func touch_controls_row_xs(safe_rect:Rect2):
 	var left=safe_rect.position.x+16;var right=safe_rect.end.x-16
 	var gap_total=minf(95.0,maxf(0,right-left-715))
@@ -673,9 +702,9 @@ static func touch_journey_record_rects(safe_rect:Rect2):
 	var left=maxf(40.0,safe_rect.position.x+16)
 	var right=minf(920.0,safe_rect.end.x-16)
 	var gap=8.0
-	var card_width=(right-left-gap*3)/4.0
+	var card_width=(right-left-gap*4)/5.0
 	var rects=[]
-	for i in 4:rects.append(Rect2(left+i*(card_width+gap),151,card_width,273))
+	for i in 5:rects.append(Rect2(left+i*(card_width+gap),151,card_width,273))
 	return rects
 static func touch_settings_back_rect(safe_rect:Rect2):
 	var back_y=touch_menu_row_y(safe_rect,465,44)
@@ -741,7 +770,7 @@ func action(id):
 		"new_confirm_start":game.start_new()
 		"new_confirm_back":game.state=new_confirm_return;game.release_inputs()
 		"continue":game.continue_game()
-		"resume":game.state="playing"
+		"resume":game.resume_battle()
 		"pause":game.state="paused";game.release_inputs()
 		"retry":game.retry()
 		"rush_mounted":game.retry_mounted()
@@ -757,7 +786,7 @@ func action(id):
 		"mute":game.audio.toggle_mute()
 		"voice_ai","voice_classic":
 			game.progress.boss_voice="ai" if id=="voice_ai" else "classic";game.save_progress()
-			game.audio.voice("knight_intro",true)
+			game.audio.preview_boss_voice()
 		"screen_shake":game.progress.screen_shake=not game.progress.screen_shake;game.save_progress()
 		"journey_mode":game.progress.journey_mode="standard" if game.relaxed_journey() else "relaxed";game.save_progress()
 		"melee_audition":game.audio.start_audition()
@@ -814,7 +843,7 @@ func animation_screen():
 func controls_screen():
 	canvas.draw_rect(Rect2(0,0,960,540),Color("111f2c"));centered(54,"手柄键位",28,game.GOLD)
 	centered(85,"左摇杆移动 · 下方显示当前键位，可点选修改",14,game.TEAL)
-	var labels=["跳跃","近战 / 长按蓄力","远程攻击","翻滚","冲刺","羊灵觉醒","召唤牛大侠"]
+	var labels=["跳跃","近战 / 长按蓄力","远程攻击","翻滚","冲刺","羊灵觉醒","召唤牛大侠","吃药 / 月露"]
 	var columns=[80.0,500.0,175.0]
 	if game.is_touch:columns=touch_controls_columns(safe_rect_in_hud())
 	for i in game.gamepad.ACTIONS.size():
@@ -832,3 +861,12 @@ func controls_screen():
 	button(Rect2(action_xs[0],action_y,260,action_height),"按键图标："+{"auto":"自动","xbox":"Xbox","ps":"PlayStation","switch":"Switch"}.get(game.gamepad.glyphs,"自动"),"pad_glyphs")
 	button(Rect2(action_xs[1],action_y,220,action_height),"恢复推荐键位","pad_reset")
 	button(Rect2(action_xs[2],action_y,235,action_height),"返回","controls_back",true)
+
+func moon_cinematic():
+	if not is_instance_valid(game.boss):return
+	var age=game.boss.recall_age
+	var opacity=smoothstep(.65,1.3,age)*(1-smoothstep(5.8,6.4,age))
+	canvas.draw_rect(Rect2(0,0,960,540),Color(.025,.02,.055,.22*opacity))
+	canvas.draw_rect(Rect2(0,0,960,42*opacity),Color(0,0,0,.95))
+	canvas.draw_rect(Rect2(0,540-42*opacity,960,42*opacity),Color(0,0,0,.95))
+	if age>1 and age<4.8:centered(513,"此身……暂归月下。",17,Color(game.WHITE,opacity))

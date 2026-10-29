@@ -41,7 +41,10 @@ func run():
 	press.call("left",false);press.call("right",false)
 	verify(dismounted,"fight reached the foot phase")
 	verify(knight.dead,"fight reached victory")
-	var mounted=["charge","rear","kick","butt","advance","uppercut","rein"].filter(func(id):return knight.shown_moves.has(id))
+	# Mounted-only catalogue of the first phase; these names must track the
+	# knight's current move ids so the check keeps testing the horse, not a
+	# renamed or retired id.
+	var mounted=["charge","double_charge","halt_thrust","trample","rein"].filter(func(id):return knight.shown_moves.has(id))
 	print("moves seen: ",knight.shown_moves.keys()," hero hits ",hits," frames ",frames)
 	verify(mounted.size()>=2,"mounted techniques were used")
 	var has_bow=knight.shown_moves.has("bow") or knight.shown_moves.has("bow_double") or knight.shown_moves.has("bow_volley")

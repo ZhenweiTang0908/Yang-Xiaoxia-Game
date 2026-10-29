@@ -3,7 +3,7 @@
 [resource]
 script = ExtResource("1")
 number = 1
-title = "守灯石庭"
+title = "守石庭"
 length = 960.0
 platforms = [{"x": -160, "y": 450, "w": 1280, "h": 240, "one_way": false}, {"x": -60, "y": -220, "w": 60, "h": 670, "one_way": false}, {"x": 960, "y": -220, "w": 60, "h": 670, "one_way": false}]
 spawns = []
@@ -11,10 +11,10 @@ pickups = []
 features = []
 boss_id = "lantern"
 boss_x = 760.0
-boss_script = ""
+boss_script = "res://scripts/actors/boss_reset/base.gd"
 single_boss = true
 art_stage = 1
 music_stage = 1
-section_names = PackedStringArray("守灯石庭")
+section_names = PackedStringArray("守石庭")
 checkpoints = PackedFloat32Array(150)
 arena = Rect2(0, 80, 960, 370)

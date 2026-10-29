@@ -1,0 +1,273 @@
+{
+	"approved_production_count": 0,
+	"bank": "backfall",
+	"frames": [
+		{
+			"anchor": 199.614814814815,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 256,
+			"file": "00.png",
+			"frame": 0,
+			"height": 256,
+			"source_rect": [
+				0,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 165.976351351351,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 256,
+			"file": "01.png",
+			"frame": 1,
+			"height": 256,
+			"source_rect": [
+				384,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 157.54347826087,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 256,
+			"file": "02.png",
+			"frame": 2,
+			"height": 256,
+			"source_rect": [
+				768,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 210.649484536082,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 256,
+			"file": "03.png",
+			"frame": 3,
+			"height": 256,
+			"source_rect": [
+				1152,
+				0,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 225.030612244898,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 247,
+			"file": "04.png",
+			"frame": 4,
+			"height": 256,
+			"source_rect": [
+				0,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 205.539419087137,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 245,
+			"file": "05.png",
+			"frame": 5,
+			"height": 256,
+			"source_rect": [
+				384,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 229.723320158103,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 245,
+			"file": "06.png",
+			"frame": 6,
+			"height": 256,
+			"source_rect": [
+				768,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 168.646288209607,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 242,
+			"file": "07.png",
+			"frame": 7,
+			"height": 256,
+			"source_rect": [
+				1152,
+				256,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 254.248,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 203,
+			"file": "08.png",
+			"frame": 8,
+			"height": 256,
+			"source_rect": [
+				0,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 185.390625,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 204,
+			"file": "09.png",
+			"frame": 9,
+			"height": 256,
+			"source_rect": [
+				384,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 191.658139534884,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 205,
+			"file": "10.png",
+			"frame": 10,
+			"height": 256,
+			"source_rect": [
+				768,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 126.934027777778,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 201,
+			"file": "11.png",
+			"frame": 11,
+			"height": 256,
+			"source_rect": [
+				1152,
+				512,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 192.12955465587,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 186,
+			"file": "12.png",
+			"frame": 12,
+			"height": 256,
+			"source_rect": [
+				0,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 286.503546099291,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 189,
+			"file": "13.png",
+			"frame": 13,
+			"height": 256,
+			"source_rect": [
+				384,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 232.726775956284,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 195,
+			"file": "14.png",
+			"frame": 14,
+			"height": 256,
+			"source_rect": [
+				768,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		},
+		{
+			"anchor": 190.504854368932,
+			"anchor_status": "PROVISIONAL_PIXEL_CONTACT_NOT_AUTHORED_FOOT",
+			"approved": false,
+			"baseline": 201,
+			"file": "15.png",
+			"frame": 15,
+			"height": 256,
+			"source_rect": [
+				1152,
+				768,
+				384,
+				256
+			],
+			"width": 384
+		}
+	],
+	"production_target_total": 272,
+	"reference_height": 86,
+	"schema": 1,
+	"source": "res://art_source/lion_elder/poses-backfall-study-v1.png",
+	"source_facing": -1,
+	"status": "INCOMPLETE",
+	"study_frame_count": 16,
+	"warnings": [
+		"08→09 support transition abrupt; 10→11 torso/facing discontinuity; 15/16 near duplicate.",
+		"Study only, not production. Pixel contact is not verified anatomical support. No fluency acceptance. See art_source/lion_elder/art-direction.md."
+	]
+}

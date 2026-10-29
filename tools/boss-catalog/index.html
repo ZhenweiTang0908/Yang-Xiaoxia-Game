@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>角色技能图鉴 · 羊小侠</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="../../"><span class="brand-mark">羊</span><span>羊小侠 <small>角色技能图鉴</small></span></a>
+      <span class="voice-tag">AI 配音</span>
+    </header>
+    <div class="workspace">
+      <aside class="roster" aria-label="角色名单">
+        <h2>角色</h2>
+        <nav id="roster-list" class="roster-list" aria-label="选择角色"></nav>
+      </aside>
+      <article id="detail" class="detail" aria-live="polite"></article>
+    </div>
+  </main>
+  <script src="data.js"></script>
+  <script src="voice-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

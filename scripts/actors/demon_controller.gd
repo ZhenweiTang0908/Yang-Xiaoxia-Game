@@ -29,6 +29,10 @@ var lock_point=Vector2.ZERO
 var charged=false
 var next_charged=false
 var attack_target=null
+var blink_left=0.0
+var blink_to=Vector2.ZERO
+const BLINK_DURATION=.30
+var hoof_time=0.0
 func cfg(key):
 	var value=game.tuning.get_value(key)
 	if key in ["demon_damage","charged_damage"]:value*=game.upgrade_multiplier("brother",.12)
@@ -77,6 +81,10 @@ func tick(dt):
 	if carrying and target_valid(target) and target.position.distance_to(home)>360:target=null
 	if mounting:
 		rush_left=0;rush_windup=0;lock_left=0;actor.velocity.x=0
+	elif blink_left>0:
+		tick_blink(dt)
+		actor.velocity=Vector2.ZERO
+		rig.tick(dt);return
 	elif lock_left>0:
 		lock_left=maxf(0,lock_left-dt);actor.velocity.x=0
 		if lock_left==0:complete_blink()
@@ -110,8 +118,15 @@ func tick(dt):
 		strike(old)
 		if actor.is_on_wall():rush_left=0;actor.velocity.x=0
 	if not carrying and actor.position.distance_to(game.player.position)>500:
-		actor.position=game.safe_ground(game.player.position-Vector2(game.player.facing*70,0));actor.velocity=Vector2.ZERO
+		if blink_left<=0 and lock_left<=0:
+			attack_target=null
+			queue_blink(game.safe_ground(game.player.position-Vector2(game.player.facing*70,0)))
 	if actor.position.y>680:actor.position=game.last_safe;actor.velocity=Vector2.ZERO
+	hoof_time-=dt
+	if absf(actor.velocity.x)>35 and actor.is_on_floor() and hoof_time<=0:
+		hoof_time=.16 if rushing_this_frame else .27
+		game.audio.play("step1",-9 if rushing_this_frame else -15)
+		game.fx.burst(actor.position-Vector2(actor.facing*22,2),3,Color("a99d86"),28)
 	rig.tick(dt);queue_redraw()
 func ground_ahead(offset):
 	var foot=actor.position+Vector2(offset,0)
@@ -121,16 +136,19 @@ func begin_rush(target,heavy=false):
 	attack_target=target;actor.facing=1 if target.position.x>=actor.position.x else -1
 	rush_heavy=heavy;rush_windup=cfg("rush_windup");actor.velocity.x=0
 	game.audio.play("charge",-9)
+	game.fx.ring(actor.position-Vector2(0,4),Color("c89679"),24,cfg("rush_windup"))
 func start_rush():
 	rush_left=cfg("demon_range")/cfg("rush_speed");rush_hits.clear();attack_age=0
 	attack_cd=cfg("demon_interval")+rush_left
 	game.audio.play("horn",-4)
+	game.fx.burst(actor.position-Vector2(actor.facing*38,3),8,Color("b9a48a"),70)
 func begin_lock(target):
 	if not target_valid(target):return
 	lock_target=target;lock_point=target.position;charged=next_charged;next_charged=not next_charged
 	lock_total=cfg("charge_time") if charged else cfg("lock_time");lock_left=lock_total
 	blink_cd=cfg("blink_cooldown");rush_left=0;rush_windup=0;actor.velocity.x=0
 	game.audio.play("charge",-7)
+	game.fx.ring(actor.position-Vector2(0,28),Color("db7770"),38,lock_total)
 func landing_clear(at):
 	var shape=RectangleShape2D.new();shape.size=Vector2(82,46)
 	var query=PhysicsShapeQueryParameters2D.new();query.shape=shape;query.transform=Transform2D(0,at-Vector2(0,25));query.collision_mask=1
@@ -140,11 +158,9 @@ func complete_blink():
 		lock_target=null;return
 	var target=lock_target;var landing=game.safe_ground(target.position-Vector2(target.facing*92,0))
 	if landing.distance_to(target.position)>145 or not landing_clear(landing):lock_target=null;return
-	game.fx.blink_fold(actor.position-Vector2(0,28),true,Color("be6765"))
-	actor.position=landing;game.scene_motion.reset(actor);actor.facing=1 if target.position.x>=landing.x else -1
-	actor.invincible=maxf(actor.invincible,.22);game.audio.play("dash",-5)
-	game.fx.blink_fold(actor.position-Vector2(0,28),false,Color("be6765"))
-	attack_target=target;rush_heavy=charged;start_rush();lock_target=null
+	actor.facing=1 if target.position.x>=landing.x else -1
+	attack_target=target;rush_heavy=charged;lock_target=null
+	queue_blink(landing)
 func strike(previous_position):
 	var left=minf(previous_position.x,actor.position.x)-48
 	var area=Rect2(left,minf(previous_position.y,actor.position.y)-52,absf(previous_position.x-actor.position.x)+96,52+absf(previous_position.y-actor.position.y))
@@ -156,7 +172,14 @@ func strike(previous_position):
 	for e in targets:
 		if rush_hits.size()>=int(cfg("max_targets")):break
 		rush_hits[e.get_instance_id()]=true
-		e.take_hit(cfg("charged_damage") if rush_heavy else cfg("demon_damage"),"brother",actor.facing,true);actor.heal_on_hit()
+		var before=e.hp
+		e.take_hit(cfg("charged_damage") if rush_heavy else cfg("demon_damage"),"brother",actor.facing,true)
+		if e.hp>=before:continue
+		game.audio.melee_contact("stone",3 if rush_heavy else 2)
+		game.fx.hit_mark(e.position-Vector2(0,24),actor.facing,Color("ffe0b4"),1.6 if rush_heavy else 1.15)
+		game.fx.burst(e.position-Vector2(actor.facing*e.radius,22),8,Color("e3c5a0"),85)
+		game.hitstop=maxf(game.hitstop,.065 if rush_heavy else .04)
+		game.shake=maxf(game.shake,4.0 if rush_heavy else 2.5)
 		game.fx.melee_contact(e.position-Vector2(actor.facing*e.radius,22),"stone",actor.facing)
 func _draw():
 	if lock_left<=0:return
@@ -165,3 +188,25 @@ func _draw():
 	draw_arc(p,20,0,TAU*(1-lock_left/lock_total),20,effect_color(),2)
 	draw_line(p-Vector2(27,0),p-Vector2(19,0),effect_color(),2)
 	draw_line(p+Vector2(19,0),p+Vector2(27,0),effect_color(),2)
+
+func queue_blink(landing):
+	blink_to=landing;blink_left=BLINK_DURATION
+	actor.velocity=Vector2.ZERO
+	game.audio.play("dash",-5)
+	game.fx.blink_fold(actor.position-Vector2(0,28),true,Color("be6765"))
+	game.fx.ring(landing-Vector2(0,4),Color("d78d80"),32,BLINK_DURATION)
+func tick_blink(dt):
+	var before=blink_left
+	blink_left=maxf(0,blink_left-dt)
+	var u=1-blink_left/BLINK_DURATION
+	if before>BLINK_DURATION*.5 and blink_left<=BLINK_DURATION*.5:
+		actor.position=blink_to;game.scene_motion.reset(actor)
+		game.fx.blink_fold(actor.position-Vector2(0,28),false,Color("be6765"))
+		game.audio.play("gourd_return",-8)
+	var visibility=absf(2*u-1)
+	rig.modulate.a=smoothstep(0,.65,visibility)
+	rig.scale.x=lerpf(.72,1,visibility)
+	actor.invincible=maxf(actor.invincible,.1)
+	if blink_left==0:
+		rig.modulate=Color.WHITE;rig.scale=Vector2.ONE
+		if target_valid(attack_target):begin_rush(attack_target,rush_heavy)

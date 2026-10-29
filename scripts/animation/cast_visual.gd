@@ -26,6 +26,7 @@ var last_facing=1.0
 const EYE_LIFETIME=.12
 const EYE_LENGTH=13.0
 func _ready():
+ if not preview:hide()
  viewport=SubViewport.new();viewport.size=Vector2i(224,144) if species=="sheep" else (Vector2i(128,144) if species!="bull" else Vector2i(192,128));viewport.own_world_3d=true;viewport.transparent_bg=true;viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS;add_child(viewport)
  var world=Node3D.new();viewport.add_child(world)
  var env=WorldEnvironment.new();env.environment=Environment.new();env.environment.background_mode=Environment.BG_CLEAR_COLOR;env.environment.ambient_light_source=Environment.AMBIENT_SOURCE_COLOR;env.environment.ambient_light_color=Color("a5b4b9");env.environment.ambient_light_energy=1.1;world.add_child(env)
@@ -44,7 +45,6 @@ func active_state():
   if actor.summon.phase!="active":return "enter" if actor.summon.phase=="entering" else "leave"
   if actor.attack_anim>0:return "cast"
  elif species=="sheep":
-  if actor.is_carried():return "ride"
   if actor.hurt_anim>0:return "hurt"
   if actor.dash_time>0:return "dash"
   if actor.charge>0:return "charge"
@@ -56,6 +56,7 @@ func active_state():
   if actor.hurt>0:return "hurt"
   if actor.windup>0:return "charge"
   if actor.strike>0:return "slash1"
+ if species=="sheep" and actor.is_carried():return "ride"
  if not actor.is_on_floor() and species not in ["spirit","bat"]:return "jump" if actor.velocity.y<0 else "fall"
  return "run" if absf(actor.velocity.x)>10 else "idle"
 func sample(action,t,gait,speed):
@@ -90,7 +91,7 @@ func sample(action,t,gait,speed):
 func _process(dt):
  if not preview:
   var enabled=actor.game.use_skeletal
-  if species=="sheep":enabled=enabled and actor.form_visual
+  if species=="sheep":enabled=enabled and actor.form_visual and not actor.is_carried()
   if species=="niu":enabled=enabled and not actor.demon
   if species not in ["niu","sheep","bull"]:enabled=enabled and absf(actor.position.x-actor.game.player.position.x)<800
   visible=enabled;source_art.self_modulate.a=0 if enabled else 1
@@ -118,6 +119,10 @@ func _process(dt):
  var target=sample(state,t,phase,amount);var blend=smoothstep(0,MOTION.ATTACKS[clampi(int(state.right(1))-1,0,2)].hit*.55,t) if state.begins_with("slash") and species=="sheep" else smoothstep(0,.12,age)
  pose={}
  for key in target:pose[key]=previous.get(key,Vector3.ZERO).lerp(target[key],blend)
+ if species=="sheep" and not preview and actor.is_carried():
+  pose.near_thigh=Vector3(0,0,1.1);pose.far_thigh=Vector3(0,0,.85)
+  pose.near_shin=Vector3(0,0,-1.5);pose.far_shin=Vector3(0,0,-1.6)
+  pose.near_foot=Vector3(0,0,.4);pose.far_foot=Vector3(0,0,.5)
  model.apply_pose(pose)
  if model.card:model.card.visible=species=="niu" and (state!="cast" or t<.14 or t>.34)
  back_offset=39+project_model(Vector3(0,.725+pose.get("offset",Vector3.ZERO).y,0)).y if species=="bull" else 0
@@ -160,7 +165,7 @@ func _draw():
  if not viewport:return
  var size=render_size()
  var anchor=-camera.unproject_position(Vector3.ZERO)/Vector2(viewport.size)*size
- if state=="ride":anchor-=project_model(model.skeleton.get_bone_global_pose(model.bones.hips).origin)
+ if state=="ride" or (species=="sheep" and not preview and actor.is_carried()):anchor-=project_model(model.skeleton.get_bone_global_pose(model.bones.hips).origin)
  var tint=Color.WHITE if preview else source_art.tint
  draw_set_transform(Vector2.ZERO,0,Vector2(facing,1))
  draw_texture_rect(viewport.get_texture(),Rect2(anchor,size),false,tint)

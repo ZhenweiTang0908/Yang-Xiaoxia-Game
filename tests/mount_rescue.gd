@@ -11,7 +11,7 @@ func summon_bull():
  var p=game.player
  game.hitstop=0;p.health=29;p.invincible=0
  game.summon.reset(true);game.summon.set_physics_process(false);game.summon.request()
- game.summon.phase="active";game.summon.remaining=30
+ game.summon.phase="active";game.summon.remaining=200.0/3.0
  var b=game.summon.brother;b.set_physics_process(false)
  verify(b.arrive(),"bull arrival starts assistance without a transformation")
  b.demon_controller.transform_left=0;b.demon_controller.carry_age=1
@@ -28,7 +28,7 @@ func run():
   var b=summon_bull();var p=game.player
   verify(p.is_carried() and p.carried_by==b and b.demon_controller.carrying,"stage "+str(level)+" automatically pulls the hero onto the bull")
   verify(p.collision_mask==0 and p.position.distance_to(b.demon_controller.carry_position())<.01,"stage "+str(level)+" uses the actual seat and suspended terrain collision")
-  verify(game.summon.remaining==30,"stage "+str(level)+" keeps the normal assistance duration")
+  verify(is_equal_approx(game.summon.remaining,200.0/3.0),"stage "+str(level)+" keeps the normal assistance duration")
   Input.action_press("jump");p.enqueue("jump");p._physics_process(1.0/60);Input.action_release("jump")
   verify(not p.is_carried() and not b.demon_controller.carrying and p.velocity.y<0,"stage "+str(level)+" jump dismounts and immediately launches upward")
   verify(p.collision_mask==5 and not p.rider_art.visible,"stage "+str(level)+" dismount restores normal collision and removes the seated sprite")

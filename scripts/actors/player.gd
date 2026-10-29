@@ -6,7 +6,7 @@ const WORLD_TOP_Z=4096
 const SPEED=225.0
 const JUMP_SPEED=520.0
 const GRAVITY=1080.0
-const DODGE_SOURCES=["spikes","ritual","dart","blade","orb","ghost_orb","binding_rune","pounce_impact","sweep","blade_sweep","antler_sweep","spectral_horn","slam","stone_impact","rift","shadow","ground_rift","stone_wave","spirit_lightning","rain","spirit_beam","breath","fire"]
+const DODGE_SOURCES=["moonlight","weapon","impact","boulder","return_dart","moon_column","crescent","moon_shard","moon_wave","lion_melee","spikes","ritual","dart","blade","orb","ghost_orb","binding_rune","pounce_impact","sweep","blade_sweep","antler_sweep","spectral_horn","slam","stone_impact","rift","shadow","ground_rift","stone_wave","spirit_lightning","rain","spirit_beam","breath","fire"]
 var game
 var art
 var heavy_art
@@ -53,6 +53,7 @@ var saved_velocity=Vector2.ZERO
 var environment_force=0.0
 var carried_by=null
 var rider_art
+var mounted_spirit
 var skeletal_visual
 var pending_bow=false
 var attack_sounded=false
@@ -90,10 +91,11 @@ func _ready():
 	heavy_art=load("res://scripts/actors/atlas_actor.gd").new();add_child(heavy_art)
 	heavy_art.configure("res://assets/art/v2/uppercut.png",4,2,52.8);heavy_art.visible=false
 	rider_art=load("res://scripts/actors/atlas_actor.gd").new();add_child(rider_art);rider_art.configure("res://assets/art/v3/rider.png",1,1,42);rider_art.hide();rider_art.pivot_override=Vector2(500,860)
+	mounted_spirit=preload("res://scripts/animation/mounted_spirit.gd").new();mounted_spirit.actor=self;add_child(mounted_spirit)
 	skeletal_visual=load("res://scripts/animation/hero_visual.gd").new();skeletal_visual.actor=self;add_child(skeletal_visual)
 	var aura=load("res://scripts/animation/awaken_aura.gd").new();aura.actor=self;add_child(aura)
 	var backlight=load("res://scripts/animation/hero_backlight.gd").new();backlight.actor=self;add_child(backlight)
-	var spirit_rig=load("res://scripts/animation/cast_visual.gd").new();spirit_rig.actor=self;spirit_rig.species="sheep";spirit_rig.height=52.8
+	var spirit_rig=load("res://scripts/animation/cast_visual.gd").new();spirit_rig.actor=self;spirit_rig.species="sheep";spirit_rig.height=56.0
 	var reference=load("res://scripts/actors/atlas_actor.gd").new();reference.configure("res://assets/art/v2/sheep.png",6,4,52.8)
 	spirit_rig.source_art=reference;add_child(spirit_rig);reference.free();spirit_rig.source_art=art
 func set_form_art(sheep):
@@ -167,6 +169,7 @@ func _physics_process(dt):
 	var wants_roll=consume("dash");var wants_sprint=consume("sprint")
 	if (wants_roll or wants_sprint) and form_transition<=0 and not is_carried() and dash_cd<=0 and (attack_elapsed<0 or attack_hit):
 		sprinting=wants_sprint and not wants_roll
+		if sprinting:rage*=.9
 		dash_cd=1.0 if sheep() else .7
 		if not sprinting:invincible=maxf(invincible,.23);roll_guard=.23;dodge_rewarded=false
 		else:roll_guard=0
@@ -216,10 +219,9 @@ func _physics_process(dt):
 		position=carried_by.demon_controller.carry_position();velocity=Vector2.ZERO;collision_mask=0
 		dash_time=0;jump_buffer=0;invincible=maxf(invincible,.2)
 		facing=carried_by.facing
-		update_animation();art.tint=Color.WHITE
-		if not sheep():
-			art.hide();heavy_art.hide();rider_art.show();rider_art.facing=carried_by.facing
-		else:rider_art.hide();art.visible=not game.use_skeletal;art.frame=19
+		update_animation();art.tint=render_tint()
+		art.hide();heavy_art.hide();rider_art.hide()
+		if sheep():mounted_spirit._process(0)
 		return
 	var old_floor=is_on_floor()
 	if dash_time>0:
@@ -306,8 +308,10 @@ func render_tint():
 	var color=Color.WHITE.lerp(Color("aa63ff"),ready_tint).lerp(Color(1.0,.48,.34),strength)
 	# A brief white flash on contact, before the red recoil tint.
 	if hurt_time>=0 and hurt_time<.06:color=Color(1.7,1.6,1.5)
+	if is_carried():alpha*=carried_by.demon_controller.rig.modulate.a
 	color.a=alpha
 	return color
+func damage_multiplier():return 1.0+.25*clampf(rage/100.0,0,1)
 func gain_spirit(amount):
 	var before=spirit
 	if not sheep():spirit=clampf(spirit+amount,0,100)
@@ -343,6 +347,7 @@ func update_animation():
 		elif attack_elapsed>=0:
 			var index=clampi(combo-1,0,2)
 			frame=timed_frame(SHEEP_SLASHES[index],SHEEP_HIT_FRAME[index],attack_elapsed,MOTION.ATTACKS[index].hit,attack_duration)
+		elif is_carried():frame=0
 		elif not is_on_floor():frame=18 if velocity.y<0 else 19
 		elif absf(velocity.x)>20:frame=6+int(anim_clock*12)%6
 		else:frame=int(anim_clock*6)%6

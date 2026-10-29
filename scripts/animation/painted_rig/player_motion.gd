@@ -10,6 +10,7 @@ var amount=0.0
 var age=0.0
 var step_age=1.0
 var step_variant=0
+var seat_weight=0.0
 func _ready():
  rig=load("res://scripts/animation/painted_rig/combo.gd").new();add_child(rig)
  rig.posing=true;rig.set_process(false);rig.attack_index=-1
@@ -24,12 +25,14 @@ func _physics_process(dt):
   if actor.hurt_anim>0 and (rig.action_state!="hurt" or actor.hurt_time<=0.001):
    rig.sample_action("hurt",.07);rig.transition_pose.clear();modulate=actor.render_tint();rig.queue_redraw()
   elif actor.attack_elapsed>=0 and rig.attack_index==actor.combo-1 and (not is_equal_approx(rig.attack_elapsed,actor.attack_elapsed) or rig.command_id!=actor.special_id):
-   rig.sample_attack(actor.combo-1,actor.attack_elapsed,0,actor.special_id);rig.blend_transition(0);rig.queue_redraw()
+   rig.sample_attack(actor.combo-1,render_attack_time(),0,actor.special_id);rig.blend_transition(0)
+   if actor.is_carried():sample_seated_pose(1.0)
+   rig.queue_redraw()
   return
  var state=get_parent().desired_state()
  if state=="dash":state="roll"
  var command=actor.special_id if state.begins_with("slash") else ""
- var allowed=actor.game.use_skeletal and not actor.form_visual and not actor.is_carried() and supports(state)
+ var allowed=(actor.game.use_skeletal or actor.is_carried()) and not actor.form_visual and supports(state)
  if not allowed:
   last_state="";rig.planted=[null,null];rig.blade_history.clear();return
  var flipped=last_facing!=actor.facing
@@ -43,10 +46,13 @@ func _physics_process(dt):
   rig.begin_transition(blend_time)
   if last_state=="":rig.planted=[null,null];rig.secondary.reset()
  age+=dt;step_age+=dt
- var grounded=actor.is_on_floor()
+ var mounted=actor.is_carried()
+ seat_weight=move_toward(seat_weight,1.0 if mounted else 0.0,dt/.14)
+ var grounded=actor.is_on_floor() and not mounted
  var before=rig.planted.duplicate()
  amount=lerpf(amount,clampf(absf(actor.velocity.x)/225,0,1),1-exp(-16*dt))
- rig.age=age;rig.motion_amount=amount;rig.travel_x=actor.global_position.x*actor.facing
+ rig.game_scale=56.0/190.0
+ rig.age=age;rig.motion_amount=0.0 if mounted else amount;rig.travel_x=actor.global_position.x*actor.facing
  rig.rotation=0;rig.scale=Vector2(actor.facing,1)*rig.game_scale
  rig.position=Vector2(-96*actor.facing,-199)*rig.game_scale
  if command=="spin":
@@ -61,7 +67,9 @@ func _physics_process(dt):
  rig.landing_squash=5*sin(PI*clampf(actor.land_anim/.18,0,1)) if grounded else 0.0
  if not grounded:rig.planted=[null,null]
  sample_actor_pose(state,dt)
- rig.blend_transition(dt);rig.update_secondary(dt)
+ rig.blend_transition(dt)
+ if seat_weight>0:sample_seated_pose(seat_weight)
+ rig.update_secondary(dt)
  if state=="roll":
   var u=clampf((.18-actor.dash_time)/.18,0,1)
   var pivot=Vector2(96,173)
@@ -78,9 +86,17 @@ func _physics_process(dt):
  modulate=actor.render_tint()
  last_state=state;last_command=command;last_facing=actor.facing;previous_position=actor.global_position
 
+func render_attack_time():
+ if not actor.is_carried() or actor.game.use_skeletal:return actor.attack_elapsed
+ # Classic combat lands at .12s. Match the articulated strike to that event
+ # without changing the classic damage time or combo duration.
+ var move=MOTION.ATTACKS[clampi(actor.combo-1,0,2)]
+ if actor.attack_elapsed<=.12:return actor.attack_elapsed/.12*move.hit
+ return move.hit+(actor.attack_elapsed-.12)/maxf(.01,actor.attack_duration-.12)*(move.duration-move.hit)
+
 func sample_actor_pose(state,dt):
  if state.begins_with("slash"):
-  rig.sample_attack(clampi(actor.combo-1,0,2),actor.attack_elapsed,dt,actor.special_id)
+  rig.sample_attack(clampi(actor.combo-1,0,2),render_attack_time(),dt,actor.special_id)
  elif state in ["hurt","roll","dash","charge","bow"]:
   var action_time=0.0
   match state:
@@ -91,3 +107,18 @@ func sample_actor_pose(state,dt):
   rig.sample_action(state,maxf(0,action_time))
  else:
   rig.weapon_visible=true;rig.attack_index=-1;rig.action_state="";rig.blade_history.clear();rig.sampled_pose=rig.pose_transforms()
+
+func sample_seated_pose(weight):
+ # Anchor the hips to the back socket, keeping the authored upper-body attack.
+ var pose=rig.sampled_pose
+ if pose.size()!=11:return
+ var destination=pose.duplicate()
+ for leg in 2:
+  var thigh=1+leg*2;var calf=thigh+1;var foot=5+leg
+  destination[thigh]=pose[0]*rig.pivot_rotation(rig.joints[thigh],-.95 if leg==0 else -.72)
+  destination[calf]=destination[thigh]*rig.pivot_rotation(rig.joints[calf],1.48 if leg==0 else 1.30)
+  destination[foot]=destination[calf]*rig.pivot_rotation(rig.joints[foot],-.48)
+  for part in [thigh,calf,foot]:pose[part]=pose[part].interpolate_with(destination[part],weight)
+ var hips=pose[0]*Vector2(96,145)
+ rig.position=Vector2(-96*actor.facing,-199)*rig.game_scale+Vector2((96-hips.x)*actor.facing,199-hips.y)*rig.game_scale*weight
+ rig.planted=[null,null]

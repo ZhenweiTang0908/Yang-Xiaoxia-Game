@@ -3,6 +3,6 @@
 [resource]
 script = ExtResource("1")
 id = "lantern"
-title = "守灯兽"
+title = "守石兽"
 health = 1500.0
 moves = [{"id": "pounce", "title": "扑击", "damage": 18, "windup": 0.7, "recovery": 0.8}, {"id": "sweep", "title": "横扫", "damage": 16, "windup": 0.6, "recovery": 0.8}, {"id": "ground_wave", "title": "地面冲击", "damage": 20, "windup": 0.9, "recovery": 0.8}]

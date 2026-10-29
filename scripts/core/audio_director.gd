@@ -42,8 +42,10 @@ var voice_preview=false
 func _ready():
 	for key in CATALOG.SFX:bank[key]=load("res://assets/audio/"+key+".wav")
 	for profile in ENEMY_AUDIO.profiles().values():
-		for stage in ["warning","release","impact"]:
+		for stage in ["warning","charge","release","impact","landing","recover"]:
+			if not profile.has(stage):continue
 			var key=profile[stage];bank[key]=load("res://assets/audio/"+key+".wav")
+	bank["reset_moon_fall"]=load("res://assets/audio/reset_moon_fall.wav")
 	for i in 8:
 		var p=AudioStreamPlayer.new();p.bus="SFX";add_child(p);enemy_players.append(p)
 	for i in 4:
@@ -122,7 +124,7 @@ func physical_cue(key,stage,volume=0.0):
 		for candidate in pool:
 			if candidate.get_playback_position()>voice.get_playback_position():voice=candidate
 	voice.stop();voice.stream=bank[key];voice.pitch_scale=1.0
-	voice.volume_db={"warning":-11.0,"release":-5.0,"impact":-1.0}[stage]+volume;voice.play()
+	voice.volume_db={"warning":-11.0,"charge":-13.0,"release":-5.0,"impact":-1.0,"landing":-7.0,"recover":-13.0}.get(stage,-8.0)+volume;voice.play()
 	if stage=="impact":impact_duck=maxf(impact_duck,5.0)
 	enemy_history.append(key)
 	if enemy_history.size()>64:enemy_history.pop_front()
@@ -148,8 +150,10 @@ func change_music(level,boss):
 	change_ambience(clampi(level,1,3))
 	var path="res://assets/music/level"+str(level)+("_boss.ogg" if boss else "_explore.ogg")
 	if path==music_target:return
-	music_target=path;selected=1-selected;fade=0
 	var stream=load(path) as AudioStreamOggVorbis
+	if stream==null:
+		push_error("Cannot load scene score: "+path);return
+	music_target=path;selected=1-selected;fade=0
 	stream.loop=true;music_players[selected].stream=stream;music_players[selected].volume_db=-60;music_players[selected].play()
 
 func change_ambience(level):
@@ -177,7 +181,9 @@ func _process(dt):
 	# Only write stream_paused when it changes: on the web build every un-pause restarts a sample
 	# from its first frame, so writing it each frame kept voice lines stuck at their opening click.
 	if effort_player:set_paused(effort_player,not game.active())
-	if voice_player:set_paused(voice_player,not game.active() and not (voice_preview and game.state=="settings"))
+	if voice_player:
+		var death_remark=game.state=="dead" and voice_identity.begins_with("lion_player_death")
+		set_paused(voice_player,not game.active() and game.state!="boss_cinematic" and not (voice_preview and game.state=="settings") and not death_remark)
 	fade=minf(1,fade+dt/.9)
 	for i in 2:
 		var gain=fade if i==selected else 1-fade
@@ -198,9 +204,17 @@ func apply_volumes():
 func toggle_mute():game.progress.muted=not game.progress.muted;apply_volumes();game.save_progress()
 
 func is_boss_voice(key):
-	for prefix in ["lantern_","duelist_","priest_","knight_"]:
+	for prefix in ["lantern_","duelist_","priest_","knight_","lion_"]:
 		if key.begins_with(prefix):return true
 	return false
+func preview_boss_voice():
+	var sample="knight_intro"
+	if is_instance_valid(game.boss):
+		var boss_id="lion" if game.boss.spec.id=="lion_elder" else game.boss.spec.id
+		var bank=BOSS_DIALOGUE.BOSSES.get(boss_id,{})
+		var lines=bank.get("groups",{}).get("intro",[])
+		if not lines.is_empty():sample=boss_id+"_"+str(lines[0])
+	return voice(sample,true)
 func voice_path(key):
 	var classic="res://assets/voice/"+key+".wav"
 	var ai="res://assets/voice/ai/"+key+".wav"

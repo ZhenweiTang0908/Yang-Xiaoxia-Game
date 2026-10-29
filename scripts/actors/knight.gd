@@ -28,6 +28,9 @@ const SPEAR=preload("res://scripts/actors/knight_spear.gd")
 const DIALOGUE=preload("res://scripts/core/knight_dialogue.gd")
 const LONG_COMBOS=["double_charge","advance","kick_thrust","bow_double","wave","spin_rush","triple_dash","bow_volley","spear_chain","dragon_sweep","dragon_rise","dragon_break"]
 const NEW_MOVES=["advance","uppercut","lunge","kick_thrust","bow_double"]
+const PRIORITY_VOICE_MOVES=["dragon_break","ancient_spear","counter","stagger"]
+const SPEECH_COOLDOWN=10.0
+const SPEECH_QUEUE_GAP=2.0
 const SOUNDS={"paw":"knight_hoof_paw","gallop":"knight_gallop","neigh":"knight_neigh","skid":"knight_skid","stomp":"knight_hoof_slam","kick":"knight_kick","armor":"knight_armor","lance":"knight_lance","press":"knight_butt","thrust":"knight_thrust","wave_raise":"knight_wave_raise","wave":"knight_wave","bow_draw":"knight_bow_draw","bow_shot":"knight_bow_release","guard":"knight_guard","clang":"knight_parry","switch":"knight_switch","dust":"knight_dust","land":"knight_land","snort":"knight_snort","step_a":"knight_armor_step_a","step_b":"knight_armor_step_b","ghost_summon":"knight_ghost_summon","ghost_rise":"knight_ghost_rise","ghost_glide":"knight_ghost_glide","ghost_fade":"knight_ghost_fade"}
 var game
 var spec
@@ -53,6 +56,8 @@ var arena=Rect2(0,80,960,370)
 var move={}
 var windup=0.0
 var action=""
+var reset_turn=preload("res://scripts/combat/combo_turn.gd").new()
+var reset_turn_age=0.0
 var t=0.0
 var fired={}
 var idle=1.2
@@ -89,6 +94,9 @@ var recover_time=0.0
 var hoof_step=-1
 var speech_cooldown=0.0
 var speech_history=[]
+var speech_queue=[]
+var speech_queue_waiting_for_voice=false
+var speech_queue_delay=0.0
 var low_spoken=false
 var catch_flash=0.0
 var soul
@@ -129,27 +137,55 @@ func shout(chance=.8):
 func enter_foot_challenge():
 	phase=2;landed=true;body_height=106;radius=24;weapon="spear"
 	hp=cfg("knight_foot_hp");max_hp=hp;horse_away=-1;idle=.4
-func speak(id,priority=false):
+func speak(id):
 	if not DIALOGUE.LINES.has(id):return false
-	if not priority and speech_cooldown>0:return false
 	var voice=game.audio.voice_player
-	if voice.playing and not game.audio.is_boss_voice(game.audio.voice_identity):return false
+	if voice.playing:return false
 	if not game.say_line("断誓枪骑："+DIALOGUE.LINES[id],"knight_"+id):return false
 	game.subtitle_time=clampf(voice.stream.get_length()+.4,2.0,6.0)
-	speech_cooldown=12.0;speech_history.append(id)
+	speech_cooldown=SPEECH_COOLDOWN;speech_history.append(id)
 	if speech_history.size()>40:speech_history.pop_front()
 	return true
 func speak_event(event,priority=false):
+	var important=priority or event in PRIORITY_VOICE_MOVES
+	if not important and speech_cooldown>0:return false
+	if game.audio.voice_player.playing or not speech_queue.is_empty():
+		speech_queue.append(event)
+		if speech_queue.size()==1:
+			speech_queue_waiting_for_voice=game.audio.voice_player.playing
+			speech_queue_delay=SPEECH_QUEUE_GAP
+		return true
+	return speak(select_event_line(event))
+func select_event_line(event):
 	var pool=DIALOGUE.GROUPS.get(event,[event])
 	var last=""
 	for index in range(speech_history.size()-1,-1,-1):
 		if speech_history[index] in pool:last=speech_history[index];break
 	var fresh=pool.filter(func(id):return id!=last)
 	if fresh.is_empty():fresh=pool
-	return speak(fresh[randi()%fresh.size()],priority)
+	return fresh[randi()%fresh.size()]
+func advance_speech_queue(dt):
+	if speech_queue.is_empty():return
+	var voice=game.audio.voice_player
+	if speech_queue_waiting_for_voice:
+		if voice.playing:return
+		speech_queue_waiting_for_voice=false
+		speech_queue_delay=SPEECH_QUEUE_GAP
+	if speech_queue_delay>0:
+		speech_queue_delay=maxf(0.0,speech_queue_delay-dt)
+		if speech_queue_delay>0:return
+	if voice.playing:return
+	var event=speech_queue.pop_front()
+	if not speak(select_event_line(event)):return
+	speech_queue_waiting_for_voice=true
+	speech_queue_delay=SPEECH_QUEUE_GAP
 func target_node():return game.ally_target(position)
 func target_dx():return target_node().position.x-position.x
 func face_target():
+	if phase==2 and action!="" and action not in ["switch","stagger","guard","bow","bow_double","bow_volley","wave","soul_legion","ancient_spear"]:
+		if t>prep_for(action)+.12 and hit_box==null and reset_turn.request(position,game.player.position,facing,cfg("reset_knight_turn_time")):
+			reset_turn_age=0;end_box()
+		return
 	var dx=target_dx()
 	if absf(dx)>3:facing=signf(dx)
 func margin():return 66.0 if phase==1 else 30.0
@@ -160,6 +196,7 @@ func _physics_process(dt):
 	var old_position=position.x
 	soul.advance(dt)
 	time+=dt;speech_cooldown=maxf(0,speech_cooldown-dt);catch_flash=maxf(0,catch_flash-dt)
+	advance_speech_queue(dt)
 	for w in wave_fx:w.age+=dt
 	wave_fx=wave_fx.filter(func(w):return w.age<.12)
 	for s in strike_fx:s.age+=dt
@@ -178,9 +215,12 @@ func _physics_process(dt):
 	hurt=maxf(0,hurt-dt);turn_anim=maxf(0,turn_anim-dt);windup=maxf(0,windup-dt)
 	game.player.position.x=clampf(game.player.position.x,arena.position.x+10,arena.end.x-10)
 	walking=false
+	if reset_turn.remaining>0 and phase==2:
+		facing=reset_turn.advance(dt);lock_dir=facing;reset_turn_age+=dt;turn_anim=reset_turn.remaining;visual.sync_pose(dt);queue_redraw();return
 	if dismount_t>=0:update_dismount(dt)
 	elif action!="":
 		t+=dt;call("act_"+action,dt)
+		if reset_turn.remaining>0 and phase==2:end_box()
 	else:idle_tick(dt)
 	if action!="ancient_spear":position.y=GROUND
 	position.x=clampf(position.x,arena.position.x+margin(),arena.end.x-margin())
@@ -317,6 +357,7 @@ func begin(id,prep,record=true):
 	if id in NEW_MOVES or id in PRESSURE_MOVES or id in SPEAR.MOVES or id in ["bow","wave"]:prep=prep_for(id)
 	if id=="ancient_spear":
 		end_box();flight_from=position;game.audio.enemy_cue("knight:"+id,"warning",-3)
+	reset_turn.begin(cfg("reset_knight_turn_chance")/100.0)
 	action=id;t=0;fired={};windup=prep;move={"id":id,"title":TITLES.get(id,id)};shown_moves[id]=true
 	if id in NEW_MOVES or id in PRESSURE_MOVES or id in SPEAR.MOVES:lock_dir=facing;move_sound("warning",-2)
 	if id in ["spin_rush","spear_return","triple_dash","bow_volley","wave","lunge","counter","guard","stagger","soul_legion","ancient_spear","bow","bow_double","spear_slam","kick_thrust"] or id in SPEAR.MOVES:speak_event(id)
@@ -632,6 +673,7 @@ func update_dismount(dt):
 		dismount_t=-1;phase_shift=0;idle=.05;behind_time=0
 func land():
 	landed=true;phase=2
+	speak_event("foot",true)
 	game.challenge_entry_phase=2
 	if game.boss_rush:game.progress.rush_knight_foot=true;game.save_progress()
 	hp=cfg("knight_foot_hp");max_hp=hp;body_height=106;radius=24;weapon="spear"
@@ -757,7 +799,7 @@ func take_hit(amount,faction,direction,breaking=false,with_sound=true,with_debri
 	# Rage only gathers on foot; the mounted duel is purely physical.
 	if phase==2:soul.absorb(rage_damage)
 	hp-=amount;hurt=.12
-	if phase==2 and hp>0 and hp<max_hp*.3 and not low_spoken:low_spoken=speak_event("low")
+	if phase==2 and hp>0 and hp<max_hp*.3 and not low_spoken:low_spoken=speak_event("low",true)
 	game.fx.hit_mark(position-Vector2(0,body_height*.45),direction,game.GOLD,1.2)
 	game.fx.number(position-Vector2(0,body_height),amount,game.TEAL if faction=="brother" else game.GOLD)
 	if with_debris:game.fx.burst(position-Vector2(0,body_height*.4),5,game.GOLD,70)
